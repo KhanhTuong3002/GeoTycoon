@@ -10,7 +10,8 @@ public class TextConect : MonoBehaviourPunCallbacks
     private void Start()
     {
         print("Connecting to Sever.");
-        PhotonNetwork.GameVersion = "0.0.1";
+        PhotonNetwork.NickName = MasterManager.GameSetting.NickName;
+        PhotonNetwork.GameVersion = MasterManager.GameSetting.GameVersion;
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -18,6 +19,7 @@ public class TextConect : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         print("Connected to Sever.");
+        print(PhotonNetwork.LocalPlayer.NickName);
     }
 
     public override void OnDisconnected(DisconnectCause cause)
