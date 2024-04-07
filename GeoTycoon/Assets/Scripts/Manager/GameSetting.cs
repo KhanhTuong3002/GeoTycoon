@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Singletons/GameSetting")]
+[CreateAssetMenu(menuName = "MasterManger/GameSetting")]
 public class GameSetting : ScriptableObject
 {
     [SerializeField]
