@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SingletonScriptableObject<T> : ScriptableObject where T  : ScriptableObject    
+public abstract class SingletonScriptableObject<T> : ScriptableObject where T : ScriptableObject
 {
-    public static T _instance = null;
+    private static T _instance;
     public static T Instance
     {
         get
@@ -14,12 +12,12 @@ public abstract class SingletonScriptableObject<T> : ScriptableObject where T  :
                 T[] results = Resources.FindObjectsOfTypeAll<T>();
                 if (results.Length == 0)
                 {
-                    Debug.LogError("SingletonScriptableObject -> Instance -> result lenght in 0 for type " + typeof(T).ToString()+ ".");
+                    Debug.LogError($"SingletonScriptableObject -> Instance -> result length is 0 for type {typeof(T)}.");
                     return null;
                 }
                 if (results.Length > 1)
                 {
-                    Debug.LogError("SingletonScriptableObject -> Instance -> result lenght is greater than 1 for type " + typeof(T).ToString() + ".");
+                    Debug.LogError($"SingletonScriptableObject -> Instance -> result length is greater than 1 for type {typeof(T)}.");
                     return null;
                 }
                 _instance = results[0];
@@ -27,5 +25,4 @@ public abstract class SingletonScriptableObject<T> : ScriptableObject where T  :
             return _instance;
         }
     }
-
 }

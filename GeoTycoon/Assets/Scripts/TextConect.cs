@@ -18,12 +18,23 @@ public class TextConect : MonoBehaviourPunCallbacks
     // Update is called once per frame
     public override void OnConnectedToMaster()
     {
-        print("Connected to Sever.");
-        print(PhotonNetwork.LocalPlayer.NickName);
+        Debug.Log("Connected to PhoTon.", this);
+        Debug.Log("My Nick Name is" + PhotonNetwork.LocalPlayer.NickName, this);
+        if (!PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.JoinLobby();
+        }
+    /*    print("Connected to Sever.");
+        print(PhotonNetwork.LocalPlayer.NickName);*/
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        print("Disconnected Form Sever for reason "+ cause.ToString());
+       // print("Disconnected Form Sever for reason "+ cause.ToString());
+        Debug.Log("Fail to connect to sever Photon" + cause.ToString());
+    }
+    public override void OnJoinedLobby()
+    {
+        print("Joined lobby");
     }
 }
