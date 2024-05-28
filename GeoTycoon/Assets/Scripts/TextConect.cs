@@ -24,6 +24,6 @@ public class TextConect : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        print("Disconnected Form Sever for reason"+ cause.ToString());
+        print("Disconnected Form Sever for reason "+ cause.ToString());
     }
 }
