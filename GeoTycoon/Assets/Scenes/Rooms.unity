@@ -1697,8 +1697,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1028937373}
+  - component: {fileID: 1028937374}
   m_Layer: 0
-  m_Name: RoomListing
+  m_Name: PlayerListingsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1724,6 +1725,20 @@ RectTransform:
   m_AnchoredPosition: {x: -74.49988, y: 0}
   m_SizeDelta: {x: -188.00012, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1028937374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028937372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1544df8129a8641ad309031a82d75d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _content: {fileID: 585076628}
+  _playerlisting: {fileID: -4727772022901351879, guid: a682c29de9d38fc418dd79e28d048a4d, type: 3}
 --- !u!1 &1045028725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1878,7 +1893,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 21.914307, y: 29.699}
+  m_AnchoredPosition: {x: 202, y: -182}
   m_SizeDelta: {x: 561.1329, y: 551.9224}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1248017355
