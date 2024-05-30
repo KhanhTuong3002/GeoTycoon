@@ -90,7 +90,7 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
-        _roomsCanvases.CurrentRoomCanva.LeaveRoomMenu.OnClick_LeaveRoom();
+       // _roomsCanvases.CurrentRoomCanva.LeaveRoomMenu.OnClick_LeaveRoom();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
