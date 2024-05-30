@@ -12,6 +12,18 @@ public class RoomListingMenu : MonoBehaviourPunCallbacks
     private RoomListing _roomlisting;
 
     private List<RoomListing> _listings = new List<RoomListing>();
+    private RoomsCanvases _roomCanvases;
+    
+    public void FirstInitialize(RoomsCanvases canvases)
+    {
+        _roomCanvases = canvases;
+    }
+
+    public override void OnJoinedRoom()
+    {
+        _roomCanvases.CurrentRoomCanva.Show();
+    }
+
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         foreach (RoomInfo Info in roomList)
