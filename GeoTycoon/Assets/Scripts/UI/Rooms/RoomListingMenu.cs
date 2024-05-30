@@ -23,6 +23,7 @@ public class RoomListingMenu : MonoBehaviourPunCallbacks
     {
         _roomCanvases.CurrentRoomCanva.Show();
         _content.DestroyChildren();
+        _listings.Clear();
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -40,10 +41,18 @@ public class RoomListingMenu : MonoBehaviourPunCallbacks
             }
             else 
             {
-                RoomListing listing = Instantiate(_roomlisting, _content);
-                if (listing != null)
-                    listing.SetRoomInfo(Info);
-                _listings.Add(listing);
+                int index = _listings.FindIndex(x => x.RoomInfo.Name == Info.Name);
+                if (index == -1)
+                {
+                    RoomListing listing = Instantiate(_roomlisting, _content);
+                    if (listing != null)
+                    {
+                        listing.SetRoomInfo(Info);
+                        _listings.Add(listing);
+                    }
+                }
+                
+                   
             }
 
             
