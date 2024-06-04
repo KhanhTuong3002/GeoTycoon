@@ -1,4 +1,4 @@
-using Photon.Pun;
+﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +9,10 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private Text _roomName;
+
+    [SerializeField]
+    private Dropdown _playerCountDropdown;
+
 
     private RoomsCanvases _roomsCanvases;
     public void FirstInitialize(RoomsCanvases canvases)
@@ -23,7 +27,11 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         if(!PhotonNetwork.IsConnected) return;
 
         RoomOptions options = new RoomOptions();
-        options.MaxPlayers = 4;
+
+        // Lấy số lượng người chơi được chọn từ dropdown
+        int selectedValue = int.Parse(_playerCountDropdown.options[_playerCountDropdown.value].text);
+        options.MaxPlayers = (byte)selectedValue;
+
         PhotonNetwork.JoinOrCreateRoom(_roomName.text, options, TypedLobby.Default);
 
     }

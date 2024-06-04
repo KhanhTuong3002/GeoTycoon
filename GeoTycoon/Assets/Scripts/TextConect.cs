@@ -9,7 +9,8 @@ public class TextConect : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     private void Start()
     {
-        print("Connecting to Sever.");
+        Debug.Log("Cpnnecting to Photon....", this);
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.NickName = MasterManager.GameSetting.NickName;
         PhotonNetwork.GameVersion = MasterManager.GameSetting.GameVersion;
         PhotonNetwork.ConnectUsingSettings();
