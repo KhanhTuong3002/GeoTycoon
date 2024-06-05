@@ -10,14 +10,24 @@ public class QuestionGetter : MonoBehaviour
     public string URL;
     public InputField Qid;
     public GameObject QuestionPanel;
+    public Button OptionA;
+    public Button OptionB;
+    public Button OptionC;
+    public Button OptionD;
+
+    private List<SetQuestion> questionSets;
+    private int currentQuestionIndex;
+    private List<Question> currentQuestions;
+    private List<Question> incorrectQuestions = new List<Question>();
+
     public void GetData()
     {
         StartCoroutine(FetchData());
     }
+
     public IEnumerator FetchData()
     {
-        // using (UnityWebRequest request = UnityWebRequest.Get(URL + Qid.text))
-        using (UnityWebRequest request = UnityWebRequest.Get("https://localhost:7170/api/Set/default"))
+        using (UnityWebRequest request = UnityWebRequest.Get(URL + Qid.text))
         {
             yield return request.SendWebRequest();
             Debug.Log(request.result);
@@ -27,28 +37,94 @@ public class QuestionGetter : MonoBehaviour
             }
             else
             {
-                var set = new List<SetQuestion>();
-                set = JsonConvert.DeserializeObject<List<SetQuestion>>(request.downloadHandler.text);
-                
-                foreach (SetQuestion s in set){
+                questionSets = JsonConvert.DeserializeObject<List<SetQuestion>>(request.downloadHandler.text);
+                Debug.Log(request.downloadHandler.text);
+                foreach (SetQuestion s in questionSets)
+                {
                     Debug.Log(s.SetName);
-                    var q = new List<Question>();
-                    q = s.questions;
-                    foreach (Question q2 in q){
-                        Debug.Log(q2.Content);
+                    foreach (Question q in s.questions)
+                    {
+                        Debug.Log(q.Title);
                     }
                 }
-                // string outPutHere = request.downloadHandler.text;
-                // Debug.Log(outPutHere);
-                // question = JsonConvert.DeserializeObject<Question>(request.downloadHandler.text);
-                // QuestionPanel.transform.GetChild(2).GetComponent<Text>().text = question.Content;
-                // QuestionPanel.transform.GetChild(3).GetComponent<Text>().text = "A : " + question.Option1;
-                // QuestionPanel.transform.GetChild(4).GetComponent<Text>().text = "B : " + question.Option2;
-                // QuestionPanel.transform.GetChild(5).GetComponent<Text>().text = "C : " + question.Option3;
-                // QuestionPanel.transform.GetChild(6).GetComponent<Text>().text = "D : " + question.Option4;
-                // QuestionPanel.transform.GetChild(7).GetComponent<Text>().text = "Answer : " + question.answer;
-                // QuestionPanel.transform.GetChild(8).GetComponent<Text>().text = "Description : " + question.description;
+                if (questionSets.Count > 0)
+                {
+                    currentQuestions = questionSets[0].questions;
+                    currentQuestionIndex = 0;
+                    DisplayQuestion(currentQuestionIndex);
+                }
             }
         }
+    }
+
+    private void DisplayQuestion(int index)
+    {
+        if (currentQuestions == null || currentQuestions.Count == 0 || index < 0 || index >= currentQuestions.Count)
+            return;
+
+        Question test = currentQuestions[index];
+        QuestionPanel.transform.GetChild(2).GetComponent<Text>().text = test.Content;
+        OptionA.GetComponentInChildren<Text>().text = test.Option1;
+        OptionB.GetComponentInChildren<Text>().text = test.Option2;
+        OptionC.GetComponentInChildren<Text>().text = test.Option3;
+        OptionD.GetComponentInChildren<Text>().text = test.Option4;
+
+        OptionA.onClick.RemoveAllListeners();
+        OptionB.onClick.RemoveAllListeners();
+        OptionC.onClick.RemoveAllListeners();
+        OptionD.onClick.RemoveAllListeners();
+
+        OptionA.onClick.AddListener(() => CheckAnswerWrapper(1));
+        OptionB.onClick.AddListener(() => CheckAnswerWrapper(2));
+        OptionC.onClick.AddListener(() => CheckAnswerWrapper(3));
+        OptionD.onClick.AddListener(() => CheckAnswerWrapper(4));
+    }
+
+    private void CheckAnswer(Question question, int selectedOption)
+    {
+        if (int.TryParse(question.Answer, out int correctOption) && correctOption == selectedOption)
+        {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuestions.Count)
+            {
+                DisplayQuestion(currentQuestionIndex);
+            }
+            else if (incorrectQuestions.Count > 0)
+            {
+                currentQuestions = new List<Question>(incorrectQuestions);
+                incorrectQuestions.Clear();
+                currentQuestionIndex = 0;
+                DisplayQuestion(currentQuestionIndex);
+            }
+            else
+            {
+                Debug.Log("All questions answered correctly!");
+            }
+        }
+        else
+        {
+            incorrectQuestions.Add(question);
+            Debug.Log("Incorrect answer. Question added to retry list.");
+            if (currentQuestionIndex < currentQuestions.Count - 1)
+            {
+                currentQuestionIndex++;
+                DisplayQuestion(currentQuestionIndex);
+            }
+            else if (incorrectQuestions.Count > 0)
+            {
+                currentQuestions = new List<Question>(incorrectQuestions);
+                incorrectQuestions.Clear();
+                currentQuestionIndex = 0;
+                DisplayQuestion(currentQuestionIndex);
+            }
+        }
+    }
+
+    public void CheckAnswerWrapper(int selectedOption)
+    {
+        if (currentQuestions == null || currentQuestions.Count == 0 || currentQuestionIndex < 0 || currentQuestionIndex >= currentQuestions.Count)
+            return;
+
+        CheckAnswer(currentQuestions[currentQuestionIndex], selectedOption);
     }
 }
