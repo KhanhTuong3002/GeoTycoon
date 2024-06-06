@@ -18,7 +18,6 @@ public class QuestionGetter : MonoBehaviour
     private List<SetQuestion> questionSets;
     private int currentQuestionIndex;
     private List<Question> currentQuestions;
-    private List<Question> incorrectQuestions = new List<Question>();
 
     public void GetData()
     {
@@ -74,57 +73,39 @@ public class QuestionGetter : MonoBehaviour
         OptionC.onClick.RemoveAllListeners();
         OptionD.onClick.RemoveAllListeners();
 
-        OptionA.onClick.AddListener(() => CheckAnswerWrapper(1));
-        OptionB.onClick.AddListener(() => CheckAnswerWrapper(2));
-        OptionC.onClick.AddListener(() => CheckAnswerWrapper(3));
-        OptionD.onClick.AddListener(() => CheckAnswerWrapper(4));
+        OptionA.onClick.AddListener(() => CheckAnswerWrapper(test.Option1));
+        OptionB.onClick.AddListener(() => CheckAnswerWrapper(test.Option2));
+        OptionC.onClick.AddListener(() => CheckAnswerWrapper(test.Option3));
+        OptionD.onClick.AddListener(() => CheckAnswerWrapper(test.Option4));
     }
 
-    private void CheckAnswer(Question question, int selectedOption)
+    private void CheckAnswer(Question question, string selectedAnswer)
     {
-        if (int.TryParse(question.Answer, out int correctOption) && correctOption == selectedOption)
+        if (question.Answer == selectedAnswer)
         {
             currentQuestionIndex++;
             if (currentQuestionIndex < currentQuestions.Count)
             {
                 DisplayQuestion(currentQuestionIndex);
             }
-            else if (incorrectQuestions.Count > 0)
-            {
-                currentQuestions = new List<Question>(incorrectQuestions);
-                incorrectQuestions.Clear();
-                currentQuestionIndex = 0;
-                DisplayQuestion(currentQuestionIndex);
-            }
             else
             {
-                Debug.Log("All questions answered correctly!");
+                //Debug.Log("All questions answered correctly!");
+                // Add any end of quiz logic here
             }
         }
         else
         {
-            incorrectQuestions.Add(question);
-            Debug.Log("Incorrect answer. Question added to retry list.");
-            if (currentQuestionIndex < currentQuestions.Count - 1)
-            {
-                currentQuestionIndex++;
-                DisplayQuestion(currentQuestionIndex);
-            }
-            else if (incorrectQuestions.Count > 0)
-            {
-                currentQuestions = new List<Question>(incorrectQuestions);
-                incorrectQuestions.Clear();
-                currentQuestionIndex = 0;
-                DisplayQuestion(currentQuestionIndex);
-            }
+            // Incorrect answer, so redisplay the current question
+            DisplayQuestion(currentQuestionIndex);
         }
     }
 
-    public void CheckAnswerWrapper(int selectedOption)
+    public void CheckAnswerWrapper(string selectedAnswer)
     {
         if (currentQuestions == null || currentQuestions.Count == 0 || currentQuestionIndex < 0 || currentQuestionIndex >= currentQuestions.Count)
             return;
 
-        CheckAnswer(currentQuestions[currentQuestionIndex], selectedOption);
+        CheckAnswer(currentQuestions[currentQuestionIndex], selectedAnswer);
     }
 }
