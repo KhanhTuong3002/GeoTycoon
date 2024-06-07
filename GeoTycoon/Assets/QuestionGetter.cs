@@ -37,19 +37,24 @@ public class QuestionGetter : MonoBehaviour
             else
             {
                 questionSets = JsonConvert.DeserializeObject<List<SetQuestion>>(request.downloadHandler.text);
-                Debug.Log(request.downloadHandler.text);
-                foreach (SetQuestion s in questionSets)
-                {
-                    Debug.Log(s.SetName);
-                    foreach (Question q in s.questions)
-                    {
-                        Debug.Log(q.Title);
-                    }
-                }
+                // Debug.Log(request.downloadHandler.text);
+                // foreach (SetQuestion s in questionSets)
+                // {
+                //     Debug.Log(s.SetName);
+                //     foreach (Question q in s.questions)
+                //     {
+                //         Debug.Log(q.Title);
+                //     }
+                // }
                 if (questionSets.Count > 0)
                 {
+                    
                     currentQuestions = questionSets[0].questions;
-                    currentQuestionIndex = 0;
+                    currentQuestionIndex = Random.Range(0, currentQuestions.Count);
+                    
+                    Debug.Log("question remaining: "+currentQuestions.Count);
+                    Debug.Log(currentQuestions[currentQuestionIndex].Title);
+                    Debug.Log("Random index: "+currentQuestionIndex);
                     DisplayQuestion(currentQuestionIndex);
                 }
             }
@@ -83,7 +88,13 @@ public class QuestionGetter : MonoBehaviour
     {
         if (question.Answer == selectedAnswer)
         {
-            currentQuestionIndex++;
+            Debug.Log("correct!");
+            currentQuestions.Remove(question);
+            currentQuestionIndex = Random.Range(0, currentQuestions.Count);
+            Debug.Log("question remaining: " + currentQuestions.Count);
+            Debug.Log(currentQuestions[currentQuestionIndex].Title);
+            Debug.Log("Random index: "+currentQuestionIndex);
+            // currentQuestionIndex++;
             if (currentQuestionIndex < currentQuestions.Count)
             {
                 DisplayQuestion(currentQuestionIndex);
