@@ -33,12 +33,13 @@ public class Player_Mono
     public GameObject MyTonken => myTonken;
     public MonopolyNode MyMonopolyNode => currentnode;
 
-    public void Inititialize(MonopolyNode startNode, int startMoney, Player_MonoInfor info)
+    public void Inititialize(MonopolyNode startNode, int startMoney, Player_MonoInfor info, GameObject token)
     {
         currentnode = startNode;
         money = startMoney;
         myInfor = info;
         myInfor.SetPlayerNameandCash(name, money);
+        myTonken = token;
     }
 
 
