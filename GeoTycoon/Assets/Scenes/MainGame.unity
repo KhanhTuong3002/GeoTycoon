@@ -12217,6 +12217,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1224491723}
+  - component: {fileID: 1224491724}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -12233,12 +12234,40 @@ Transform:
   m_GameObject: {fileID: 1224491722}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 69.912834, y: -81.629486, z: 21.897297}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1224491724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224491722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 311fdd87a251f6f4081aa54a1b1cf66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameBoard: {fileID: 1643655544}
+  playerList:
+  - playerType: 1
+    name: AI_Bob
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
+  - playerType: 1
+    name: AI_Tina
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
+  currentPlayer: 0
+  maxTurnsInJail: 3
+  startMoney: 2000
+  goMoney: 500
+  playerInfoPrefab: {fileID: 8490503056755805175, guid: a84862fd87f1300448c679ffcc77c73d, type: 3}
+  playerPanel: {fileID: 74215602}
 --- !u!224 &1225056570 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1098390629256398609, guid: 71d246f9722b74549a7006d03c3b78d4, type: 3}
