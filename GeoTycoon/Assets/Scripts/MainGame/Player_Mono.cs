@@ -40,10 +40,4 @@ public class Player_Mono
         myInfor = info;
         myInfor.SetPlayerNameandCash(name, money);
     }
-
-
-
-
-
-
 }
