@@ -41,4 +41,10 @@ public class Player_Mono
         myInfor.SetPlayerNameandCash(name, money);
         myTonken = token;
     }
+
+
+
+
+
+
 }
