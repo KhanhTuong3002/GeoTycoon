@@ -38,7 +38,7 @@ public class Player_Mono
         currentnode = startNode;
         money = startMoney;
         myInfor = info;
-        myInfor.SetPlayerNameandCash(money, name);
+        myInfor.SetPlayerNameandCash(name, money);
     }
 
 

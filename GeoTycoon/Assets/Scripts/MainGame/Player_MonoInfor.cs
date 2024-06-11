@@ -17,7 +17,7 @@ public class Player_MonoInfor : MonoBehaviour
         PlayerCashText.text = "$ " + currentCash.ToString();
     }
 
-    public void SetPlayerNameandCash(int currentCash, string newName)
+    public void SetPlayerNameandCash(string newName, int currentCash)
     {
         SetPlayerName(newName);
         SetPlayerCash(currentCash);
