@@ -12132,7 +12132,11 @@ MonoBehaviour:
   goMoney: 500
   playerInfoPrefab: {fileID: 8490503056755805175, guid: a84862fd87f1300448c679ffcc77c73d, type: 3}
   playerPanel: {fileID: 74215602}
-  playerTokenList: []
+  playerTokenList:
+  - {fileID: 1200922669009632168, guid: 71c321f0bacacbb4b8bf3bcbea7a2892, type: 3}
+  - {fileID: 3925276624289626629, guid: f39de7fdc99663b46a716e587bc86fd6, type: 3}
+  - {fileID: 1800303782059685689, guid: 989e13b5cc17ea74ebd18b9bf404e649, type: 3}
+  - {fileID: 9083185570383017913, guid: 47e29c25e9c3d454a850d183903a15a3, type: 3}
 --- !u!224 &1225056570 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1098390629256398609, guid: 71d246f9722b74549a7006d03c3b78d4, type: 3}
