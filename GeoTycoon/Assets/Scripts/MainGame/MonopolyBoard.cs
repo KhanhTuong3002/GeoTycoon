@@ -64,6 +64,7 @@ public class MonopolyBoard : MonoBehaviour
         if(moveOverGo)
         {
             //Collect money on the player
+            player.CollectMoney(GameManager.instance.GetGoMoney);
         }
         //set new node on the current  player
 

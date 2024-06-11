@@ -46,13 +46,19 @@ public class Player_Mono
     {
         currentnode = newNode;
         //Player Landed on node so lets
-
+        newNode.PlayerLandedOnNode(this);
         // if its ai player
 
-           // check if can build houses
+        // check if can build houses
 
-           //Check for unmortgage properties
+        //Check for unmortgage properties
 
-           //Check if he could trde for missing properties
+        //Check if he could trde for missing properties
+    }
+
+    public void CollectMoney(int amount)
+    {
+        money += amount;
+        myInfor.SetPlayerCash(money);
     }
 }

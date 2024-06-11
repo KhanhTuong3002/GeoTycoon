@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     int[] rolledDice;
     bool rolledADouble;
     int doubleRollCount;
+    // pass over go to get money
+    public int GetGoMoney => goMoney;
     private void Awake()
     {
         instance = this;
@@ -85,5 +87,28 @@ public class GameManager : MonoBehaviour
         //if we are allowed to move we do so
         gameBoard.MovePlayertonken(rolledDice, playerList[currentPlayer]);
             //else we switch
+    }
+
+    public void SwitchPlayer()
+    {
+        currentPlayer++;
+        //rolledouble?
+
+        //overflow check
+        if(currentPlayer >= playerList.Count)
+        {
+            currentPlayer = 0;
+        }
+
+        //check if in jail
+
+
+        //is player Ai
+        if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
+        {
+            RollDice();
+        }
+
+        //if human - show ui
     }
 }

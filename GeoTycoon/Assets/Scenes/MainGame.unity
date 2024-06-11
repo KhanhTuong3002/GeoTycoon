@@ -158,6 +158,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: c3a56559f6fb457448ccfcfa309b39ec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: c3a56559f6fb457448ccfcfa309b39ec, type: 3}
       propertyPath: m_text
       value: $ 270
@@ -274,7 +278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &27043714
 RectTransform:
   m_ObjectHideFlags: 0
@@ -464,7 +468,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1111,7 +1115,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1256,7 +1260,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1467,6 +1471,11 @@ MonoBehaviour:
   propertyImage: {fileID: 0}
   isMortgaged: 0
   mortgageValue: 0
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 0}
   ownerText: {fileID: 0}
 --- !u!4 &119701303 stripped
@@ -1504,6 +1513,11 @@ MonoBehaviour:
   propertyImage: {fileID: 0}
   isMortgaged: 0
   mortgageValue: 0
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 0}
   ownerText: {fileID: 0}
 --- !u!4 &120255861 stripped
@@ -1526,7 +1540,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &130328994
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1838,7 +1852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &166070350
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1913,7 +1927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &176235441
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2103,7 +2117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2294,7 +2308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &195742933
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2638,6 +2652,11 @@ MonoBehaviour:
   propertyImage: {fileID: 1712158260}
   isMortgaged: 0
   mortgageValue: 135
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 1278906576}
   ownerText: {fileID: 1349448051}
 --- !u!4 &246915638 stripped
@@ -2675,6 +2694,11 @@ MonoBehaviour:
   propertyImage: {fileID: 1327653175}
   isMortgaged: 0
   mortgageValue: 1500
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 1536272982}
   ownerText: {fileID: 879745633}
 --- !u!4 &253006113 stripped
@@ -2739,7 +2763,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3092,6 +3116,10 @@ PrefabInstance:
       objectReference: {fileID: 7771725018960890980, guid: 191cfe0073840934d8ea9b44ea046f9c, type: 2}
     - target: {fileID: 96471114373034710, guid: c3a56559f6fb457448ccfcfa309b39ec, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: c3a56559f6fb457448ccfcfa309b39ec, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: c3a56559f6fb457448ccfcfa309b39ec, type: 3}
@@ -3763,7 +3791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &323731212
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3838,7 +3866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &336682526
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3918,6 +3946,10 @@ PrefabInstance:
       objectReference: {fileID: 7771725018960890980, guid: 191cfe0073840934d8ea9b44ea046f9c, type: 2}
     - target: {fileID: 96471114373034710, guid: 38e586cf00246214e90d5465219d0f25, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: 38e586cf00246214e90d5465219d0f25, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2891020632780150817, guid: 38e586cf00246214e90d5465219d0f25, type: 3}
@@ -4315,6 +4347,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: 71d246f9722b74549a7006d03c3b78d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: 71d246f9722b74549a7006d03c3b78d4, type: 3}
       propertyPath: m_text
       value: $ 450
@@ -4448,6 +4484,11 @@ MonoBehaviour:
   propertyImage: {fileID: 2103469545}
   isMortgaged: 0
   mortgageValue: 255
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 2075271831}
   ownerText: {fileID: 825348635}
 --- !u!1 &370579416
@@ -5036,7 +5077,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &436243332
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5075,7 +5116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &436618367
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5190,7 +5231,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5429,6 +5470,10 @@ PrefabInstance:
       objectReference: {fileID: 7771725018960890980, guid: 191cfe0073840934d8ea9b44ea046f9c, type: 2}
     - target: {fileID: 96471114373034710, guid: b1f26f7ef9779744596a1e8af2bf3e8d, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: b1f26f7ef9779744596a1e8af2bf3e8d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: b1f26f7ef9779744596a1e8af2bf3e8d, type: 3}
@@ -5763,7 +5808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &482154259
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5807,6 +5852,10 @@ PrefabInstance:
       objectReference: {fileID: 7771725018960890980, guid: 191cfe0073840934d8ea9b44ea046f9c, type: 2}
     - target: {fileID: 96471114373034710, guid: ace060df9bea9b94089af384ed75b878, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: ace060df9bea9b94089af384ed75b878, type: 3}
@@ -5990,6 +6039,11 @@ MonoBehaviour:
   propertyImage: {fileID: 357758570}
   isMortgaged: 0
   mortgageValue: 1950
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 724785556}
   ownerText: {fileID: 114347458}
 --- !u!4 &543925164 stripped
@@ -6328,6 +6382,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: f47cb8ddfd5390742aabe3ee81e3d76d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: f47cb8ddfd5390742aabe3ee81e3d76d, type: 3}
       propertyPath: m_text
       value: $ 330
@@ -6649,7 +6707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &688790642
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6764,7 +6822,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7010,6 +7068,11 @@ MonoBehaviour:
   propertyImage: {fileID: 0}
   isMortgaged: 0
   mortgageValue: 0
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 0}
   ownerText: {fileID: 0}
 --- !u!4 &710713871 stripped
@@ -7300,7 +7363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &724785557
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7364,6 +7427,10 @@ PrefabInstance:
       objectReference: {fileID: 7771725018960890980, guid: 191cfe0073840934d8ea9b44ea046f9c, type: 2}
     - target: {fileID: 96471114373034710, guid: ace060df9bea9b94089af384ed75b878, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: ace060df9bea9b94089af384ed75b878, type: 3}
@@ -7507,6 +7574,11 @@ MonoBehaviour:
   propertyImage: {fileID: 1322913242}
   isMortgaged: 0
   mortgageValue: 90
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 1162432570}
   ownerText: {fileID: 196305283}
 --- !u!1 &738108890
@@ -7524,7 +7596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &738108891
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7568,7 +7640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &744523819
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7745,7 +7817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &751773663
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7909,6 +7981,11 @@ MonoBehaviour:
   propertyImage: {fileID: 579642154}
   isMortgaged: 0
   mortgageValue: 1350
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 436243331}
   ownerText: {fileID: 95705152}
 --- !u!4 &764916864 stripped
@@ -7949,7 +8026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &793477417
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8048,6 +8125,11 @@ MonoBehaviour:
   propertyImage: {fileID: 0}
   isMortgaged: 0
   mortgageValue: 0
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 0}
   ownerText: {fileID: 0}
 --- !u!4 &797690252 stripped
@@ -8319,7 +8401,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &860957890
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8473,7 +8555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8586,7 +8668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &911799230
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9444,7 +9526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &981906563
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9519,7 +9601,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &987878361
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9728,7 +9810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &996114551
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9912,7 +9994,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10757,6 +10839,11 @@ MonoBehaviour:
   propertyImage: {fileID: 1846895894}
   isMortgaged: 0
   mortgageValue: 375
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 0}
   ownerText: {fileID: 0}
 --- !u!1001 &1108532160
@@ -10781,6 +10868,10 @@ PrefabInstance:
       objectReference: {fileID: 7771725018960890980, guid: 191cfe0073840934d8ea9b44ea046f9c, type: 2}
     - target: {fileID: 96471114373034710, guid: f47cb8ddfd5390742aabe3ee81e3d76d, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: f47cb8ddfd5390742aabe3ee81e3d76d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: f47cb8ddfd5390742aabe3ee81e3d76d, type: 3}
@@ -10912,6 +11003,11 @@ MonoBehaviour:
   propertyImage: {fileID: 948267395}
   isMortgaged: 0
   mortgageValue: 210
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 852020820}
   ownerText: {fileID: 1655905511}
 --- !u!1 &1115539852 stripped
@@ -10944,6 +11040,11 @@ MonoBehaviour:
   propertyImage: {fileID: 0}
   isMortgaged: 0
   mortgageValue: 0
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 0}
   ownerText: {fileID: 0}
 --- !u!4 &1115539854 stripped
@@ -11073,6 +11174,11 @@ MonoBehaviour:
   propertyImage: {fileID: 2127519407}
   isMortgaged: 0
   mortgageValue: 120
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 911799229}
   ownerText: {fileID: 185071732}
 --- !u!1 &1132037256
@@ -11402,6 +11508,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: 38e586cf00246214e90d5465219d0f25, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: 38e586cf00246214e90d5465219d0f25, type: 3}
       propertyPath: m_text
       value: x2
@@ -11527,6 +11637,11 @@ MonoBehaviour:
   propertyImage: {fileID: 636134010}
   isMortgaged: 0
   mortgageValue: 45
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 759090228}
   ownerText: {fileID: 795118000}
 --- !u!1 &1178750789 stripped
@@ -11559,6 +11674,11 @@ MonoBehaviour:
   propertyImage: {fileID: 357931530}
   isMortgaged: 0
   mortgageValue: 90
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 820955949}
   ownerText: {fileID: 1869966218}
 --- !u!1 &1185575058
@@ -12177,6 +12297,11 @@ MonoBehaviour:
   propertyImage: {fileID: 1604032563}
   isMortgaged: 0
   mortgageValue: 450
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 1148291243}
   ownerText: {fileID: 1354277832}
 --- !u!1 &1259802423
@@ -12339,6 +12464,11 @@ MonoBehaviour:
   propertyImage: {fileID: 193967298}
   isMortgaged: 0
   mortgageValue: 105
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 1416644735}
   ownerText: {fileID: 438607466}
 --- !u!1001 &1273193205
@@ -12438,6 +12568,11 @@ MonoBehaviour:
   propertyImage: {fileID: 0}
   isMortgaged: 0
   mortgageValue: 0
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 0}
   ownerText: {fileID: 0}
 --- !u!114 &1274580787 stripped
@@ -12647,7 +12782,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1317312023
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12943,7 +13078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1332302902
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13118,6 +13253,11 @@ MonoBehaviour:
   propertyImage: {fileID: 0}
   isMortgaged: 0
   mortgageValue: 0
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 0}
   ownerText: {fileID: 0}
 --- !u!114 &1354277832 stripped
@@ -13355,6 +13495,11 @@ MonoBehaviour:
   propertyImage: {fileID: 966368449}
   isMortgaged: 0
   mortgageValue: 450
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 130328993}
   ownerText: {fileID: 254702856}
 --- !u!4 &1373851060 stripped
@@ -13497,6 +13642,11 @@ MonoBehaviour:
   propertyImage: {fileID: 588766802}
   isMortgaged: 0
   mortgageValue: 195
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 738108890}
   ownerText: {fileID: 692550585}
 --- !u!4 &1392007181 stripped
@@ -13796,6 +13946,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: ace060df9bea9b94089af384ed75b878, type: 3}
       propertyPath: m_text
       value: $ 180
@@ -13920,7 +14074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1416644736
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14120,7 +14274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1448819545
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14195,7 +14349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1451066937
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14270,7 +14424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1455246467
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14550,7 +14704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1513642123
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14757,7 +14911,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1536272983
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15168,6 +15322,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: b1f26f7ef9779744596a1e8af2bf3e8d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: b1f26f7ef9779744596a1e8af2bf3e8d, type: 3}
       propertyPath: m_text
       value: x2
@@ -15465,10 +15623,15 @@ MonoBehaviour:
   currentRent: 0
   baseRent: 2
   rentWithHouse: 0a0000001e0000005a000000a0000000fa000000
-  morgtgageImage: {fileID: 1088890747}
-  propertyImage: {fileID: 1332302901}
+  morgtgageImage: {fileID: 1332302901}
+  propertyImage: {fileID: 1088890747}
   isMortgaged: 0
   mortgageValue: 30
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 489067940}
   ownerText: {fileID: 1722977682}
 --- !u!1 &1642058186 stripped
@@ -15501,6 +15664,11 @@ MonoBehaviour:
   propertyImage: {fileID: 1956413544}
   isMortgaged: 0
   mortgageValue: 90
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 812486139}
   ownerText: {fileID: 96376040}
 --- !u!1 &1643655543
@@ -16124,7 +16292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1693298245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16485,6 +16653,11 @@ MonoBehaviour:
   propertyImage: {fileID: 0}
   isMortgaged: 0
   mortgageValue: 0
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 0}
   ownerText: {fileID: 0}
 --- !u!1 &1712158260
@@ -16603,6 +16776,11 @@ MonoBehaviour:
   propertyImage: {fileID: 34450673}
   isMortgaged: 0
   mortgageValue: 2025
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 860957889}
   ownerText: {fileID: 1014887172}
 --- !u!4 &1724564271 stripped
@@ -16632,6 +16810,10 @@ PrefabInstance:
       objectReference: {fileID: 7771725018960890980, guid: 191cfe0073840934d8ea9b44ea046f9c, type: 2}
     - target: {fileID: 96471114373034710, guid: b1f26f7ef9779744596a1e8af2bf3e8d, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377663593684192427, guid: b1f26f7ef9779744596a1e8af2bf3e8d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1882060596275461260, guid: b1f26f7ef9779744596a1e8af2bf3e8d, type: 3}
@@ -16767,6 +16949,11 @@ MonoBehaviour:
   propertyImage: {fileID: 1435882987}
   isMortgaged: 0
   mortgageValue: 600
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 1078388758}
   ownerText: {fileID: 753729752}
 --- !u!114 &1731969150 stripped
@@ -16939,6 +17126,11 @@ MonoBehaviour:
   propertyImage: {fileID: 435700528}
   isMortgaged: 0
   mortgageValue: 525
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 1142509196}
   ownerText: {fileID: 957838147}
 --- !u!1 &1781987324
@@ -17188,6 +17380,11 @@ MonoBehaviour:
   propertyImage: {fileID: 370579416}
   isMortgaged: 0
   mortgageValue: 150
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 817755158}
   ownerText: {fileID: 57118820}
 --- !u!1 &1811155240
@@ -17362,6 +17559,11 @@ MonoBehaviour:
   propertyImage: {fileID: 1788352809}
   isMortgaged: 0
   mortgageValue: 165
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 790373209}
   ownerText: {fileID: 1197093298}
 --- !u!1 &1846895894
@@ -18050,7 +18252,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1953917614
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18406,6 +18608,11 @@ MonoBehaviour:
   propertyImage: {fileID: 0}
   isMortgaged: 0
   mortgageValue: 0
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 0}
   ownerText: {fileID: 0}
 --- !u!4 &2042090753 stripped
@@ -18791,6 +18998,11 @@ MonoBehaviour:
   propertyImage: {fileID: 1037683516}
   isMortgaged: 0
   mortgageValue: 300
+  owner:
+    playerType: 0
+    name: 
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   ownerBar: {fileID: 482154258}
   ownerText: {fileID: 42768877}
 --- !u!4 &2123611131 stripped
@@ -19235,7 +19447,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2145474513
 RectTransform:
   m_ObjectHideFlags: 0
