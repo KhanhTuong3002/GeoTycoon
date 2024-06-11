@@ -41,4 +41,18 @@ public class Player_Mono
         myInfor.SetPlayerNameandCash(name, money);
         myTonken = token;
     }
+
+    public void SetMyCurrentNode(MonopolyNode newNode)// turn is over
+    {
+        currentnode = newNode;
+        //Player Landed on node so lets
+
+        // if its ai player
+
+           // check if can build houses
+
+           //Check for unmortgage properties
+
+           //Check if he could trde for missing properties
+    }
 }

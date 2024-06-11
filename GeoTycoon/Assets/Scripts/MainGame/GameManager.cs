@@ -1,6 +1,7 @@
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -31,6 +32,14 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Inititialize();
+        if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
+        {
+            RollDice();
+        }
+        else
+        {
+            //show ui for human input
+        }
     }
 
     void Inititialize()
@@ -57,7 +66,7 @@ public class GameManager : MonoBehaviour
         //any roll dice and store them
         rolledDice[0] = Random.Range(1, 7);
         rolledDice[1] = Random.Range(1, 7);
-
+        Debug.Log("rolled dice are:" + rolledDice[0] + " & " + rolledDice[1]);
         //check for double
         rolledADouble = rolledDice[0] == rolledDice[1];
         //throw 3 times in a row -> jail anyhow -> end turn
@@ -67,11 +76,14 @@ public class GameManager : MonoBehaviour
         //can we leave jail
 
         //move anyhow if allowed
-
+        StartCoroutine(DelayBeforeMove(rolledDice[0] + rolledDice[1]));
         //show or hide ui
     }
-    IEnumerator DelayBeforeMove()
+    IEnumerator DelayBeforeMove(int rolledDice)
     {
         yield return new WaitForSeconds(2f);
+        //if we are allowed to move we do so
+        gameBoard.MovePlayertonken(rolledDice, playerList[currentPlayer]);
+            //else we switch
     }
 }
