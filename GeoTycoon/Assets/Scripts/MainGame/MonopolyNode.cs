@@ -39,9 +39,12 @@ public class MonopolyNode : MonoBehaviour
     [SerializeField] bool isMortgaged;
     [SerializeField] int mortgageValue;
     [Header("Preperty Owner")]
-    public Player_Mono owner;
     [SerializeField] GameObject ownerBar;
     [SerializeField] TMP_Text ownerText;
+    public Player_Mono owner;
+
+    public Player_Mono Owner => owner;
+
 
     private void OnValidate()
     {

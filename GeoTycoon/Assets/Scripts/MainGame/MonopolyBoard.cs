@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MonopolyBoard : MonoBehaviour
 {
@@ -93,6 +94,21 @@ public class MonopolyBoard : MonoBehaviour
     {
         return endPos != (tonkenTomove.transform.position = Vector3.MoveTowards(tonkenTomove.transform.position,endPos,speed * Time.deltaTime));
 
+    }
+
+    public (List<MonopolyNode> list , bool allSame) PlayerHasAllNodesOfSet(MonopolyNode node)
+    {
+        bool allSame = false;   
+        foreach (var nodeSet in nodeSetList)
+        {
+            if (nodeSet.nodesInSetList.Contains(node))
+            {
+                //linq
+                allSame = nodeSet.nodesInSetList.All(_node => _node.Owner == node.Owner);
+                return (nodeSet.nodesInSetList, allSame);
+            }
+        }
+        return (null, allSame);
     }
 
 
