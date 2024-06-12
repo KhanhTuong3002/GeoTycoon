@@ -6,12 +6,30 @@ public class MonopolyBoard : MonoBehaviour
 {
     public List<MonopolyNode> route = new List<MonopolyNode>();
 
+    [System.Serializable]
+    public class NodeSet
+    {
+        public Color setColor = Color.white;
+        public List<MonopolyNode> nodesInSetList = new List<MonopolyNode>();
+    }
+
+    [SerializeField] List<NodeSet> nodeSetList = new List<NodeSet>();
+
     private void OnValidate()
     {
         route.Clear();
         foreach(Transform node in transform.GetComponentInChildren<Transform>())
         {
             route.Add(node.GetComponent<MonopolyNode>());
+        }
+
+        //update add node colors
+        for (int i = 0; i < nodeSetList.Count; i++)
+        {
+            for (int j = 0; j < nodeSetList[i].nodesInSetList.Count; j++)
+            {
+                nodeSetList[i].nodesInSetList[j].UpdateColorField(nodeSetList[i].setColor);
+            }
         }
     }
     private void OnDrawGizmos()
@@ -74,5 +92,9 @@ public class MonopolyBoard : MonoBehaviour
     bool MoveToNextNode(GameObject tonkenTomove, Vector3 endPos, float speed)
     {
         return endPos != (tonkenTomove.transform.position = Vector3.MoveTowards(tonkenTomove.transform.position,endPos,speed * Time.deltaTime));
+
     }
+
+
+
 }
