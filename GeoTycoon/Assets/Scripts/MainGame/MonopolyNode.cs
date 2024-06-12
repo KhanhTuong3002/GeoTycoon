@@ -20,7 +20,7 @@ public enum MonopolyNodeType
 public class MonopolyNode : MonoBehaviour
 {
     public MonopolyNodeType monopolyNodeType;
-    [SerializeField] Image PropertyColorField;
+    public Image propertyColorField;
     [Header("Property Name")]
     [SerializeField] internal new string name;
     [SerializeField] TMP_Text nameText;
@@ -31,7 +31,7 @@ public class MonopolyNode : MonoBehaviour
     [SerializeField] bool calculateRentAuto;
     [SerializeField] int currentRent;
     [SerializeField] internal int baseRent;
-    [SerializeField] internal int[] rentWithHouse;
+    [SerializeField] internal List<int> rentWithHouse = new List<int>();
     int numberOfHouse;
     [Header("Property Mortgage")]
     [SerializeField] GameObject morgtgageImage;
@@ -66,14 +66,19 @@ public class MonopolyNode : MonoBehaviour
                     price = 3 * (baseRent * 10);
                     //MORTGAGE PRICE
                     mortgageValue = price / 2;
-                    rentWithHouse = new int[]
-                    {
-                        baseRent * 5,
-                        baseRent * 5 * 3,
-                        baseRent * 5 * 9,
-                        baseRent * 5 * 16,
-                        baseRent * 5 * 25,
-                    };
+                    rentWithHouse.Clear();                  
+                        rentWithHouse.Add(baseRent * 5);
+                        rentWithHouse.Add(baseRent * 5 * 3);
+                        rentWithHouse.Add(baseRent * 5 * 9);
+                        rentWithHouse.Add(baseRent * 5 * 16);
+                        rentWithHouse.Add(baseRent * 5 * 25);    
+                }
+                else if(baseRent <= 0) 
+                {
+                    price = 0;
+                    baseRent = 0;
+                    rentWithHouse.Clear();
+                    mortgageValue = 0;
                 }
             }
             if (monopolyNodeType == MonopolyNodeType.Railroad)
@@ -97,9 +102,9 @@ public class MonopolyNode : MonoBehaviour
 
     public void UpdateColorField(Color color)
     {
-        if(PropertyColorField != null)
+        if(propertyColorField != null)
         {
-            PropertyColorField.color = color;
+            propertyColorField.color = color;
         }     
     }
     // MONRTGAGE CONTENT
@@ -168,16 +173,21 @@ public class MonopolyNode : MonoBehaviour
                         //pay rent to somebody
 
                         //caculate the  rent
+                        Debug.Log("PLAYER MIGHT PAY RETN && OWNER SHIP IS : " + owner.name);
                         int renToPay = CalculatePropertyRent();
-
                         //pay the rent to the owner
+                        currentPlayer.PayRent(renToPay, owner);
 
-                        //show a message about what happend 
+
+                        //show a message about what happend
+                        Debug.Log(currentPlayer.name + "pay ren of: " + renToPay + " to " + owner.name);
                     }
                     else if (owner.name == "" && currentPlayer.CanAfford(price))
                         {
                         //buy the node
+                        Debug.Log("PLAYER COULD BUY");
                         currentPlayer.BuyProperty(this);
+                        OnOwnerUpdate();
 
                           //show a message about what happend 
                         }

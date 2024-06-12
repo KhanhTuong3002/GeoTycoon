@@ -1464,7 +1464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 4
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: Chance
   nameText: {fileID: 313639052}
   price: 0
@@ -1507,7 +1507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: "C\xC1T LINH H\xC0 \u0110\xD4NG"
   nameText: {fileID: 468630766}
   price: 0
@@ -2722,7 +2722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 1568915245}
+  propertyColorField: {fileID: 0}
   name: PLEIKU
   nameText: {fileID: 1491971742}
   price: 270
@@ -2765,7 +2765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 1800401234}
+  propertyColorField: {fileID: 0}
   name: "C\u1EA6N TH\u01A0"
   nameText: {fileID: 277475854}
   price: 3000
@@ -4731,7 +4731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 273637229}
+  propertyColorField: {fileID: 0}
   name: "THANH H\xD3A"
   nameText: {fileID: 638571728}
   price: 510
@@ -6368,7 +6368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 1710995596}
+  propertyColorField: {fileID: 0}
   name: "S\xC0I G\xD2N"
   nameText: {fileID: 317369986}
   price: 3900
@@ -7481,7 +7481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 5
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: Community
   nameText: {fileID: 723714570}
   price: 0
@@ -7995,7 +7995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 1243918884}
+  propertyColorField: {fileID: 0}
   name: "TH\xC1I B\xCCNH"
   nameText: {fileID: 1884421484}
   price: 180
@@ -8403,7 +8403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 376522911}
+  propertyColorField: {fileID: 0}
   name: "B\xCCNH D\u01AF\u01A0NG"
   nameText: {fileID: 1185575060}
   price: 2700
@@ -8548,7 +8548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 3
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: "THU\u1EBE"
   nameText: {fileID: 1511024887}
   price: 0
@@ -11420,7 +11420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 1629222653}
+  propertyColorField: {fileID: 0}
   name: SA PA
   nameText: {fileID: 1092071072}
   price: 750
@@ -11592,7 +11592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 1743829156}
+  propertyColorField: {fileID: 0}
   name: "H\u1EA2I PH\xD2NG"
   nameText: {fileID: 1000873360}
   price: 420
@@ -11630,7 +11630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: Community
   nameText: {fileID: 1188145301}
   price: 0
@@ -11765,7 +11765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 2
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: "\u0110\u1ED2 S\u01A0N"
   nameText: {fileID: 1697069861}
   price: 240
@@ -12236,7 +12236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 1430902468}
+  propertyColorField: {fileID: 0}
   name: "\u0110\xC0 L\u1EA0T"
   nameText: {fileID: 1088046619}
   price: 90
@@ -12274,7 +12274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 1070872979}
+  propertyColorField: {fileID: 0}
   name: "NINH B\xCCNH"
   nameText: {fileID: 733567577}
   price: 180
@@ -12898,7 +12898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 2100456546}
+  propertyColorField: {fileID: 0}
   name: "H\u1ED8I AN"
   nameText: {fileID: 780695505}
   price: 900
@@ -13137,7 +13137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2, g: 0.7137255, b: 0.7137255, a: 1}
+  m_Color: {r: 0.2, g: 0.7137255, b: 0.7137255, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13216,7 +13216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 2
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: "V\u0168NG T\xC0U"
   nameText: {fileID: 1576749572}
   price: 210
@@ -13321,7 +13321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: "L\u1EC4 H\u1ED8I"
   nameText: {fileID: 155723035}
   price: 0
@@ -14007,7 +14007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 6
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: 
   nameText: {fileID: 1694030029}
   price: 0
@@ -14250,7 +14250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: "PH\xDA QU\u1ED0C"
   nameText: {fileID: 2066318455}
   price: 900
@@ -14474,7 +14474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 2
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: "H\u1EA0   LONG"
   nameText: {fileID: 694081202}
   price: 390
@@ -14791,6 +14791,26 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 524733917537060079, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2.8614
+      objectReference: {fileID: 0}
+    - target: {fileID: 524733917537060079, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.221
+      objectReference: {fileID: 0}
+    - target: {fileID: 524733917537060079, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0205
+      objectReference: {fileID: 0}
+    - target: {fileID: 524733917537060079, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -6.4423
+      objectReference: {fileID: 0}
+    - target: {fileID: 524733917537060079, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0081
+      objectReference: {fileID: 0}
     - target: {fileID: 1377663593684192427, guid: ace060df9bea9b94089af384ed75b878, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -14834,6 +14854,22 @@ PrefabInstance:
     - target: {fileID: 2895995224553354309, guid: ace060df9bea9b94089af384ed75b878, type: 3}
       propertyPath: m_text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817280124291301826, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 2.844
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817280124291301826, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0006
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817280124291301826, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -6.4631
+      objectReference: {fileID: 0}
+    - target: {fileID: 3817280124291301826, guid: ace060df9bea9b94089af384ed75b878, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0701
       objectReference: {fileID: 0}
     - target: {fileID: 5303190115077511852, guid: ace060df9bea9b94089af384ed75b878, type: 3}
       propertyPath: m_Name
@@ -15009,7 +15045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2, g: 0.7137255, b: 0.7137255, a: 1}
+  m_Color: {r: 0.2, g: 0.7137255, b: 0.7137255, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -16706,12 +16742,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 1263498573}
+  propertyColorField: {fileID: 0}
   name: "C\xC0 MAU"
   nameText: {fileID: 20086734}
   price: 60
   priceText: {fileID: 1931387444}
-  calculateRentAuto: 0
+  calculateRentAuto: 1
   currentRent: 0
   baseRent: 2
   rentWithHouse: 0a0000001e0000005a000000a0000000fa000000
@@ -16744,7 +16780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 368269746}
+  propertyColorField: {fileID: 0}
   name: "L\u1EA0NG S\u01A0N"
   nameText: {fileID: 1731969150}
   price: 180
@@ -16827,7 +16863,7 @@ MonoBehaviour:
   - {fileID: 797690251}
   - {fileID: 1724564270}
   nodeSetList:
-  - setColor: {r: 0.2, g: 0.7137255, b: 0.7137255, a: 1}
+  - setColor: {r: 0.20147738, g: 0.7264151, b: 0.7264151, a: 0}
     nodesInSetList:
     - {fileID: 1630219434}
     - {fileID: 1167777979}
@@ -17844,7 +17880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 7
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: "C\xD4N \u0110\u1EA2O"
   nameText: {fileID: 716701053}
   price: 0
@@ -17968,7 +18004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 605383588}
+  propertyColorField: {fileID: 0}
   name: "H\xC0 N\u1ED8I"
   nameText: {fileID: 305982022}
   price: 4050
@@ -18149,7 +18185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 1373902901}
+  propertyColorField: {fileID: 0}
   name: "\u0110\xC0 N\u1EB4NG"
   nameText: {fileID: 270152638}
   price: 1200
@@ -18477,7 +18513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 1768146287}
+  propertyColorField: {fileID: 0}
   name: "HU\u1EBE"
   nameText: {fileID: 930594344}
   price: 1050
@@ -18807,7 +18843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 928848558}
+  propertyColorField: {fileID: 0}
   name: "NINH THU\u1EACN"
   nameText: {fileID: 2140385108}
   price: 300
@@ -18988,7 +19024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 0
-  PropertyColorField: {fileID: 156211538}
+  propertyColorField: {fileID: 0}
   name: "T\xC2Y  NINH"
   nameText: {fileID: 2145829937}
   price: 330
@@ -20038,7 +20074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 4
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: Chance
   nameText: {fileID: 242822325}
   price: 0
@@ -20504,7 +20540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monopolyNodeType: 2
-  PropertyColorField: {fileID: 0}
+  propertyColorField: {fileID: 0}
   name: NHAN TRANG
   nameText: {fileID: 423077593}
   price: 600

@@ -83,4 +83,17 @@ public class Player_Mono
     {
         myMonopolyNodes.OrderBy(_node => _node.price).ToList();
     }
+
+    internal void PayRent(int rentAmount,Player_Mono owner)
+    {
+        //dont have enough money
+        if(money < rentAmount) 
+        {
+          //handle insufficent funds > AI
+        }
+        money -= rentAmount;
+        owner.CollectMoney(rentAmount);
+        //Update Ui
+        myInfor.SetPlayerCash(money);
+    }
 }
