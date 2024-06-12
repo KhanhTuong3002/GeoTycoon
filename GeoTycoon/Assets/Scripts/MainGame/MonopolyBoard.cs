@@ -5,6 +5,8 @@ using System.Linq;
 
 public class MonopolyBoard : MonoBehaviour
 {
+    public static MonopolyBoard instance;
+
     public List<MonopolyNode> route = new List<MonopolyNode>();
 
     [System.Serializable]
@@ -16,6 +18,10 @@ public class MonopolyBoard : MonoBehaviour
 
     [SerializeField] List<NodeSet> nodeSetList = new List<NodeSet>();
 
+    private void Awake()
+    {
+        instance = this;
+    }
     private void OnValidate()
     {
         route.Clear();

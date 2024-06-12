@@ -275,7 +275,7 @@ public class MonopolyNode : MonoBehaviour
         {
             case 0:
                 // Check if owner has the full set of this nodes
-                bool allSame = true;
+                var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(this);
 
                 if (allSame)
                 {
