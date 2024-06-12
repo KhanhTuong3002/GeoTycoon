@@ -44,6 +44,10 @@ public class MonopolyNode : MonoBehaviour
     public Player_Mono owner;
 
     public Player_Mono Owner => owner;
+    public void SetOwner(Player_Mono newOwner)
+    {
+        owner = newOwner;
+    }
 
 
     private void OnValidate()
@@ -170,10 +174,10 @@ public class MonopolyNode : MonoBehaviour
 
                         //show a message about what happend 
                     }
-                    else if (owner.name == "" /*&& if can afford*/)
-                        { 
-                          //buy the node
-
+                    else if (owner.name == "" && currentPlayer.CanAfford(price))
+                        {
+                        //buy the node
+                        currentPlayer.BuyProperty(this);
 
                           //show a message about what happend 
                         }

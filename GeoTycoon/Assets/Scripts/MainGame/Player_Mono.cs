@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -60,5 +61,26 @@ public class Player_Mono
     {
         money += amount;
         myInfor.SetPlayerCash(money);
+    }
+    internal bool CanAfford (int price)
+    {
+        return price <= money;
+    }
+
+    public void BuyProperty(MonopolyNode node)
+    {
+        money -= node.price;
+        node.SetOwner(this);
+        //update UI
+        myInfor.SetPlayerCash(money);
+        //set ownership
+        myMonopolyNodes.Add(node);
+        //sort all nodes by price
+        SortPropertyByPrice();
+    }
+
+    void SortPropertyByPrice()
+    {
+        myMonopolyNodes.OrderBy(_node => _node.price).ToList();
     }
 }
