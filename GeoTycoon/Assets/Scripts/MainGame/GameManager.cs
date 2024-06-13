@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     public void RollDice() //press button form human or auto from ai
     {
+        bool allowedToMove = true;
         //reset last roll
         rolledDice = new int[2];
 
@@ -76,13 +77,55 @@ public class GameManager : MonoBehaviour
         //throw 3 times in a row -> jail anyhow -> end turn
 
         //is in jail already
+        if (playerList[currentPlayer].IsInjail)
+        {
+            if(rolledADouble)
+            {
+                playerList[currentPlayer].setOutOfJail();
+                //Move the player
+
+
+            }
+            else
+            {
+                allowedToMove = false;
+            }
+        }
+        else//Not in jail
+        {
+            // reset double roll
+            if (!rolledADouble)
+            {
+                doubleRollCount = 0;
+            }
+            else
+            {
+                doubleRollCount++;
+                if(doubleRollCount >= 3)
+                {
+                    //move to jail
+                    int indexOnBoard = MonopolyBoard.instance.route.IndexOf(playerList[currentPlayer].MyMonopolyNode);
+                    playerList[currentPlayer].GoToJail(indexOnBoard);
+                    return;
+                }
+            }
+
+        }
 
         //can we leave jail
 
         //move anyhow if allowed
         rolledDice[0] = 4;
         rolledDice[1] = 4;
-        StartCoroutine(DelayBeforeMove(rolledDice[0] + rolledDice[1]));
+        if(allowedToMove)
+        {
+            StartCoroutine(DelayBeforeMove(rolledDice[0] + rolledDice[1]));
+
+        }
+        else
+        {
+            // Maybe Switch Player
+        }
         //show or hide ui
     }
     IEnumerator DelayBeforeMove(int rolledDice)
@@ -97,6 +140,8 @@ public class GameManager : MonoBehaviour
     {
         currentPlayer++;
         //rolledouble?
+        doubleRollCount = 0;
+
 
         //overflow check
         if(currentPlayer >= playerList.Count)

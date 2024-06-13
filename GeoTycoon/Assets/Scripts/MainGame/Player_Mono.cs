@@ -111,13 +111,33 @@ public class Player_Mono
 
     //--------------------------JAIL-------------------------------------
 
-    public void GoToJail()
+    public void GoToJail(int indexOnBoard)
     {
         isInjail = true;
         //Reposition Player
         //myTonken.transform.position = MonopolyBoard.instance.route[8].transform.position;
         //currentnode = MonopolyBoard.instance.route[8];
-        MonopolyBoard.instance.MovePlayertonken(-8, this);
+        MonopolyBoard.instance.MovePlayertonken(CalculateDistanceFromJail(indexOnBoard), this);
+    }
+
+    public void setOutOfJail()
+    {
+        isInjail = false;
+    }
+
+    int CalculateDistanceFromJail(int indexOnBoard)
+    {
+        int result = 0;
+        int indexOfjail = 8;
+        if(indexOnBoard > indexOfjail)
+        {
+            result = (indexOnBoard - indexOfjail) * -1;
+        }
+        else
+        {
+            result = (indexOfjail - indexOnBoard);
+        }
+        return result;
     }
 
 }

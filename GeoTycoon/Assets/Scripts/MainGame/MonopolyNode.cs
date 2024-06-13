@@ -358,7 +358,8 @@ public class MonopolyNode : MonoBehaviour
                 break;
             case MonopolyNodeType.Gotojail:
                 System.Threading.Thread.Sleep(1000); // Delay for 2 seconds
-                currentPlayer.GoToJail();
+                int indexOnBoard = MonopolyBoard.instance.route.IndexOf(currentPlayer.MyMonopolyNode);
+                currentPlayer.GoToJail(indexOnBoard);
                 continueTurn = false;
                 break;
             case MonopolyNodeType.Chance:
