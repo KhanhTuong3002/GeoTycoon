@@ -108,4 +108,15 @@ public class Player_Mono
         //Update Ui
         myInfor.SetPlayerCash(money);
     }
+
+    //--------------------------JAIL-------------------------------------
+
+    public void GoToJail()
+    {
+        isInjail = true;
+        //Reposition Player
+        myTonken.transform.position = MonopolyBoard.instance.route[8].transform.position;
+        currentnode = MonopolyBoard.instance.route[8];
+    }
+
 }

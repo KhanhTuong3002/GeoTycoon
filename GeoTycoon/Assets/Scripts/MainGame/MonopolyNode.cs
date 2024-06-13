@@ -355,7 +355,7 @@ public class MonopolyNode : MonoBehaviour
 
                 break;
             case MonopolyNodeType.Gotojail:
-
+                currentPlayer.GoToJail();
 
 
                 break;

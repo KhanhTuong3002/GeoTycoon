@@ -80,8 +80,8 @@ public class GameManager : MonoBehaviour
         //can we leave jail
 
         //move anyhow if allowed
-        rolledDice[0] = 3;
-        rolledDice[1] = 3;
+        rolledDice[0] = 4;
+        rolledDice[1] = 4;
         StartCoroutine(DelayBeforeMove(rolledDice[0] + rolledDice[1]));
         //show or hide ui
     }
