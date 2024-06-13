@@ -14249,7 +14249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f19ff0f69722f4a8bf767743fdecaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monopolyNodeType: 0
+  monopolyNodeType: 2
   propertyColorField: {fileID: 0}
   name: "PH\xDA QU\u1ED0C"
   nameText: {fileID: 2066318455}
@@ -16897,6 +16897,13 @@ MonoBehaviour:
     nodesInSetList:
     - {fileID: 543925163}
     - {fileID: 1724564270}
+  - setColor: {r: 1, g: 1, b: 1, a: 0}
+    nodesInSetList:
+    - {fileID: 1272441811}
+    - {fileID: 1126236007}
+    - {fileID: 1392007180}
+    - {fileID: 2123611130}
+    - {fileID: 1373851059}
 --- !u!4 &1643655545
 Transform:
   m_ObjectHideFlags: 0
