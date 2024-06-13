@@ -96,4 +96,16 @@ public class Player_Mono
         //Update Ui
         myInfor.SetPlayerCash(money);
     }
+
+    internal void PayMoney(int amount)
+    {
+        //dont have enough money
+        if (money < amount)
+        {
+            //handle insufficent funds > AI
+        }
+        money -= amount;
+        //Update Ui
+        myInfor.SetPlayerCash(money);
+    }
 }

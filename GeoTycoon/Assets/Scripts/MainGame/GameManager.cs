@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     int[] rolledDice;
     bool rolledADouble;
     int doubleRollCount;
+    //tax ppol
+    int taxPool = 0;
     // pass over go to get money
     public int GetGoMoney => goMoney;
     private void Awake()
@@ -78,6 +80,8 @@ public class GameManager : MonoBehaviour
         //can we leave jail
 
         //move anyhow if allowed
+        rolledDice[0] = 3;
+        rolledDice[1] = 3;
         StartCoroutine(DelayBeforeMove(rolledDice[0] + rolledDice[1]));
         //show or hide ui
     }
@@ -110,5 +114,22 @@ public class GameManager : MonoBehaviour
         }
 
         //if human - show ui
+    }
+
+    public int[] LastRolledDice => rolledDice;
+
+    public void AddTaxToPool(int amount)
+    {
+        taxPool += amount;
+    }
+
+    public int GetTaxPool()
+    {
+        //temp store taxpool
+        int durrentTaxCollected = taxPool;
+        //reset the taxpool
+        taxPool = 0;
+        // send temp tax
+        return durrentTaxCollected;
     }
 }
