@@ -11764,7 +11764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f19ff0f69722f4a8bf767743fdecaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monopolyNodeType: 0
+  monopolyNodeType: 5
   propertyColorField: {fileID: 0}
   name: Community
   nameText: {fileID: 1188145301}
@@ -13005,6 +13005,7 @@ MonoBehaviour:
   - {fileID: 1620120947878300540, guid: 7a1548c47ea554447af6a25b90a3ca25, type: 3}
   - {fileID: 1620120947878300540, guid: aa2f449d4fc8fa8448179e8bf377a9c2, type: 3}
   - {fileID: 1620120947878300540, guid: 22e3208e0e33b14449410b9a507ba5b5, type: 3}
+  AllwaysDoubleRoll: 1
 --- !u!224 &1225056570 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1098390629256398609, guid: 71d246f9722b74549a7006d03c3b78d4, type: 3}
@@ -13455,7 +13456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f19ff0f69722f4a8bf767743fdecaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monopolyNodeType: 0
+  monopolyNodeType: 9
   propertyColorField: {fileID: 0}
   name: "L\u1EC4 H\u1ED8I"
   nameText: {fileID: 155723035}
