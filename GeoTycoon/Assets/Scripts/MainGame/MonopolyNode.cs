@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -159,6 +160,7 @@ public class MonopolyNode : MonoBehaviour
     public void PlayerLandedOnNode(Player_Mono currentPlayer)
     {
         bool playerIsHuman = currentPlayer.playerType == Player_Mono.PlayerType.HUMAN;
+        bool continueTurn = true;
 
         //Check For node type and atc
 
@@ -355,9 +357,9 @@ public class MonopolyNode : MonoBehaviour
 
                 break;
             case MonopolyNodeType.Gotojail:
+                System.Threading.Thread.Sleep(1000); // Delay for 2 seconds
                 currentPlayer.GoToJail();
-
-
+                continueTurn = false;
                 break;
             case MonopolyNodeType.Chance:
 
@@ -370,7 +372,11 @@ public class MonopolyNode : MonoBehaviour
 
                 break;
         }
-
+        //stop here if needed
+        if (!continueTurn)
+        {
+            return;
+        }
 
 
         //Continue

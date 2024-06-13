@@ -115,8 +115,9 @@ public class Player_Mono
     {
         isInjail = true;
         //Reposition Player
-        myTonken.transform.position = MonopolyBoard.instance.route[8].transform.position;
-        currentnode = MonopolyBoard.instance.route[8];
+        //myTonken.transform.position = MonopolyBoard.instance.route[8].transform.position;
+        //currentnode = MonopolyBoard.instance.route[8];
+        MonopolyBoard.instance.MovePlayertonken(-8, this);
     }
 
 }
