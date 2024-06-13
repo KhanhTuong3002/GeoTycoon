@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     //about the rolling dice
     int[] rolledDice;
     bool rolledADouble;
+    public bool RolledADouble => rolledADouble;
     int doubleRollCount;
     //tax ppol
     int taxPool = 0;
@@ -72,6 +73,11 @@ public class GameManager : MonoBehaviour
         rolledDice[0] = Random.Range(1, 7);
         rolledDice[1] = Random.Range(1, 7);
         Debug.Log("rolled dice are:" + rolledDice[0] + " & " + rolledDice[1]);
+
+        //Debug
+        rolledDice[0] = 5;
+        rolledDice[1] = 5;
+
         //check for double
         rolledADouble = rolledDice[0] == rolledDice[1];
         //throw 3 times in a row -> jail anyhow -> end turn
@@ -82,6 +88,7 @@ public class GameManager : MonoBehaviour
             if(rolledADouble)
             {
                 playerList[currentPlayer].setOutOfJail();
+                doubleRollCount++;
                 //Move the player
 
 
@@ -106,6 +113,7 @@ public class GameManager : MonoBehaviour
                     //move to jail
                     int indexOnBoard = MonopolyBoard.instance.route.IndexOf(playerList[currentPlayer].MyMonopolyNode);
                     playerList[currentPlayer].GoToJail(indexOnBoard);
+                    rolledADouble = false; //reset
                     return;
                 }
             }
@@ -115,8 +123,7 @@ public class GameManager : MonoBehaviour
         //can we leave jail
 
         //move anyhow if allowed
-        rolledDice[0] = 4;
-        rolledDice[1] = 4;
+
         if(allowedToMove)
         {
             StartCoroutine(DelayBeforeMove(rolledDice[0] + rolledDice[1]));

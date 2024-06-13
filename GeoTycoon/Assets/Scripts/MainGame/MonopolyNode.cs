@@ -394,11 +394,18 @@ public class MonopolyNode : MonoBehaviour
     void ContinueGame()
     {
         //if the last roll was a double
-        //roll again
+        if (GameManager.instance.RolledADouble)
+        {
+            //roll again
+            GameManager.instance.RollDice();
+        }
+        else
+        {
 
-        //not a double
-        //switch player
-        GameManager.instance.SwitchPlayer();
+            //not a double
+            //switch player
+            GameManager.instance.SwitchPlayer();
+        }
     }
 
     int CalculatePropertyRent()
