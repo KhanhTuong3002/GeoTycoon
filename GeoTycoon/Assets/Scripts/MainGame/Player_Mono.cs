@@ -17,7 +17,7 @@ public class Player_Mono
     int money;
     MonopolyNode currentnode;
     bool isInjail;
-    int numTurnsInJail;
+    int numTurnsInJail = 0;
     [SerializeField] GameObject myTonken;
     [SerializeField] List<MonopolyNode> myMonopolyNodes = new List<MonopolyNode>();
 
@@ -123,6 +123,7 @@ public class Player_Mono
     public void setOutOfJail()
     {
         isInjail = false;
+        RestTurInJail();
     }
 
     int CalculateDistanceFromJail(int indexOnBoard)
@@ -140,4 +141,16 @@ public class Player_Mono
         return result;
     }
 
+
+    public int NumTurnInjail => numTurnsInJail;
+
+    public void IcreaseNumTurnInJail()
+    {
+        numTurnsInJail++;
+    }
+
+    public void RestTurInJail()
+    {
+        numTurnsInJail = 0;
+    }
 }
