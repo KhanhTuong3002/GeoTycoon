@@ -97,7 +97,6 @@ public class GameManager : MonoBehaviour
             if(rolledADouble)
             {
                 playerList[currentPlayer].setOutOfJail();
-                playerList[currentPlayer].RestTurInJail();
                 doubleRollCount++;
                 //Move the player
             }

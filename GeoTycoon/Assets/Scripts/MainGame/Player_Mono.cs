@@ -123,7 +123,8 @@ public class Player_Mono
     public void setOutOfJail()
     {
         isInjail = false;
-        RestTurInJail();
+        //reset turn in jail
+        numTurnsInJail = 0;
     }
 
     int CalculateDistanceFromJail(int indexOnBoard)
@@ -149,8 +150,4 @@ public class Player_Mono
         numTurnsInJail++;
     }
 
-    public void RestTurInJail()
-    {
-        numTurnsInJail = 0;
-    }
 }
