@@ -12,7 +12,7 @@ public enum MonopolyNodeType
     Railroad,
     Tax,
     Chance,
-    Communitychest,
+    CommunityChest,
     Go,
     Jail,
     FreeParking,
@@ -42,6 +42,14 @@ public class MonopolyNode : MonoBehaviour
     [Header("Preperty Owner")]
     [SerializeField] GameObject ownerBar;
     [SerializeField] TMP_Text ownerText;
+
+    //DRAG A COMMUNITY CARD
+    public delegate void DrawCommunityCard(Player_Mono player);
+    public static DrawCommunityCard OnDrawCommunityCard;
+    //DRAG A CHANCE CARD
+    public delegate void DrawChanceCard(Player_Mono player);
+    public static DrawChanceCard OnDrawChanceCard;
+
     public Player_Mono owner;
 
     public Player_Mono Owner => owner;
@@ -367,10 +375,9 @@ public class MonopolyNode : MonoBehaviour
 
 
                 break;
-            case MonopolyNodeType.Communitychest:
-
-
-
+            case MonopolyNodeType.CommunityChest:
+                OnDrawCommunityCard.Invoke(currentPlayer);
+                continueTurn = false;
                 break;
         }
         //stop here if needed

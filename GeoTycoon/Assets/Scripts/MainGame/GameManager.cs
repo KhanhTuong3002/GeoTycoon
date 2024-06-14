@@ -24,11 +24,14 @@ public class GameManager : MonoBehaviour
     int[] rolledDice;
     bool rolledADouble;
     public bool RolledADouble => rolledADouble;
+    public void ResetRolledADouble() => rolledADouble=false;
     int doubleRollCount;
     //tax ppol
     int taxPool = 0;
     // pass over go to get money
     public int GetGoMoney => goMoney;
+    public float SecondsBetWeenTurns => SecondsBetWeenTurns;
+    public List<Player_Mono> GetPlayers => playerList;
     //debug
     public bool AllwaysDoubleRoll = false;
 
@@ -80,8 +83,8 @@ public class GameManager : MonoBehaviour
         //Debug
         if (AllwaysDoubleRoll)
         {
-            rolledDice[0] = 5;
-            rolledDice[1] = 5;
+            rolledDice[0] = 1;
+            rolledDice[1] = 1;
         }
 
 

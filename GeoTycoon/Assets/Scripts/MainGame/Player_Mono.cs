@@ -33,6 +33,7 @@ public class Player_Mono
     public bool IsInjail => isInjail;
     public GameObject MyTonken => myTonken;
     public MonopolyNode MyMonopolyNode => currentnode;
+    public int ReadMoney => money;
 
     public void Inititialize(MonopolyNode startNode, int startMoney, Player_MonoInfor info, GameObject token)
     {
@@ -118,6 +119,7 @@ public class Player_Mono
         //myTonken.transform.position = MonopolyBoard.instance.route[8].transform.position;
         //currentnode = MonopolyBoard.instance.route[8];
         MonopolyBoard.instance.MovePlayertonken(CalculateDistanceFromJail(indexOnBoard), this);
+        GameManager.instance.ResetRolledADouble();
     }
 
     public void setOutOfJail()
