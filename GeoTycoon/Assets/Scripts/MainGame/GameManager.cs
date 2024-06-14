@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int maxTurnsInJail = 3; // Setting for how long in jail
     [SerializeField] int startMoney = 2000;
     [SerializeField] int goMoney = 500;
+    [SerializeField] float secondsBetweenTurns = 3;
     [Header("Player Info")]
     [SerializeField] GameObject playerInfoPrefab;
     [SerializeField] Transform playerPanel; // For the playerInfo Prefabs to become parented to
@@ -30,8 +31,11 @@ public class GameManager : MonoBehaviour
     int taxPool = 0;
     // pass over go to get money
     public int GetGoMoney => goMoney;
-    public float SecondsBetWeenTurns => SecondsBetWeenTurns;
     public List<Player_Mono> GetPlayers => playerList;
+    public float SecondsBetweenTurns => secondsBetweenTurns;
+    //Message System
+    public delegate void UpdateMessage(string message);
+    public static UpdateMessage OnUpdateMessage;
     //debug
     public bool AllwaysDoubleRoll = false;
 
@@ -80,6 +84,7 @@ public class GameManager : MonoBehaviour
         rolledDice[1] = Random.Range(1, 7);
         Debug.Log("rolled dice are:" + rolledDice[0] + " & " + rolledDice[1]);
 
+
         //Debug
         if (AllwaysDoubleRoll)
         {
@@ -100,6 +105,7 @@ public class GameManager : MonoBehaviour
             if(rolledADouble)
             {
                 playerList[currentPlayer].setOutOfJail();
+                OnUpdateMessage.Invoke(playerList[currentPlayer].name + " <color=green>can leave jail</color>, because a double was rolled");
                 doubleRollCount++;
                 //Move the player
             }
@@ -107,6 +113,7 @@ public class GameManager : MonoBehaviour
             {
                 // we have been long enough here
                 playerList[currentPlayer].setOutOfJail();
+                OnUpdateMessage.Invoke(playerList[currentPlayer].name + " <color=green>can leave jail from now</color>");
                 //allowed to leave
             }
             else
@@ -129,6 +136,7 @@ public class GameManager : MonoBehaviour
                     //move to jail
                     int indexOnBoard = MonopolyBoard.instance.route.IndexOf(playerList[currentPlayer].MyMonopolyNode);
                     playerList[currentPlayer].GoToJail(indexOnBoard);
+                    OnUpdateMessage.Invoke(playerList[currentPlayer].name + " has rolled <b>3 times a double</b>, and has to <b><color=red>go to jail!</color></b>");
                     rolledADouble = false; //reset
                     return;
                 }
@@ -142,23 +150,30 @@ public class GameManager : MonoBehaviour
 
         if(allowedToMove)
         {
+            OnUpdateMessage.Invoke(playerList[currentPlayer].name + " has rolled: " +rolledDice[0] + " & "+ rolledDice[1]);
             StartCoroutine(DelayBeforeMove(rolledDice[0] + rolledDice[1]));
 
         }
         else
         {
-            // Maybe Switch Player
+            //Switch Player
+            OnUpdateMessage.Invoke(playerList[currentPlayer].name + " <b><color=red>has to stay in Jail</color></b>");
             Debug.Log("WE CAN NOT MOVE BECAUSE NOT ALLOWED");
-            SwitchPlayer();
+            StartCoroutine(DelayBetweenSwitchPlayer());
         }
         //show or hide ui
     }
     IEnumerator DelayBeforeMove(int rolledDice)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(secondsBetweenTurns);
         //if we are allowed to move we do so
         gameBoard.MovePlayertonken(rolledDice, playerList[currentPlayer]);
             //else we switch
+    }
+    IEnumerator DelayBetweenSwitchPlayer()
+    {
+        yield return new WaitForSeconds(secondsBetweenTurns);
+        SwitchPlayer();
     }
 
     public void SwitchPlayer()
