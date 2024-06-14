@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1841d06716425a641b1735b90e4d08aa, type: 3}
   m_Name: 3 Pay hospital fees
   m_EditorClassIdentifier: 
-  textOnCard: Pay hospital fees of $100
+  textOnCard: Pay hospital fees of<color=red> $100</color>
   rewardMoney: 0
   penalityMoney: 100
   moveToBoardIndex: -1
   collectFromPlayer: 0
   streetRepair: 0
-  gotToJail: 0
+  goToJail: 0
   jailFreeCard: 0

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1841d06716425a641b1735b90e4d08aa, type: 3}
   m_Name: 9 From sale of stock
   m_EditorClassIdentifier: 
-  textOnCard: From sale of stock you get $50
+  textOnCard: From sale of stock you get<color=green> $50</color>
   rewardMoney: 50
   penalityMoney: 0
   moveToBoardIndex: -1
   collectFromPlayer: 0
   streetRepair: 0
-  gotToJail: 0
+  goToJail: 0
   jailFreeCard: 0

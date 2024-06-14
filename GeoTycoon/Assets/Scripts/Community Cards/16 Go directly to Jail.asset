@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1841d06716425a641b1735b90e4d08aa, type: 3}
   m_Name: 16 Go directly to Jail
   m_EditorClassIdentifier: 
-  textOnCard: Go directly to Jail - Do not pass Go, do not collect $500
+  textOnCard: <color=red>Go directly to Jail </color> Do not pass Go, do not collect
+    $500
   rewardMoney: 0
   penalityMoney: 0
   moveToBoardIndex: -1
   collectFromPlayer: 0
   streetRepair: 0
-  gotToJail: 1
+  goToJail: 1
   jailFreeCard: 0

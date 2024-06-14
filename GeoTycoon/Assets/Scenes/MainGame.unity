@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4335,7 +4335,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &328875816
 RectTransform:
@@ -6960,7 +6960,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1703788495}
         m_TargetAssemblyTypeName: CommunityChest, Assembly-CSharp
         m_MethodName: ApplyCardEffect
         m_Mode: 1
@@ -13623,7 +13623,7 @@ MonoBehaviour:
   - {fileID: 1620120947878300540, guid: 7a1548c47ea554447af6a25b90a3ca25, type: 3}
   - {fileID: 1620120947878300540, guid: aa2f449d4fc8fa8448179e8bf377a9c2, type: 3}
   - {fileID: 1620120947878300540, guid: 22e3208e0e33b14449410b9a507ba5b5, type: 3}
-  AllwaysDoubleRoll: 0
+  AllwaysDoubleRoll: 1
 --- !u!224 &1225056570 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1098390629256398609, guid: 71d246f9722b74549a7006d03c3b78d4, type: 3}
@@ -14796,15 +14796,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.009433985, g: 0.009024586, b: 0.009024586, a: 0.6392157}
+  m_Color: {r: 0.009433985, g: 0.009024586, b: 0.009024586, a: 0.15686275}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 2fea91d5c0f88ea4a889065ce8387125, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -15326,7 +15326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15353,7 +15353,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -18968,11 +18968,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cards:
+  - {fileID: 11400000, guid: e7526ce62694ea4478935dd9a5b72291, type: 2}
   - {fileID: 11400000, guid: 6f8de092eddf804488ad8aca6cb598f8, type: 2}
+  - {fileID: 11400000, guid: 86c333b5fa825b44dad119f03399288f, type: 2}
+  - {fileID: 11400000, guid: 8a70b5e0506e8364196c25bd0ffdd3c4, type: 2}
+  - {fileID: 11400000, guid: 6ccad8db485d50f4889d31c1832a1f4b, type: 2}
+  - {fileID: 11400000, guid: c352dce7d08a685459c359082af96bcf, type: 2}
+  - {fileID: 11400000, guid: 3d8a681d8c3014a4b991afe8efe88eb1, type: 2}
+  - {fileID: 11400000, guid: f06e40d8511e3a142bac0df833732f42, type: 2}
+  - {fileID: 11400000, guid: 0e6ff442f4d98df4bb6a3af01d535156, type: 2}
+  - {fileID: 11400000, guid: 81f66cd9c95f73f44a617824bf02a837, type: 2}
+  - {fileID: 11400000, guid: 13a9af194fb77794fb111278fba6e623, type: 2}
+  - {fileID: 11400000, guid: 32b145960cbfb5948aa48fa498cb68ce, type: 2}
+  - {fileID: 11400000, guid: 9ceaf0656fbe1a243a7113fe4be31d85, type: 2}
+  - {fileID: 11400000, guid: 59a2a8795e9dbd5469b8f13087f8ee60, type: 2}
+  - {fileID: 11400000, guid: 6f9869bbc9ca99c4780b0293e2acc290, type: 2}
+  - {fileID: 11400000, guid: b695133d39c20a34b82101b4e4677704, type: 2}
+  - {fileID: 11400000, guid: 94b2aa47ccd75404a95efdc4f89272ee, type: 2}
+  - {fileID: 11400000, guid: 02e3c98a40d305d4aae290c2f6d39583, type: 2}
   cardText: {fileID: 342763558}
   cardHolderBackground: {fileID: 1699793279}
   showTime: 3
-  moveDelay: 0.5
+  closeCardButton: {fileID: 549476065}
 --- !u!1 &1710995594
 GameObject:
   m_ObjectHideFlags: 0
@@ -22621,6 +22638,6 @@ SceneRoots:
   - {fileID: 1132037259}
   - {fileID: 1224491723}
   - {fileID: 435760657}
+  - {fileID: 328875816}
   - {fileID: 239564780}
   - {fileID: 1703788494}
-  - {fileID: 328875816}

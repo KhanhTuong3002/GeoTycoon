@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1841d06716425a641b1735b90e4d08aa, type: 3}
   m_Name: 5 Beauty contest
   m_EditorClassIdentifier: 
-  textOnCard: You have won second prize in a beauty contest - Collect $10
+  textOnCard: You have won second prize in a beauty contest<br><color=green> Collect
+    $10</color>
   rewardMoney: 10
   penalityMoney: 0
   moveToBoardIndex: -1
   collectFromPlayer: 0
   streetRepair: 0
-  gotToJail: 0
+  goToJail: 0
   jailFreeCard: 0

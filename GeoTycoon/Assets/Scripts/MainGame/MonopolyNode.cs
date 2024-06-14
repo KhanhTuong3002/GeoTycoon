@@ -33,7 +33,8 @@ public class MonopolyNode : MonoBehaviour
     [SerializeField] int currentRent;
     [SerializeField] internal int baseRent;
     [SerializeField] internal List<int> rentWithHouse = new List<int>();
-    int numberOfHouse;
+    int numberOfHouses;
+    public int NumberOfHouses => numberOfHouses;
     [Header("Property Mortgage")]
     [SerializeField] GameObject morgtgageImage;
     [SerializeField] GameObject propertyImage;
@@ -428,7 +429,7 @@ public class MonopolyNode : MonoBehaviour
 
     int CalculatePropertyRent()
     {
-        switch (numberOfHouse)
+        switch (numberOfHouses)
         {
             case 0:
                 // Check if owner has the full set of this nodes

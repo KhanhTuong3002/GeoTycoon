@@ -88,8 +88,8 @@ public class GameManager : MonoBehaviour
         //Debug
         if (AllwaysDoubleRoll)
         {
-            rolledDice[0] = 1;
-            rolledDice[1] = 1;
+            rolledDice[0] = 5;
+            rolledDice[1] = 5;
         }
 
 

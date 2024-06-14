@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1841d06716425a641b1735b90e4d08aa, type: 3}
   m_Name: 14 Grand Opera Night
   m_EditorClassIdentifier: 
-  textOnCard: Grand Opera Night - Collect $50 from every player for opening seats
+  textOnCard: Grand Opera Night<color=green> Collect $50 </color> from every player
+    for opening seats
   rewardMoney: 50
   penalityMoney: 0
   moveToBoardIndex: -1
   collectFromPlayer: 1
   streetRepair: 0
-  gotToJail: 0
+  goToJail: 0
   jailFreeCard: 0

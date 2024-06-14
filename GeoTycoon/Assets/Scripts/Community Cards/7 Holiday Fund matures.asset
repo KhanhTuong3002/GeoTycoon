@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1841d06716425a641b1735b90e4d08aa, type: 3}
   m_Name: 7 Holiday Fund matures
   m_EditorClassIdentifier: 
-  textOnCard: Holiday Fund matures - Receive $100
+  textOnCard: Holiday Fund matures<br><color=green> Receive $100</color>
   rewardMoney: 100
   penalityMoney: 0
   moveToBoardIndex: -1
   collectFromPlayer: 0
   streetRepair: 0
-  gotToJail: 0
+  goToJail: 0
   jailFreeCard: 0

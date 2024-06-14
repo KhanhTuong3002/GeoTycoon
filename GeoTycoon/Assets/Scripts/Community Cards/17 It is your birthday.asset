@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1841d06716425a641b1735b90e4d08aa, type: 3}
   m_Name: 17 It is your birthday
   m_EditorClassIdentifier: 
-  textOnCard: It is your birthday Collect $10 from each player
+  textOnCard: It is your birthday<color=green> Collect $10 </color> from each player
   rewardMoney: 10
   penalityMoney: 0
   moveToBoardIndex: -1
   collectFromPlayer: 1
   streetRepair: 0
-  gotToJail: 0
+  goToJail: 0
   jailFreeCard: 0
