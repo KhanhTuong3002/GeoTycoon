@@ -33,6 +33,10 @@ public class Player_Mono
     public bool IsInjail => isInjail;
     public GameObject MyTonken => myTonken;
     public MonopolyNode MyMonopolyNode => currentnode;
+    
+    //Message System
+    public delegate void UpdateMessage(string message);
+    public static UpdateMessage OnUpdateMessage;
 
     public void Inititialize(MonopolyNode startNode, int startMoney, Player_MonoInfor info, GameObject token)
     {
