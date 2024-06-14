@@ -17,7 +17,7 @@ public class Player_Mono
     int money;
     MonopolyNode currentnode;
     bool isInjail;
-    int numTurnsInJail;
+    int numTurnsInJail = 0;
     [SerializeField] GameObject myTonken;
     [SerializeField] List<MonopolyNode> myMonopolyNodes = new List<MonopolyNode>();
 
@@ -96,4 +96,58 @@ public class Player_Mono
         //Update Ui
         myInfor.SetPlayerCash(money);
     }
+
+    internal void PayMoney(int amount)
+    {
+        //dont have enough money
+        if (money < amount)
+        {
+            //handle insufficent funds > AI
+        }
+        money -= amount;
+        //Update Ui
+        myInfor.SetPlayerCash(money);
+    }
+
+    //--------------------------JAIL-------------------------------------
+
+    public void GoToJail(int indexOnBoard)
+    {
+        isInjail = true;
+        //Reposition Player
+        //myTonken.transform.position = MonopolyBoard.instance.route[8].transform.position;
+        //currentnode = MonopolyBoard.instance.route[8];
+        MonopolyBoard.instance.MovePlayertonken(CalculateDistanceFromJail(indexOnBoard), this);
+    }
+
+    public void setOutOfJail()
+    {
+        isInjail = false;
+        //reset turn in jail
+        numTurnsInJail = 0;
+    }
+
+    int CalculateDistanceFromJail(int indexOnBoard)
+    {
+        int result = 0;
+        int indexOfjail = 8;
+        if(indexOnBoard > indexOfjail)
+        {
+            result = (indexOnBoard - indexOfjail) * -1;
+        }
+        else
+        {
+            result = (indexOfjail - indexOnBoard);
+        }
+        return result;
+    }
+
+
+    public int NumTurnInjail => numTurnsInJail;
+
+    public void IcreaseNumTurnInJail()
+    {
+        numTurnsInJail++;
+    }
+
 }

@@ -57,25 +57,51 @@ public class MonopolyBoard : MonoBehaviour
         GameObject tonkenTomove = player.MyTonken;
         int indexOnBoard = route.IndexOf(player.MyMonopolyNode);
         bool moveOverGo = false;
-        while (stepsLeft > 0)
+        bool isMovingForward = steps > 0;
+        if(isMovingForward)
         {
-            indexOnBoard++;
-            // is this over go?
-            if (indexOnBoard > route.Count - 1)
+            while (stepsLeft > 0)
             {
-                indexOnBoard = 0;
-                moveOverGo = true;
+                indexOnBoard++;
+                // is this over go?
+                if (indexOnBoard > route.Count - 1)
+                {
+                    indexOnBoard = 0;
+                    moveOverGo = true;
+                }
+                //Get start and end positions
+                //Vector3 startPos = tonkenTomove.transform.position;
+                Vector3 endPos = route[indexOnBoard].transform.position;
+                //perform the move
+                while (MoveToNextNode(tonkenTomove, endPos, 20))
+                {
+                    yield return null;
+                }
+                stepsLeft--;
             }
-            //Get start and end positions
-            Vector3 startPos = tonkenTomove.transform.position;
-            Vector3 endPos = route[indexOnBoard].transform.position;
-            //perform the move
-            while (MoveToNextNode(tonkenTomove, endPos, 20))
-            {
-                yield return null;
-            }
-            stepsLeft--;
         }
+        else
+        {
+            while (stepsLeft < 0)
+            {
+                indexOnBoard--;
+                // is this over go?
+                if (indexOnBoard < 0)
+                {
+                    indexOnBoard = route.Count-1;
+                }
+                //Get start and end positions
+                //Vector3 startPos = tonkenTomove.transform.position;
+                Vector3 endPos = route[indexOnBoard].transform.position;
+                //perform the move
+                while (MoveToNextNode(tonkenTomove, endPos, 30))
+                {
+                    yield return null;
+                }
+                stepsLeft++;
+            }
+        }
+
         //Get go Money
         if(moveOverGo)
         {
