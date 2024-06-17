@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -19577,6 +19577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1703788494}
   - component: {fileID: 1703788495}
+  - component: {fileID: 1703788496}
   m_Layer: 0
   m_Name: Card Handler
   m_TagString: Untagged
@@ -19634,6 +19635,39 @@ MonoBehaviour:
   cardHolderBackground: {fileID: 1699793279}
   showTime: 3
   closeCardButton: {fileID: 549476065}
+--- !u!114 &1703788496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703788492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31593316752b4bc488b13e0b36f15e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cards:
+  - {fileID: 11400000, guid: 7ec05114b3ae70e42a16045114d925a5, type: 2}
+  - {fileID: 11400000, guid: 3ef6a133cc503914cb4af8f8f6a263a4, type: 2}
+  - {fileID: 11400000, guid: 10c79a975bf672440821544492edebec, type: 2}
+  - {fileID: 11400000, guid: 94b72371901bad9459b917d280742c67, type: 2}
+  - {fileID: 11400000, guid: 88e602527d018154ebf17be1014b2d14, type: 2}
+  - {fileID: 11400000, guid: 5ff7f2ac048dd5d4093804cd008b580b, type: 2}
+  - {fileID: 11400000, guid: 5ff7f2ac048dd5d4093804cd008b580b, type: 2}
+  - {fileID: 11400000, guid: 9bdc90ae345839845be101b1bf993592, type: 2}
+  - {fileID: 11400000, guid: c1d72733a550f3e4cbe3f17071646303, type: 2}
+  - {fileID: 11400000, guid: 86829e9421a04414499fa3f79e6cacc4, type: 2}
+  - {fileID: 11400000, guid: ce4c6cfa7182f8e44933076c031b508c, type: 2}
+  - {fileID: 11400000, guid: 1ffe7df223af4604ca9cb5028fe410bc, type: 2}
+  - {fileID: 11400000, guid: b82c318d8e16634449e3b68f59a2c5df, type: 2}
+  - {fileID: 11400000, guid: 8111eaea602623a4e975997b50455faf, type: 2}
+  - {fileID: 11400000, guid: 6263a4c40ad81204991b657ff6de0a9a, type: 2}
+  - {fileID: 11400000, guid: 5120c43d1683dbc409299be9fd38cdd2, type: 2}
+  cardText: {fileID: 234811125}
+  cardHolderBackground: {fileID: 1442603833}
+  showTime: 3
+  closeCardButton: {fileID: 1347671523}
 --- !u!1 &1710995594
 GameObject:
   m_ObjectHideFlags: 0
