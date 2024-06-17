@@ -33,6 +33,11 @@ public class Player_Mono
     public bool IsInjail => isInjail;
     public GameObject MyTonken => myTonken;
     public MonopolyNode MyMonopolyNode => currentnode;
+    public int ReadMoney => money;
+    
+    //Message System
+    public delegate void UpdateMessage(string message);
+    public static UpdateMessage OnUpdateMessage;
 
     public void Inititialize(MonopolyNode startNode, int startMoney, Player_MonoInfor info, GameObject token)
     {
@@ -118,6 +123,7 @@ public class Player_Mono
         //myTonken.transform.position = MonopolyBoard.instance.route[8].transform.position;
         //currentnode = MonopolyBoard.instance.route[8];
         MonopolyBoard.instance.MovePlayertonken(CalculateDistanceFromJail(indexOnBoard), this);
+        GameManager.instance.ResetRolledADouble();
     }
 
     public void setOutOfJail()
@@ -148,6 +154,29 @@ public class Player_Mono
     public void IcreaseNumTurnInJail()
     {
         numTurnsInJail++;
+    }
+
+    //-----------------------SREET REPAIR-----------------------------------
+
+    public int[] CountHousesAndHotels()
+    {
+        int houses = 0; //GOES TO INDEX 0
+        int hotels = 0; //GOES TO INDEX 1
+
+        foreach (var node in myMonopolyNodes)
+        {
+            if(node.NumberOfHouses!=5)
+            {
+                houses+= node.NumberOfHouses;
+            }
+            else 
+            {
+                hotels+=1;
+            }
+        }
+
+        int[] allBuildings = new int[]{houses, hotels};
+        return allBuildings;
     }
 
 }
