@@ -18,7 +18,6 @@ public class QuestionGetter : MonoBehaviour
     private List<SetQuestion> questionSets;
     private int currentQuestionIndex;
     private List<Question> currentQuestions;
-    private List<Question> CopySet;
 
     public void GetData()
     {
@@ -51,7 +50,6 @@ public class QuestionGetter : MonoBehaviour
                 {
                     
                     currentQuestions = questionSets[0].questions;
-                    CopySet = currentQuestions;
                     currentQuestionIndex = Random.Range(0, currentQuestions.Count);
                     
                     Debug.Log("question remaining: "+currentQuestions.Count);
@@ -101,11 +99,8 @@ public class QuestionGetter : MonoBehaviour
             {
                 DisplayQuestion(currentQuestionIndex);
             }
-            else if (currentQuestions.Count <= 0)
+            else
             {
-                currentQuestions = CopySet;
-                currentQuestionIndex = Random.Range(0, currentQuestions.Count);
-                DisplayQuestion(currentQuestionIndex);
                 //Debug.Log("All questions answered correctly!");
                 // Add any end of quiz logic here
             }
