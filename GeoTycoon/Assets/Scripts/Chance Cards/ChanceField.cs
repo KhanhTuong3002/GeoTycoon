@@ -46,6 +46,7 @@ public class ChanceField : MonoBehaviour
             cardPool[index] = cardPool[i];
             cardPool[i] = tempCard;
         }
+        Debug.Log("chance card number: " + cardPool.Count);
     }
 
     void DrawCard(Player_Mono cardTaker)

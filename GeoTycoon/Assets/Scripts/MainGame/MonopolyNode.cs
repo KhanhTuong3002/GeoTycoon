@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public enum MonopolyNodeType
 {
@@ -27,6 +28,7 @@ public class MonopolyNode : MonoBehaviour
     [SerializeField] TMP_Text nameText;
     [Header("Property Price")]
     public int price;
+    public int houseCost;
     [SerializeField] TMP_Text priceText;
     [Header("Property Rent")]
     [SerializeField] bool calculateRentAuto;
@@ -35,6 +37,9 @@ public class MonopolyNode : MonoBehaviour
     [SerializeField] internal List<int> rentWithHouse = new List<int>();
     int numberOfHouses;
     public int NumberOfHouses => numberOfHouses;
+    [SerializeField] public GameObject[] houses;
+    [SerializeField] GameObject hotel;
+
     [Header("Property Mortgage")]
     [SerializeField] GameObject morgtgageImage;
     [SerializeField] GameObject propertyImage;
@@ -502,5 +507,87 @@ public class MonopolyNode : MonoBehaviour
         result = baseRent * (int)Mathf.Pow(2,amount-1);
         
         return result;
+    }
+
+    void VisualizeHouses(){
+        Debug.Log("houses: " + houses.Count());
+        Debug.Log("hotel: " + hotel!=null);
+        Debug.Log("current: " +numberOfHouses);
+        switch(numberOfHouses){
+            case 0:
+            houses[0].SetActive(false);
+            houses[1].SetActive(false);
+            houses[2].SetActive(false);
+            houses[3].SetActive(false);
+            hotel.SetActive(false);
+            break;
+            case 1:
+            houses[0].SetActive(true);
+            houses[1].SetActive(false);
+            houses[2].SetActive(false);
+            houses[3].SetActive(false);
+            Debug.Log("house built !");
+            hotel.SetActive(false);
+            break;
+            case 2:
+            houses[0].SetActive(true);
+            houses[1].SetActive(true);
+            houses[2].SetActive(false);
+            houses[3].SetActive(false);
+            hotel.SetActive(false);
+            break;
+            case 3:
+            houses[0].SetActive(true);
+            houses[1].SetActive(true);
+            houses[2].SetActive(true);
+            houses[3].SetActive(false);
+            hotel.SetActive(false);
+            break;
+            case 4:
+            houses[0].SetActive(true);
+            houses[1].SetActive(true);
+            houses[2].SetActive(true);
+            houses[3].SetActive(true);
+            hotel.SetActive(false);
+            break;
+            case 5:
+            houses[0].SetActive(false);
+            houses[1].SetActive(false);
+            houses[2].SetActive(false);
+            houses[3].SetActive(false);
+            hotel.SetActive(true);
+            break;
+        }
+    }
+
+    public void BuyHousesOrHotel() {
+        Debug.Log(houses.Count() + " houses");
+        if (monopolyNodeType == MonopolyNodeType.Property){
+            numberOfHouses++;
+            VisualizeHouses();
+        }
+    }
+
+    public int SellHousesOrHotel() {
+        if (monopolyNodeType == MonopolyNodeType.Property){
+            numberOfHouses--;
+            VisualizeHouses();
+            
+        }
+        return houseCost / 2;
+    }
+
+    public void ResetNode(){
+        if (isMortgaged){
+            propertyImage.SetActive(true);
+            morgtgageImage.SetActive(false);
+            isMortgaged = false;
+        }
+        if (monopolyNodeType == MonopolyNodeType.Property){
+            numberOfHouses = 0;
+            VisualizeHouses();
+        }
+        owner.name = "";
+        OnOwnerUpdate();
     }
 }

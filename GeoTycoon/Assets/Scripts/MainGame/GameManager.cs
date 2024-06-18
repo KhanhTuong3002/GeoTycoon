@@ -88,11 +88,9 @@ public class GameManager : MonoBehaviour
         //Debug
         if (AllwaysDoubleRoll)
         {
-            rolledDice[0] = 6;
-            rolledDice[1] = 6;
+            rolledDice[0] = 2;
+            rolledDice[1] = 1;
         }
-
-
         //check for double
         rolledADouble = rolledDice[0] == rolledDice[1];
         //throw 3 times in a row -> jail anyhow -> end turn

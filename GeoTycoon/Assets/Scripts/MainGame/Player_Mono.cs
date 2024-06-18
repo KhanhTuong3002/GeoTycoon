@@ -54,12 +54,14 @@ public class Player_Mono
         //Player Landed on node so lets
         newNode.PlayerLandedOnNode(this);
         // if its ai player
-
-        // check if can build houses
-
-        //Check for unmortgage properties
-
-        //Check if he could trde for missing properties
+        if (playerType== PlayerType.AI){
+            // check if can build houses
+            CheckIfPlayerHasASet();
+            //Check for unmortgage properties
+            
+            //Check if he could trde for missing properties
+        }
+        
     }
 
     public void CollectMoney(int amount)
@@ -179,4 +181,99 @@ public class Player_Mono
         return allBuildings;
     }
 
+    void HandleInsufficientFund(int amountToPay){
+        int houseToSell = 0;
+        int allHouses = 0; 
+        int propertiesToMortgage = 0;
+        int allPropertiesToMortgage = 0;
+
+        foreach (var node in myMonopolyNodes)
+        {
+            allHouses+=node.NumberOfHouses;
+
+        }
+        while   (money < amountToPay && allHouses>0){
+            foreach (var node in myMonopolyNodes){
+                houseToSell=node.NumberOfHouses;
+                if      (houseToSell>0){
+                    CollectMoney(node.SellHousesOrHotel());
+                    allHouses--;
+                    if (money>amountToPay){
+                        return;
+                    }
+                }
+            }
+        }
+        foreach (var node in myMonopolyNodes){
+            allPropertiesToMortgage+=(node.IsMortgaged?0:1);
+        }
+        while   (money < amountToPay && propertiesToMortgage>0){
+            foreach(var node in myMonopolyNodes){
+                propertiesToMortgage=(node.IsMortgaged?0:1);
+                if (propertiesToMortgage>0){
+
+                    allPropertiesToMortgage--;
+                    if (money>amountToPay){
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    void CheckIfPlayerHasASet(){
+        List<MonopolyNode> processedSet = null;
+        foreach (var node in myMonopolyNodes) 
+        {
+            Debug.Log(node.monopolyNodeType.ToString());
+            var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(node);
+            
+            // OPEN LATER WHEN FIX PREFAB, KEEP FOR DEBUGGING
+
+            // if (!allSame){
+            //     continue;
+            // }
+            
+            List<MonopolyNode> nodeSet = list;
+            if (nodeSet!=null && nodeSet != processedSet ){
+                bool hasMortgagedNode = nodeSet.Any(node => node.IsMortgaged)?true:false; 
+                if (!hasMortgagedNode){
+                    if (nodeSet[0].monopolyNodeType == MonopolyNodeType.Property){
+                        BuildHousesOrHotelEvenly(nodeSet);
+                        processedSet = nodeSet;
+                    }
+                }
+            }
+        }
+    }
+
+    void BuildHousesOrHotelEvenly(List<MonopolyNode> nodesToBuildOn){
+        int minHouses = int.MaxValue;
+        int maxHouses = int.MinValue;
+
+        foreach (var node in nodesToBuildOn){
+            int numberOfHouses = node.NumberOfHouses;
+            if (numberOfHouses < minHouses){
+                minHouses = numberOfHouses;
+            }
+            if (numberOfHouses > maxHouses){
+                maxHouses = numberOfHouses;
+            }
+        }
+
+        foreach (var node in nodesToBuildOn){
+            if (node.NumberOfHouses==minHouses && node.NumberOfHouses<5 && CanAffordHouse(node.houseCost)){
+                node.BuyHousesOrHotel();
+                PayMoney(node.houseCost);
+                break;
+            }
+        }
+    }
+
+    bool CanAffordHouse(int price){
+        if (playerType==PlayerType.AI){
+            return (money-aiMoneySavity) >= price;
+        }
+        return money >= price;
+    }
 }

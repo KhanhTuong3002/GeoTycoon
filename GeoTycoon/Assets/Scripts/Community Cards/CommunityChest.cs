@@ -45,6 +45,7 @@ public class CommunityChest : MonoBehaviour
             cardPool[index] = cardPool[i];
             cardPool[i] = tempCard;
         }
+        Debug.Log("community card number: " + cardPool.Count);
     }
 
     void DrawCard(Player_Mono cardTaker)

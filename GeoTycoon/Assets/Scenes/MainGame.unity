@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1468,11 +1468,18 @@ MonoBehaviour:
   name: Chance
   nameText: {fileID: 313639052}
   price: 0
+  houseCost: 0
   priceText: {fileID: 0}
   calculateRentAuto: 0
   currentRent: 0
   baseRent: 0
   rentWithHouse: 
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 0}
   propertyImage: {fileID: 0}
   isMortgaged: 0
@@ -1511,11 +1518,18 @@ MonoBehaviour:
   name: "C\xC1T LINH H\xC0 \u0110\xD4NG"
   nameText: {fileID: 468630766}
   price: 0
+  houseCost: 0
   priceText: {fileID: 0}
   calculateRentAuto: 0
   currentRent: 0
   baseRent: 0
   rentWithHouse: 
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 0}
   propertyImage: {fileID: 0}
   isMortgaged: 0
@@ -2585,7 +2599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Community Card
+  m_text: Chance Card
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2963,11 +2977,18 @@ MonoBehaviour:
   name: PLEIKU
   nameText: {fileID: 1491971742}
   price: 270
+  houseCost: 0
   priceText: {fileID: 2142190947}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 9
   rentWithHouse: 2d0000008700000095010000d002000065040000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 1317312022}
   propertyImage: {fileID: 1712158260}
   isMortgaged: 0
@@ -3006,11 +3027,18 @@ MonoBehaviour:
   name: "C\u1EA6N TH\u01A0"
   nameText: {fileID: 277475854}
   price: 3000
+  houseCost: 0
   priceText: {fileID: 1526621744}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 100
   rentWithHouse: f4010000dc05000094110000401f0000d4300000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 436618366}
   propertyImage: {fileID: 1327653175}
   isMortgaged: 0
@@ -5342,11 +5370,18 @@ MonoBehaviour:
   name: "THANH H\xD3A"
   nameText: {fileID: 638571728}
   price: 510
+  houseCost: 0
   priceText: {fileID: 428961025}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 17
   rentWithHouse: 55000000ff000000fd020000500500004d080000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 1953917613}
   propertyImage: {fileID: 2103469545}
   isMortgaged: 0
@@ -5519,6 +5554,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376522909}
   m_CullTransparentMesh: 1
+--- !u!1001 &378038816
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2071633938}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.3609374
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 9.428954
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.2956247
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00000008146034
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+      propertyPath: m_Name
+      value: Hotel
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+--- !u!1 &378038817 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+  m_PrefabInstance: {fileID: 378038816}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &378038818 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: da7e69dd58c9c8443800653450ee2ba5, type: 3}
+  m_PrefabInstance: {fileID: 378038816}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &389034263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5682,6 +5796,85 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1392007180}
   m_SourcePrefab: {fileID: 100100000, guid: f47cb8ddfd5390742aabe3ee81e3d76d, type: 3}
+--- !u!1001 &396149581
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2071633938}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.0408554
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.491092
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.384084
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.89
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7048283
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70937794
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90.369
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_Name
+      value: House (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+--- !u!4 &396149582 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+  m_PrefabInstance: {fileID: 396149581}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &396149583 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+  m_PrefabInstance: {fileID: 396149581}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &423077591
 GameObject:
   m_ObjectHideFlags: 0
@@ -7054,11 +7247,18 @@ MonoBehaviour:
   name: "S\xC0I G\xD2N"
   nameText: {fileID: 317369986}
   price: 3900
+  houseCost: 0
   priceText: {fileID: 307552201}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 130
   rentWithHouse: 8a0200009e070000da160000a02800007a3f0000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 751773662}
   propertyImage: {fileID: 357758570}
   isMortgaged: 0
@@ -8312,11 +8512,18 @@ MonoBehaviour:
   name: Community
   nameText: {fileID: 723714570}
   price: 0
+  houseCost: 0
   priceText: {fileID: 0}
   calculateRentAuto: 0
   currentRent: 0
   baseRent: 0
   rentWithHouse: 
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 0}
   propertyImage: {fileID: 0}
   isMortgaged: 0
@@ -8826,11 +9033,18 @@ MonoBehaviour:
   name: "TH\xC1I B\xCCNH"
   nameText: {fileID: 1884421484}
   price: 180
+  houseCost: 0
   priceText: {fileID: 1627269023}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 6
   rentWithHouse: 1e0000005a0000000e010000e0010000ee020000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 323731211}
   propertyImage: {fileID: 1322913242}
   isMortgaged: 0
@@ -9235,11 +9449,18 @@ MonoBehaviour:
   name: "B\xCCNH D\u01AF\u01A0NG"
   nameText: {fileID: 1185575060}
   price: 2700
+  houseCost: 0
   priceText: {fileID: 1643684157}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 90
   rentWithHouse: c201000046050000d20f0000201c0000f22b0000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 176235440}
   propertyImage: {fileID: 579642154}
   isMortgaged: 0
@@ -9456,11 +9677,18 @@ MonoBehaviour:
   name: "THU\u1EBE"
   nameText: {fileID: 1511024887}
   price: 200
+  houseCost: 0
   priceText: {fileID: 258257084}
   calculateRentAuto: 0
   currentRent: 0
   baseRent: 0
   rentWithHouse: 
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 0}
   propertyImage: {fileID: 0}
   isMortgaged: 0
@@ -12462,11 +12690,18 @@ MonoBehaviour:
   name: SA PA
   nameText: {fileID: 1092071072}
   price: 750
+  houseCost: 0
   priceText: {fileID: 973021014}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 25
   rentWithHouse: 7d0000007701000065040000d0070000350c0000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 688790641}
   propertyImage: {fileID: 1846895894}
   isMortgaged: 0
@@ -12634,11 +12869,18 @@ MonoBehaviour:
   name: "H\u1EA2I PH\xD2NG"
   nameText: {fileID: 1000873360}
   price: 420
+  houseCost: 0
   priceText: {fileID: 1099326833}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 14
   rentWithHouse: 46000000d20000007602000060040000d6060000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 2145474512}
   propertyImage: {fileID: 948267395}
   isMortgaged: 0
@@ -12672,11 +12914,18 @@ MonoBehaviour:
   name: Community
   nameText: {fileID: 1188145301}
   price: 0
+  houseCost: 0
   priceText: {fileID: 0}
   calculateRentAuto: 0
   currentRent: 0
   baseRent: 0
   rentWithHouse: 
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 0}
   propertyImage: {fileID: 0}
   isMortgaged: 0
@@ -12807,11 +13056,18 @@ MonoBehaviour:
   name: "\u0110\u1ED2 S\u01A0N"
   nameText: {fileID: 1697069861}
   price: 240
+  houseCost: 0
   priceText: {fileID: 1364696341}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 8
   rentWithHouse: 28000000780000006801000080020000e8030000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 336682525}
   propertyImage: {fileID: 2127519407}
   isMortgaged: 0
@@ -13278,11 +13534,18 @@ MonoBehaviour:
   name: "\u0110\xC0 L\u1EA0T"
   nameText: {fileID: 1088046619}
   price: 90
+  houseCost: 0
   priceText: {fileID: 1274580787}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 3
   rentWithHouse: 0f0000002d00000087000000f000000077010000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 1448819544}
   propertyImage: {fileID: 636134010}
   isMortgaged: 0
@@ -13316,11 +13579,18 @@ MonoBehaviour:
   name: "NINH B\xCCNH"
   nameText: {fileID: 733567577}
   price: 180
+  houseCost: 0
   priceText: {fileID: 1876186384}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 6
   rentWithHouse: 1e0000005a0000000e010000e0010000ee020000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 195742932}
   propertyImage: {fileID: 357931530}
   isMortgaged: 0
@@ -14017,11 +14287,18 @@ MonoBehaviour:
   name: "H\u1ED8I AN"
   nameText: {fileID: 780695505}
   price: 900
+  houseCost: 0
   priceText: {fileID: 1002132975}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 30
   rentWithHouse: 96000000c20100004605000060090000a60e0000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 996114550}
   propertyImage: {fileID: 1604032563}
   isMortgaged: 0
@@ -14335,11 +14612,18 @@ MonoBehaviour:
   name: "V\u0168NG T\xC0U"
   nameText: {fileID: 1576749572}
   price: 210
+  houseCost: 0
   priceText: {fileID: 1662148568}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 7
   rentWithHouse: 23000000690000003b010000300200006b030000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 793477416}
   propertyImage: {fileID: 193967298}
   isMortgaged: 0
@@ -14440,11 +14724,18 @@ MonoBehaviour:
   name: "L\u1EC4 H\u1ED8I"
   nameText: {fileID: 155723035}
   price: 0
+  houseCost: 0
   priceText: {fileID: 0}
   calculateRentAuto: 0
   currentRent: 0
   baseRent: 0
   rentWithHouse: 
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 0}
   propertyImage: {fileID: 0}
   isMortgaged: 0
@@ -15202,8 +15493,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1703788495}
-        m_TargetAssemblyTypeName: CommunityChest, Assembly-CSharp
+      - m_Target: {fileID: 1703788496}
+        m_TargetAssemblyTypeName: ChanceField, Assembly-CSharp
         m_MethodName: ApplyCardEffect
         m_Mode: 1
         m_Arguments:
@@ -15361,11 +15652,18 @@ MonoBehaviour:
   name: 
   nameText: {fileID: 1694030029}
   price: 0
+  houseCost: 0
   priceText: {fileID: 0}
   calculateRentAuto: 0
   currentRent: 0
   baseRent: 0
   rentWithHouse: 
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 0}
   propertyImage: {fileID: 0}
   isMortgaged: 0
@@ -15388,6 +15686,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1361521021
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2071633938}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.98
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.91
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.69959706
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0000000013148003
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7145376
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0000000012544367
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 91.211
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_Name
+      value: House (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+--- !u!4 &1361521022 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+  m_PrefabInstance: {fileID: 1361521021}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1361521023 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+  m_PrefabInstance: {fileID: 1361521021}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1364696339
 GameObject:
   m_ObjectHideFlags: 0
@@ -15604,11 +15981,18 @@ MonoBehaviour:
   name: "PH\xDA QU\u1ED0C"
   nameText: {fileID: 2066318455}
   price: 900
+  houseCost: 0
   priceText: {fileID: 131291086}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 30
   rentWithHouse: 96000000c20100004605000060090000a60e0000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 981906562}
   propertyImage: {fileID: 966368449}
   isMortgaged: 0
@@ -15962,11 +16346,18 @@ MonoBehaviour:
   name: "H\u1EA0   LONG"
   nameText: {fileID: 694081202}
   price: 390
+  houseCost: 0
   priceText: {fileID: 995526832}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 13
   rentWithHouse: 41000000c3000000490200001004000059060000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 1455246466}
   propertyImage: {fileID: 588766802}
   isMortgaged: 0
@@ -17288,6 +17679,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513642122}
   m_CullTransparentMesh: 1
+--- !u!1001 &1525088039
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2071633938}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6.5264544
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5.004
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.4375
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.21
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7048283
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70937794
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90.369
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_Name
+      value: House (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+--- !u!4 &1525088040 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+  m_PrefabInstance: {fileID: 1525088039}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1525088041 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+  m_PrefabInstance: {fileID: 1525088039}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1526621742
 GameObject:
   m_ObjectHideFlags: 0
@@ -18443,11 +18913,18 @@ MonoBehaviour:
   name: "C\xC0 MAU"
   nameText: {fileID: 20086734}
   price: 60
+  houseCost: 0
   priceText: {fileID: 1931387444}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 2
   rentWithHouse: 0a0000001e0000005a000000a0000000fa000000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 1332302901}
   propertyImage: {fileID: 1088890747}
   isMortgaged: 0
@@ -18481,11 +18958,18 @@ MonoBehaviour:
   name: "L\u1EA0NG S\u01A0N"
   nameText: {fileID: 1731969150}
   price: 180
+  houseCost: 0
   priceText: {fileID: 374566902}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 6
   rentWithHouse: 1e0000005a0000000e010000e0010000ee020000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 987878360}
   propertyImage: {fileID: 1956413544}
   isMortgaged: 0
@@ -19654,7 +20138,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 94b72371901bad9459b917d280742c67, type: 2}
   - {fileID: 11400000, guid: 88e602527d018154ebf17be1014b2d14, type: 2}
   - {fileID: 11400000, guid: 5ff7f2ac048dd5d4093804cd008b580b, type: 2}
-  - {fileID: 11400000, guid: 5ff7f2ac048dd5d4093804cd008b580b, type: 2}
+  - {fileID: 11400000, guid: 46e35c59dbf27104f9acf5fabcaaaae5, type: 2}
   - {fileID: 11400000, guid: 9bdc90ae345839845be101b1bf993592, type: 2}
   - {fileID: 11400000, guid: c1d72733a550f3e4cbe3f17071646303, type: 2}
   - {fileID: 11400000, guid: 86829e9421a04414499fa3f79e6cacc4, type: 2}
@@ -19665,7 +20149,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6263a4c40ad81204991b657ff6de0a9a, type: 2}
   - {fileID: 11400000, guid: 5120c43d1683dbc409299be9fd38cdd2, type: 2}
   cardText: {fileID: 234811125}
-  cardHolderBackground: {fileID: 1442603833}
+  cardHolderBackground: {fileID: 789546499}
   showTime: 3
   closeCardButton: {fileID: 1347671523}
 --- !u!1 &1710995594
@@ -19765,11 +20249,18 @@ MonoBehaviour:
   name: "C\xD4N \u0110\u1EA2O"
   nameText: {fileID: 716701053}
   price: 0
+  houseCost: 0
   priceText: {fileID: 0}
   calculateRentAuto: 0
   currentRent: 0
   baseRent: 0
   rentWithHouse: 
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 0}
   propertyImage: {fileID: 0}
   isMortgaged: 0
@@ -19889,11 +20380,18 @@ MonoBehaviour:
   name: "H\xC0 N\u1ED8I"
   nameText: {fileID: 305982022}
   price: 4050
+  houseCost: 0
   priceText: {fileID: 1091236998}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 135
   rentWithHouse: a3020000e9070000bb170000302a0000eb410000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 166070349}
   propertyImage: {fileID: 34450673}
   isMortgaged: 0
@@ -20070,11 +20568,18 @@ MonoBehaviour:
   name: "\u0110\xC0 N\u1EB4NG"
   nameText: {fileID: 270152638}
   price: 1200
+  houseCost: 0
   priceText: {fileID: 1421177422}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 40
   rentWithHouse: c80000005802000008070000800c000088130000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 1513642122}
   propertyImage: {fileID: 1435882987}
   isMortgaged: 0
@@ -20097,6 +20602,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1736399657
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2071633938}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.6847498
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5619998
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.0130994
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7030781
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.71111274
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90.651
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+      propertyPath: m_Name
+      value: House
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+--- !u!4 &1736399658 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+  m_PrefabInstance: {fileID: 1736399657}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1736399659 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 070578eeea656084a848c2e8789b49f0, type: 3}
+  m_PrefabInstance: {fileID: 1736399657}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1743484256 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ba71d371cf6e08448a142261e1bd4b23, type: 3}
@@ -20398,11 +20982,18 @@ MonoBehaviour:
   name: "HU\u1EBE"
   nameText: {fileID: 930594344}
   price: 1050
+  houseCost: 0
   priceText: {fileID: 897076917}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 35
   rentWithHouse: af0000000d02000027060000f00a000017110000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 27043713}
   propertyImage: {fileID: 435700528}
   isMortgaged: 0
@@ -20807,11 +21398,18 @@ MonoBehaviour:
   name: "NINH THU\u1EACN"
   nameText: {fileID: 2140385108}
   price: 300
+  houseCost: 0
   priceText: {fileID: 1086899115}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 10
   rentWithHouse: 3200000096000000c201000020030000e2040000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 744523818}
   propertyImage: {fileID: 370579416}
   isMortgaged: 0
@@ -20988,11 +21586,18 @@ MonoBehaviour:
   name: "T\xC2Y  NINH"
   nameText: {fileID: 2145829937}
   price: 330
+  houseCost: 0
   priceText: {fileID: 1772601116}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 11
   rentWithHouse: 37000000a5000000ef010000700300005f050000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 1451066936}
   propertyImage: {fileID: 1788352809}
   isMortgaged: 0
@@ -22172,11 +22777,18 @@ MonoBehaviour:
   name: Chance
   nameText: {fileID: 242822325}
   price: 0
+  houseCost: 0
   priceText: {fileID: 0}
   calculateRentAuto: 0
   currentRent: 0
   baseRent: 0
   rentWithHouse: 
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 0}
   propertyImage: {fileID: 0}
   isMortgaged: 0
@@ -22558,6 +23170,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066318453}
   m_CullTransparentMesh: 1
+--- !u!1 &2071633937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2071633938}
+  m_Layer: 0
+  m_Name: Buildings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2071633938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071633937}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 22.1, y: -0.17051697, z: 32.51}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1736399658}
+  - {fileID: 1361521022}
+  - {fileID: 1525088040}
+  - {fileID: 396149582}
+  - {fileID: 378038818}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2075271831 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1377663593684192427, guid: 71d246f9722b74549a7006d03c3b78d4, type: 3}
@@ -22772,11 +23420,18 @@ MonoBehaviour:
   name: NHAN TRANG
   nameText: {fileID: 423077593}
   price: 600
+  houseCost: 0
   priceText: {fileID: 2140285713}
   calculateRentAuto: 1
   currentRent: 0
   baseRent: 20
   rentWithHouse: 640000002c0100008403000040060000c4090000
+  houses:
+  - {fileID: 1736399659}
+  - {fileID: 1361521023}
+  - {fileID: 1525088041}
+  - {fileID: 396149583}
+  hotel: {fileID: 378038817}
   morgtgageImage: {fileID: 1693298244}
   propertyImage: {fileID: 1037683516}
   isMortgaged: 0
@@ -23448,6 +24103,7 @@ SceneRoots:
   - {fileID: 1643655545}
   - {fileID: 837938822}
   - {fileID: 1132037259}
+  - {fileID: 2071633938}
   - {fileID: 1224491723}
   - {fileID: 435760657}
   - {fileID: 328875816}
