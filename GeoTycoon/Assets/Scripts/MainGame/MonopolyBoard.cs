@@ -146,6 +146,7 @@ public class MonopolyBoard : MonoBehaviour
                 //linq
                 allSame = nodeSet.nodesInSetList.All(_node => _node.Owner == node.Owner);
                 return (nodeSet.nodesInSetList, allSame);
+
             }
         }
         return (null, allSame);

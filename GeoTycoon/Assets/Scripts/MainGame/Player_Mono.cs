@@ -54,12 +54,17 @@ public class Player_Mono
         //Player Landed on node so lets
         newNode.PlayerLandedOnNode(this);
         // if its ai player
+        if(playerType == PlayerType.AI)
+        {
+            // check if can build houses
+            CheckIfPlayerHasASet();
+            //Check for unmortgage properties
 
-        // check if can build houses
 
-        //Check for unmortgage properties
+            //Check if he could trde for missing properties
+        }
 
-        //Check if he could trde for missing properties
+
     }
 
     public void CollectMoney(int amount)
@@ -177,6 +182,77 @@ public class Player_Mono
 
         int[] allBuildings = new int[]{houses, hotels};
         return allBuildings;
+    }
+    //---------------------------HANDLE INSUFFICIENT FUND---------------------------
+    //---------------------------BANKRUPT GAME OVER ---------------------------
+    //---------------------------UNMORTGAGE PROPERTY ---------------------------
+    //---------------------------CHECK IF PLAYER HAS A PROPERTY SET---------------------------
+    //---------------------------BUILD HOUSE ENVENLY ON NODE SETS---------------------------
+    void CheckIfPlayerHasASet()
+    {
+        foreach (var node in myMonopolyNodes)
+        {
+            var (list, allsame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(node);
+            if(!allsame)
+            {
+                continue;
+            }
+            List<MonopolyNode> nodeSets = list;
+            if (nodeSets != null)
+            {
+                bool hasMortgagedNode = nodeSets.Any(node => node.IsMortgaged) ? true : false;
+                if (!hasMortgagedNode)
+                {
+                    if (nodeSets[0].monopolyNodeType == MonopolyNodeType.Property)
+                    {
+                        //we could build a House on set
+                        BuildHouseOrHotelEvenly(nodeSets);
+                    }
+                }
+            }
+        }
+    }
+    //---------------------------TRADING SYSTEM---------------------------
+    void BuildHouseOrHotelEvenly(List<MonopolyNode> nodesToBuildOn)
+    {
+        int minHouse = int.MaxValue;
+        int maxHouse = int.MinValue;
+        //get min and max number of  houses currently on the property
+        foreach(var node in nodesToBuildOn)
+        {
+            int numOfHouse = node.NumberOfHouses;
+            if(numOfHouse < minHouse)
+            {
+                minHouse = numOfHouse;
+            }
+            if(numOfHouse > maxHouse && numOfHouse < 5)
+            {
+                maxHouse = numOfHouse;
+            }
+        }
+
+        //buy houses on the properties for max allowed on the property
+        foreach (var node in nodesToBuildOn)
+        {
+            if(node.NumberOfHouses == minHouse && node.NumberOfHouses <5 && CanAffordHouse(node.houseCost))
+            {
+                node.BuildHouseOrHotel();
+                //PayMoney(node.huseCost);
+            }
+        }
+    }
+
+    
+    //---------------------------FIND MISSING PROPOERTY IN SET---------------------------
+    //---------------------------HOUSE AND HOTLE - CAN AFFORT AND COUNT---------------------------
+    bool CanAffordHouse(int price)
+    {
+        if (playerType == PlayerType.AI)//AI Only
+        {
+            return (money - aiMoneySavity) >= price;
+        }
+        //Human Only
+        return money >= price;
     }
 
 }
