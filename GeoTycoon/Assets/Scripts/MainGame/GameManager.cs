@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
         if (AllwaysDoubleRoll)
         {
             rolledDice[0] = 1;
-            rolledDice[1] = 2;
+            rolledDice[1] = 1;
         }
 
 
