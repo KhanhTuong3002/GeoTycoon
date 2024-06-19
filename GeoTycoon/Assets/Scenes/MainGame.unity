@@ -1236,6 +1236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerNameText: {fileID: 0}
   PlayerCashText: {fileID: 0}
+  activePlayerArrow: {fileID: 0}
 --- !u!114 &74215606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21794,7 +21795,7 @@ MonoBehaviour:
     myMonopolyNodes: []
   currentPlayer: 0
   maxTurnsInJail: 3
-  startMoney: 200000
+  startMoney: 2000
   goMoney: 500
   secondsBetweenTurns: 3
   playerInfoPrefab: {fileID: 8490503056755805175, guid: a84862fd87f1300448c679ffcc77c73d, type: 3}
@@ -21804,7 +21805,7 @@ MonoBehaviour:
   - {fileID: 1620120947878300540, guid: 7a1548c47ea554447af6a25b90a3ca25, type: 3}
   - {fileID: 1620120947878300540, guid: aa2f449d4fc8fa8448179e8bf377a9c2, type: 3}
   - {fileID: 1620120947878300540, guid: 22e3208e0e33b14449410b9a507ba5b5, type: 3}
-  AllwaysDoubleRoll: 1
+  AllwaysDoubleRoll: 0
 --- !u!224 &1225056570 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1098390629256398609, guid: 71d246f9722b74549a7006d03c3b78d4, type: 3}

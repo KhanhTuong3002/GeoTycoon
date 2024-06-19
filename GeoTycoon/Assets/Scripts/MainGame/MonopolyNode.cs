@@ -565,13 +565,14 @@ public class MonopolyNode : MonoBehaviour
             VisualizeHouses();
         }
     }
-    public void SellHouseOrHotel()
+    public int SellHouseOrHotel()
     {
         if (monopolyNodeType == MonopolyNodeType.Property)
         {
             numberOfHouses--;
             VisualizeHouses();
         }
+        return houseCost / 2; // USE ANY NUMBER HERE
     }
 
 public void resetNode()
@@ -592,6 +593,7 @@ public void resetNode()
         }
         //reset the ownner
         //remove property from owner
+        owner.RemoveProperty(this);
         owner.name = "";
         //update UI
         OnOwnerUpdate();

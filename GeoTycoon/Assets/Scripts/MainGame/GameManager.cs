@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
             GameObject newToken = Instantiate(playerTokenList[randomIndex], gameBoard.route[0].transform.position, Quaternion.identity);
             playerList[i].Inititialize(gameBoard.route[0], startMoney, info, newToken);
         }
+        playerList[currentPlayer].ActivateSelector(true);
     }
 
     public void RollDice() //press button form human or auto from ai
@@ -188,7 +189,8 @@ public class GameManager : MonoBehaviour
         {
             currentPlayer = 0;
         }
-
+        DeactivateArrows();
+        playerList[currentPlayer].ActivateSelector(true);
         //check if in jail
 
 
@@ -216,5 +218,35 @@ public class GameManager : MonoBehaviour
         taxPool = 0;
         // send temp tax
         return durrentTaxCollected;
+    }
+
+    //--------------------------GAME OVER----------------------
+    public void RemovePlayer(Player_Mono player)
+    {
+        playerList.Remove(player);
+        //CHECK FOR GAME OVER
+        CheckForGameOver();
+    }
+
+    void CheckForGameOver()
+    {
+        if (playerList.Count == 1)
+        {
+            //WE HAVE A WINNER
+            Debug.Log(playerList[0].name + "IS THE WINNER");
+            OnUpdateMessage.Invoke(playerList[0].name + "IS THE WINNER");
+            //STOP THE GAME LOOP ANYHOW
+
+            //SHOW UI
+        }
+    }
+
+    //---------------------------------UI STUFF-----------------------------------
+    void DeactivateArrows()
+    {
+        foreach (var player in playerList)
+        {
+            player.ActivateSelector(false);
+        }
     }
 }
