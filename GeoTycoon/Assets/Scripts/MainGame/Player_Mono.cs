@@ -190,6 +190,9 @@ public class Player_Mono
     //---------------------------BUILD HOUSE ENVENLY ON NODE SETS---------------------------
     void CheckIfPlayerHasASet()
     {
+        //call it only once per set
+        List<MonopolyNode> prosetssedSet = null;
+        //store and compare
         foreach (var node in myMonopolyNodes)
         {
             var (list, allsame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(node);
@@ -198,7 +201,7 @@ public class Player_Mono
                 continue;
             }
             List<MonopolyNode> nodeSets = list;
-            if (nodeSets != null)
+            if (nodeSets != null && nodeSets != prosetssedSet)
             {
                 bool hasMortgagedNode = nodeSets.Any(node => node.IsMortgaged) ? true : false;
                 if (!hasMortgagedNode)
@@ -207,6 +210,8 @@ public class Player_Mono
                     {
                         //we could build a House on set
                         BuildHouseOrHotelEvenly(nodeSets);
+                        //Update Process set over here
+                        prosetssedSet = nodeSets;
                     }
                 }
             }
@@ -237,7 +242,9 @@ public class Player_Mono
             if(node.NumberOfHouses == minHouse && node.NumberOfHouses <5 && CanAffordHouse(node.houseCost))
             {
                 node.BuildHouseOrHotel();
-                //PayMoney(node.huseCost);
+                PayMoney(node.houseCost);
+                //stop the loof if it only should run one
+                break;
             }
         }
     }
