@@ -46,6 +46,7 @@ public class Player_Mono
         myInfor = info;
         myInfor.SetPlayerNameandCash(name, money);
         myTonken = token;
+        myInfor.ActivateArrow(false);
     }
 
     public void SetMyCurrentNode(MonopolyNode newNode)// turn is over
@@ -59,7 +60,7 @@ public class Player_Mono
             // check if can build houses
             CheckIfPlayerHasASet();
             //Check for unmortgage properties
-
+            UnMortgageProperties();
 
             //Check if he could trde for missing properties
         }
@@ -100,6 +101,7 @@ public class Player_Mono
         if(money < rentAmount) 
         {
           //handle insufficent funds > AI
+          HandleInsufficientFunds(rentAmount);
         }
         money -= rentAmount;
         owner.CollectMoney(rentAmount);
@@ -113,6 +115,7 @@ public class Player_Mono
         if (money < amount)
         {
             //handle insufficent funds > AI
+            HandleInsufficientFunds(amount);
         }
         money -= amount;
         //Update Ui
@@ -184,8 +187,102 @@ public class Player_Mono
         return allBuildings;
     }
     //---------------------------HANDLE INSUFFICIENT FUND---------------------------
+    void HandleInsufficientFunds(int amountToPay)
+    {
+        int housesToSell = 0; // AVAILABLE HOUSE TO SELL
+        int allHouses = 0;
+        int propertiesToMortgage = 0;
+        int allPropertiesToMortgage = 0;
+
+        //COUNT ALL HOUSES
+        foreach (var node in myMonopolyNodes)
+        {
+            allHouses += node.NumberOfHouses;
+        }
+
+        //LOOP THROUGH THE PROPERTIES AND TRY TO SELL AS MUCH AS NEEDED
+        while (money < amountToPay && allHouses > 0 )
+        {
+            foreach (var node in myMonopolyNodes)
+            {
+                housesToSell = node.NumberOfHouses;
+                if (housesToSell > 0)
+                {
+                    CollectMoney(node.SellHouseOrHotel());
+                    allHouses--;
+                    // DO WE NEED MORE MONEY?
+                    if (money >= amountToPay)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+        // MORTGAGE 
+        foreach (var node in myMonopolyNodes)
+        {
+            allPropertiesToMortgage += (!node.IsMortgaged) ? 1 : 0;
+        }
+
+        //LOOP THROUGH THE PROPERTIES AND TRY TO MORTGAGE AS MUCH AS NEEDED
+        while (money < amountToPay && allPropertiesToMortgage > 0)
+        {
+            foreach (var node in myMonopolyNodes)
+            {
+                propertiesToMortgage = (!node.IsMortgaged) ? 1 : 0;
+                if (propertiesToMortgage > 0)
+                {
+                    CollectMoney(node.MortagageProperty());
+                    allPropertiesToMortgage--;
+                    // DO WE NEED MORE MONEY?
+                    if (money >= amountToPay)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+        // WE GO BANKRUPT IF WE REACH THIS POINT
+        Bankrupt();
+    }
     //---------------------------BANKRUPT GAME OVER ---------------------------
+    void Bankrupt()
+    {
+        //TAKE OUT THE PLAYER OF THE GAME
+
+        //SEND A MESSAGE TO MESSAGE SYSTEM 
+        OnUpdateMessage.Invoke(name + " <color=red>is Bankrupt</color>");
+        //CLEAR ALL WHAT THE PLAYER HAS OWNED
+        for (int i = myMonopolyNodes.Count - 1; i >= 0; i--)
+        {
+            myMonopolyNodes[i].resetNode();
+        }
+        // REMOVE THE PLAYER
+        GameManager.instance.RemovePlayer(this);
+    }
+
+    public void RemoveProperty(MonopolyNode node)
+    {
+        myMonopolyNodes.Remove(node);
+    }
     //---------------------------UNMORTGAGE PROPERTY ---------------------------
+    void UnMortgageProperties()
+    {
+        //FOR AI
+        foreach (var node in myMonopolyNodes)
+        {
+            if (node.IsMortgaged)
+            {
+                int cost = node.MortgageValue + (int)(node.MortgageValue * 0.1f); //10% Interest
+                //CAN WE AFFORT TO UNMORTGAGE
+                if (money >= aiMoneySavity + cost)
+                {
+                    PayMoney(cost);
+                    node.MortagageProperty();
+                }
+            }
+        }
+    }
     //---------------------------CHECK IF PLAYER HAS A PROPERTY SET---------------------------
     //---------------------------BUILD HOUSE ENVENLY ON NODE SETS---------------------------
     void CheckIfPlayerHasASet()
@@ -262,4 +359,8 @@ public class Player_Mono
         return money >= price;
     }
 
+    public void ActivateSelector(bool active)
+    {
+        myInfor.ActivateArrow(active);
+    }
 }

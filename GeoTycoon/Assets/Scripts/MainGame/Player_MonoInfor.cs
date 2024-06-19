@@ -7,6 +7,7 @@ public class Player_MonoInfor : MonoBehaviour
 {
     [SerializeField] TMP_Text PlayerNameText; 
     [SerializeField] TMP_Text PlayerCashText;
+    [SerializeField] GameObject activePlayerArrow;
     
     public void SetPlayerName(string newName)
     {
@@ -21,5 +22,10 @@ public class Player_MonoInfor : MonoBehaviour
     {
         SetPlayerName(newName);
         SetPlayerCash(currentCash);
+    }
+
+    public void ActivateArrow(bool active)
+    {
+        activePlayerArrow.SetActive(active);
     }
 }
