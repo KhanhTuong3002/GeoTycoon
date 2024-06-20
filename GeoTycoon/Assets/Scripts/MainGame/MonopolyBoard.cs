@@ -90,7 +90,7 @@ public class MonopolyBoard : MonoBehaviour
                 //Vector3 startPos = tonkenTomove.transform.position;
                 Vector3 endPos = route[indexOnBoard].transform.position;
                 //perform the move
-                while (MoveToNextNode(tonkenTomove, endPos, 20))
+                while (MoveToNextNode(tonkenTomove, endPos, 40))
                 {
                     yield return null;
                 }

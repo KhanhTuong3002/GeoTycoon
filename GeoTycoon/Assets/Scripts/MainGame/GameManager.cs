@@ -1,4 +1,4 @@
-using Photon.Realtime;
+﻿using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
         Inititialize();
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
         {
+            System.Threading.Thread.Sleep(2000); // Delay for 2 seconds
             RollDice();
         }
         else
@@ -59,17 +60,54 @@ public class GameManager : MonoBehaviour
 
     void Inititialize()
     {
-        //create all player
+        // Đảm bảo rằng playerTokenList không phải là null và có ít nhất một phần tử
+        if (playerTokenList == null || playerTokenList.Count == 0)
+        {
+            Debug.LogError("Player token list is null or empty!");
+            return;
+        }
+
+        // Tạo bản sao của danh sách token để tránh thao tác trực tiếp trên SerializedProperty
+        List<GameObject> tempTokenList = new List<GameObject>(playerTokenList);
+
+        // Đảm bảo rằng tempTokenList không phải là null và có ít nhất một phần tử
+        if (tempTokenList == null || tempTokenList.Count == 0)
+        {
+            Debug.LogError("Temporary token list is null or empty after copying!");
+            return;
+        }
+
+        // Khởi tạo tất cả các player
         for (int i = 0; i < playerList.Count; i++)
         {
             GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
             Player_MonoInfor info = infoObject.GetComponent<Player_MonoInfor>();
 
-            //Random token
-            int randomIndex = Random.Range(0, playerTokenList.Count);
-            //Instatiate
-            GameObject newToken = Instantiate(playerTokenList[randomIndex], gameBoard.route[0].transform.position, Quaternion.identity);
+            // Random token từ danh sách tạm thời
+            int randomIndex = Random.Range(0, tempTokenList.Count);
+
+            // Đảm bảo rằng randomIndex là hợp lệ
+            if (randomIndex < 0 || randomIndex >= tempTokenList.Count)
+            {
+                Debug.LogError("Random index is out of range!");
+                return;
+            }
+
+            // Instantiate the token
+            GameObject newToken = Instantiate(tempTokenList[randomIndex], gameBoard.route[0].transform.position, Quaternion.identity);
+
+            // Initialize player
             playerList[i].Inititialize(gameBoard.route[0], startMoney, info, newToken);
+
+            // Remove the used token from the temporary list
+            tempTokenList.RemoveAt(randomIndex);
+
+            // Đảm bảo rằng tempTokenList không rỗng sau mỗi lần loại bỏ
+            if (tempTokenList.Count == 0 && i < playerList.Count - 1)
+            {
+                Debug.LogError("Not enough tokens for all players!");
+                return;
+            }
         }
         playerList[currentPlayer].ActivateSelector(true);
     }
