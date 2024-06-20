@@ -64,8 +64,6 @@ public class Player_Mono
 
             //Check if he could trde for missing properties
         }
-
-
     }
 
     public void CollectMoney(int amount)

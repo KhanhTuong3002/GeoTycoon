@@ -13,11 +13,17 @@ public class NewBehaviourScript : MonoBehaviour
     void OnEnable()
     {
         GameManager.OnShowHumanPanel += ShowPanel;
+        MonopolyNode.OnShowHumanPanel += ShowPanel;
+        CommunityChest.OnShowHumanPanel += ShowPanel;
+        ChanceField.OnShowHumanPanel += ShowPanel;
     }
 
      void OnDisable()
     {
         GameManager.OnShowHumanPanel -= ShowPanel;
+        MonopolyNode.OnShowHumanPanel -= ShowPanel;
+        CommunityChest.OnShowHumanPanel -= ShowPanel;
+        ChanceField.OnShowHumanPanel -= ShowPanel;
     }
 
     void ShowPanel(bool showPanel, bool enableRollDice, bool enableEndTurn)

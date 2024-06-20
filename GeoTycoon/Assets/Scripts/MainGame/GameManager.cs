@@ -129,7 +129,6 @@ public class GameManager : MonoBehaviour
         bool allowedToMove = true;
         //reset last roll
         rolledDice = new int[2];
-
         //any roll dice and store them
         rolledDice[0] = Random.Range(1, 7);
         rolledDice[1] = Random.Range(1, 7);
@@ -213,6 +212,10 @@ public class GameManager : MonoBehaviour
             StartCoroutine(DelayBetweenSwitchPlayer());
         }
         //show or hide ui
+        if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN)
+        {
+            OnShowHumanPanel.Invoke(true,false,false);
+        }
     }
     IEnumerator DelayBeforeMove(int rolledDice)
     {
@@ -248,6 +251,7 @@ public class GameManager : MonoBehaviour
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
         {
             RollDice();
+            OnShowHumanPanel.Invoke(false, false, false);
         }
         else  //if human - show ui
         {

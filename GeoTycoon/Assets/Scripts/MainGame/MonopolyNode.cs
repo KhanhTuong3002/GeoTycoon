@@ -54,6 +54,9 @@ public class MonopolyNode : MonoBehaviour
     //DRAG A CHANCE CARD
     public delegate void DrawChanceCard(Player_Mono player);
     public static DrawChanceCard OnDrawChanceCard;
+    //human input panel
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn);
+    public static ShowHumanPanel OnShowHumanPanel;
 
     public Player_Mono owner;
     //Message System
@@ -411,6 +414,7 @@ public class MonopolyNode : MonoBehaviour
         else
         {
             //show UI
+            OnShowHumanPanel.Invoke(true,GameManager.instance.RolledADouble,!GameManager.instance.RolledADouble);
         }
     }
 
