@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     //Message System
     public delegate void UpdateMessage(string message);
     public static UpdateMessage OnUpdateMessage;
+    //Human input panel
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn);
+    public static ShowHumanPanel OnShowHumanPanel;
     //debug
     public bool AllwaysDoubleRoll = false;
 
@@ -110,6 +113,15 @@ public class GameManager : MonoBehaviour
             }
         }
         playerList[currentPlayer].ActivateSelector(true);
+
+        if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN)
+        {
+            OnShowHumanPanel.Invoke(true, true, false);
+        }
+        else
+        {
+            OnShowHumanPanel.Invoke(false, false, false);
+        }
     }
 
     public void RollDice() //press button form human or auto from ai
@@ -237,8 +249,10 @@ public class GameManager : MonoBehaviour
         {
             RollDice();
         }
-
-        //if human - show ui
+        else  //if human - show ui
+        {
+            OnShowHumanPanel.Invoke(true, true, false);
+        }
     }
 
     public int[] LastRolledDice => rolledDice;
