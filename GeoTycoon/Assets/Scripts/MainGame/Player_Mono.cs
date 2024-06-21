@@ -46,6 +46,7 @@ public class Player_Mono
         myInfor = info;
         myInfor.SetPlayerNameandCash(name, money);
         myTonken = token;
+        myInfor.ActivateArrow(false);
     }
 
     public void SetMyCurrentNode(MonopolyNode newNode)// turn is over
@@ -54,14 +55,15 @@ public class Player_Mono
         //Player Landed on node so lets
         newNode.PlayerLandedOnNode(this);
         // if its ai player
-        if (playerType== PlayerType.AI){
+        if(playerType == PlayerType.AI)
+        {
             // check if can build houses
             CheckIfPlayerHasASet();
             //Check for unmortgage properties
-            
+            UnMortgageProperties();
+
             //Check if he could trde for missing properties
         }
-        
     }
 
     public void CollectMoney(int amount)
@@ -97,6 +99,7 @@ public class Player_Mono
         if(money < rentAmount) 
         {
           //handle insufficent funds > AI
+          HandleInsufficientFunds(rentAmount);
         }
         money -= rentAmount;
         owner.CollectMoney(rentAmount);
@@ -110,6 +113,7 @@ public class Player_Mono
         if (money < amount)
         {
             //handle insufficent funds > AI
+            HandleInsufficientFunds(amount);
         }
         money -= amount;
         //Update Ui
@@ -180,100 +184,181 @@ public class Player_Mono
         int[] allBuildings = new int[]{houses, hotels};
         return allBuildings;
     }
-
-    void HandleInsufficientFund(int amountToPay){
-        int houseToSell = 0;
-        int allHouses = 0; 
+    //---------------------------HANDLE INSUFFICIENT FUND---------------------------
+    void HandleInsufficientFunds(int amountToPay)
+    {
+        int housesToSell = 0; // AVAILABLE HOUSE TO SELL
+        int allHouses = 0;
         int propertiesToMortgage = 0;
         int allPropertiesToMortgage = 0;
 
+        //COUNT ALL HOUSES
         foreach (var node in myMonopolyNodes)
         {
-            allHouses+=node.NumberOfHouses;
+            allHouses += node.NumberOfHouses;
+        }
 
-        }
-        while   (money < amountToPay && allHouses>0){
-            foreach (var node in myMonopolyNodes){
-                houseToSell=node.NumberOfHouses;
-                if      (houseToSell>0){
-                    CollectMoney(node.SellHousesOrHotel());
-                    allHouses--;
-                    if (money>amountToPay){
-                        return;
-                    }
-                }
-            }
-        }
-        foreach (var node in myMonopolyNodes){
-            allPropertiesToMortgage+=(node.IsMortgaged?0:1);
-        }
-        while   (money < amountToPay && propertiesToMortgage>0){
-            foreach(var node in myMonopolyNodes){
-                propertiesToMortgage=(node.IsMortgaged?0:1);
-                if (propertiesToMortgage>0){
-
-                    allPropertiesToMortgage--;
-                    if (money>amountToPay){
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
-    void CheckIfPlayerHasASet(){
-        List<MonopolyNode> processedSet = null;
-        foreach (var node in myMonopolyNodes) 
+        //LOOP THROUGH THE PROPERTIES AND TRY TO SELL AS MUCH AS NEEDED
+        while (money < amountToPay && allHouses > 0 )
         {
-            Debug.Log(node.monopolyNodeType.ToString());
-            var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(node);
-            
-            // OPEN LATER WHEN FIX PREFAB, KEEP FOR DEBUGGING
+            foreach (var node in myMonopolyNodes)
+            {
+                housesToSell = node.NumberOfHouses;
+                if (housesToSell > 0)
+                {
+                    CollectMoney(node.SellHouseOrHotel());
+                    allHouses--;
+                    // DO WE NEED MORE MONEY?
+                    if (money >= amountToPay)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+        // MORTGAGE 
+        foreach (var node in myMonopolyNodes)
+        {
+            allPropertiesToMortgage += (!node.IsMortgaged) ? 1 : 0;
+        }
 
-            // if (!allSame){
-            //     continue;
-            // }
-            
-            List<MonopolyNode> nodeSet = list;
-            if (nodeSet!=null && nodeSet != processedSet ){
-                bool hasMortgagedNode = nodeSet.Any(node => node.IsMortgaged)?true:false; 
-                if (!hasMortgagedNode){
-                    if (nodeSet[0].monopolyNodeType == MonopolyNodeType.Property){
-                        BuildHousesOrHotelEvenly(nodeSet);
-                        processedSet = nodeSet;
+        //LOOP THROUGH THE PROPERTIES AND TRY TO MORTGAGE AS MUCH AS NEEDED
+        while (money < amountToPay && allPropertiesToMortgage > 0)
+        {
+            foreach (var node in myMonopolyNodes)
+            {
+                propertiesToMortgage = (!node.IsMortgaged) ? 1 : 0;
+                if (propertiesToMortgage > 0)
+                {
+                    CollectMoney(node.MortagageProperty());
+                    allPropertiesToMortgage--;
+                    // DO WE NEED MORE MONEY?
+                    if (money >= amountToPay)
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+        // WE GO BANKRUPT IF WE REACH THIS POINT
+        Bankrupt();
+    }
+    //---------------------------BANKRUPT GAME OVER ---------------------------
+    void Bankrupt()
+    {
+        //TAKE OUT THE PLAYER OF THE GAME
+
+        //SEND A MESSAGE TO MESSAGE SYSTEM 
+        OnUpdateMessage.Invoke(name + " <color=red>is Bankrupt</color>");
+        //CLEAR ALL WHAT THE PLAYER HAS OWNED
+        for (int i = myMonopolyNodes.Count - 1; i >= 0; i--)
+        {
+            myMonopolyNodes[i].resetNode();
+        }
+        // REMOVE THE PLAYER
+        GameManager.instance.RemovePlayer(this);
+    }
+
+    public void RemoveProperty(MonopolyNode node)
+    {
+        myMonopolyNodes.Remove(node);
+    }
+    //---------------------------UNMORTGAGE PROPERTY ---------------------------
+    void UnMortgageProperties()
+    {
+        //FOR AI
+        foreach (var node in myMonopolyNodes)
+        {
+            if (node.IsMortgaged)
+            {
+                int cost = node.MortgageValue + (int)(node.MortgageValue * 0.1f); //10% Interest
+                //CAN WE AFFORT TO UNMORTGAGE
+                if (money >= aiMoneySavity + cost)
+                {
+                    PayMoney(cost);
+                    node.MortagageProperty();
+                }
+            }
+        }
+    }
+    //---------------------------CHECK IF PLAYER HAS A PROPERTY SET---------------------------
+    //---------------------------BUILD HOUSE ENVENLY ON NODE SETS---------------------------
+    void CheckIfPlayerHasASet()
+    {
+        //call it only once per set
+        List<MonopolyNode> prosetssedSet = null;
+        //store and compare
+        foreach (var node in myMonopolyNodes)
+        {
+            var (list, allsame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(node);
+            if(!allsame)
+            {
+                continue;
+            }
+            List<MonopolyNode> nodeSets = list;
+            if (nodeSets != null && nodeSets != prosetssedSet)
+            {
+                bool hasMortgagedNode = nodeSets.Any(node => node.IsMortgaged) ? true : false;
+                if (!hasMortgagedNode)
+                {
+                    if (nodeSets[0].monopolyNodeType == MonopolyNodeType.Property)
+                    {
+                        //we could build a House on set
+                        BuildHouseOrHotelEvenly(nodeSets);
+                        //Update Process set over here
+                        prosetssedSet = nodeSets;
                     }
                 }
             }
         }
     }
-
-    void BuildHousesOrHotelEvenly(List<MonopolyNode> nodesToBuildOn){
-        int minHouses = int.MaxValue;
-        int maxHouses = int.MinValue;
-
-        foreach (var node in nodesToBuildOn){
-            int numberOfHouses = node.NumberOfHouses;
-            if (numberOfHouses < minHouses){
-                minHouses = numberOfHouses;
+    //---------------------------TRADING SYSTEM---------------------------
+    void BuildHouseOrHotelEvenly(List<MonopolyNode> nodesToBuildOn)
+    {
+        int minHouse = int.MaxValue;
+        int maxHouse = int.MinValue;
+        //get min and max number of  houses currently on the property
+        foreach(var node in nodesToBuildOn)
+        {
+            int numOfHouse = node.NumberOfHouses;
+            if(numOfHouse < minHouse)
+            {
+                minHouse = numOfHouse;
             }
-            if (numberOfHouses > maxHouses){
-                maxHouses = numberOfHouses;
+            if(numOfHouse > maxHouse && numOfHouse < 5)
+            {
+                maxHouse = numOfHouse;
             }
         }
 
-        foreach (var node in nodesToBuildOn){
-            if (node.NumberOfHouses==minHouses && node.NumberOfHouses<5 && CanAffordHouse(node.houseCost)){
-                node.BuyHousesOrHotel();
+        //buy houses on the properties for max allowed on the property
+        foreach (var node in nodesToBuildOn)
+        {
+            if(node.NumberOfHouses == minHouse && node.NumberOfHouses <5 && CanAffordHouse(node.houseCost))
+            {
+                node.BuildHouseOrHotel();
                 PayMoney(node.houseCost);
+                //stop the loof if it only should run one
                 break;
             }
         }
     }
 
-    bool CanAffordHouse(int price){
-        if (playerType==PlayerType.AI){
-            return (money-aiMoneySavity) >= price;
+    
+    //---------------------------FIND MISSING PROPOERTY IN SET---------------------------
+    //---------------------------HOUSE AND HOTLE - CAN AFFORT AND COUNT---------------------------
+    bool CanAffordHouse(int price)
+    {
+        if (playerType == PlayerType.AI)//AI Only
+        {
+            return (money - aiMoneySavity) >= price;
         }
+        //Human Only
         return money >= price;
+    }
+
+    public void ActivateSelector(bool active)
+    {
+        myInfor.ActivateArrow(active);
     }
 }

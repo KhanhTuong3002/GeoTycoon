@@ -90,7 +90,7 @@ public class MonopolyBoard : MonoBehaviour
                 //Vector3 startPos = tonkenTomove.transform.position;
                 Vector3 endPos = route[indexOnBoard].transform.position;
                 //perform the move
-                while (MoveToNextNode(tonkenTomove, endPos, 20))
+                while (MoveToNextNode(tonkenTomove, endPos, 40))
                 {
                     yield return null;
                 }
@@ -145,13 +145,8 @@ public class MonopolyBoard : MonoBehaviour
             {
                 //linq
                 allSame = nodeSet.nodesInSetList.All(_node => _node.Owner == node.Owner);
-                
-                // if (allSame){
-                //     return (nodeSet.nodesInSetList, allSame);
-                // }
-
                 return (nodeSet.nodesInSetList, allSame);
-                
+
             }
         }
         return (null, allSame);

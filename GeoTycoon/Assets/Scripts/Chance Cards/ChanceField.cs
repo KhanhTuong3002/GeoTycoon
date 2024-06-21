@@ -19,6 +19,10 @@ public class ChanceField : MonoBehaviour
     SCR_ChanceCard pickedCard;
     Player_Mono currentPlayer;
 
+    //Human input panel
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn);
+    public static ShowHumanPanel OnShowHumanPanel;
+
     void OnEnable()
     {
         MonopolyNode.OnDrawChanceCard += DrawCard;
@@ -158,20 +162,24 @@ public class ChanceField : MonoBehaviour
     void ContinueGame(bool isMoving)
     {
         Debug.Log(isMoving);
-        if(currentPlayer.playerType == Player_Mono.PlayerType.AI)
+        if (currentPlayer.playerType == Player_Mono.PlayerType.AI)
         {
-            if(!isMoving && GameManager.instance.RolledADouble)
+            if (!isMoving && GameManager.instance.RolledADouble)
             {
                 GameManager.instance.RollDice();
             }
-            else if(!isMoving && !GameManager.instance.RolledADouble)
+            else if (!isMoving && !GameManager.instance.RolledADouble)
             {
-               GameManager.instance.SwitchPlayer();
+                GameManager.instance.SwitchPlayer();
             }
         }
         else //HUMAN INPUTS
         {
-
+            if (!isMoving)
+            {
+                Debug.Log("end");
+                OnShowHumanPanel.Invoke(true, !GameManager.instance.RolledADouble, GameManager.instance.RolledADouble);
+            }           
         }
     }
 }

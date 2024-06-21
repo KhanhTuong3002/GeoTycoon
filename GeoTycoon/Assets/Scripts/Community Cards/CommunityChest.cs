@@ -18,6 +18,12 @@ public class CommunityChest : MonoBehaviour
     //CURRENT CARD AND CURRENT PLAYER
     SCR_CommunityCard pickedCard;
     Player_Mono currentPlayer;
+
+    //Human input panel
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn);
+    public static ShowHumanPanel OnShowHumanPanel;
+
+
     void OnEnable()
     {
         MonopolyNode.OnDrawCommunityCard += DrawCard;
@@ -160,7 +166,12 @@ public class CommunityChest : MonoBehaviour
         }
         else //HUMAN INPUTS
         {
-
+            if (!isMoving)
+            {
+                Debug.Log("start");
+                OnShowHumanPanel.Invoke(true, !GameManager.instance.RolledADouble, GameManager.instance.RolledADouble);
+                Debug.Log("end");
+            }
         }
     }
 }
