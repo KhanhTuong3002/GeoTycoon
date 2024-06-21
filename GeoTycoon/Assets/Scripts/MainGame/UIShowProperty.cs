@@ -13,7 +13,7 @@ public class UIShowProperty : MonoBehaviour
     [Header("Buy Property UI")]
     [SerializeField] GameObject propertyUIPanel;
     [SerializeField] TMP_Text propertyNameText;
-    [SerializeField] Image coloField;
+    [SerializeField] Image colorField;
     [Space]
     [SerializeField] TMP_Text rentPriceText;//Without a house
     [SerializeField] TMP_Text oneHouseRentText;
@@ -23,7 +23,7 @@ public class UIShowProperty : MonoBehaviour
     [SerializeField] TMP_Text hotelRentText;
     [Space]
     [SerializeField] TMP_Text housePriceText;
-    [SerializeField] TMP_Text hotelPriceText;
+    [SerializeField] TMP_Text mortgagePriceText;
     [Space]
     [SerializeField] Button buyPropertyButton;
     [Space]
@@ -61,7 +61,7 @@ public class UIShowProperty : MonoBehaviour
         hotelRentText.text = "$ " + node.rentWithHouse[4];
         //cost of building
         housePriceText.text = "$ " + node.houseCost;
-        hotelPriceText.text = "$ " + node.houseCost;
+        mortgagePriceText.text = "$ " + node.MortgageValue;
         //bottom bar
         propertyPriceText.text = "Price: $ " + node.price;
         playerMoneyText.text = "You have" + currentPlayer.ReadMoney;

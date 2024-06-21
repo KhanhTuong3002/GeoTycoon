@@ -39,6 +39,9 @@ public class Player_Mono
     public delegate void UpdateMessage(string message);
     public static UpdateMessage OnUpdateMessage;
 
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn);
+    public static ShowHumanPanel OnShowHumanPanel;
+
     public void Inititialize(MonopolyNode startNode, int startMoney, Player_MonoInfor info, GameObject token)
     {
         currentnode = startNode;
@@ -99,7 +102,11 @@ public class Player_Mono
         if(money < rentAmount) 
         {
           //handle insufficent funds > AI
-          HandleInsufficientFunds(rentAmount);
+          if  (playerType == PlayerType.AI){
+            HandleInsufficientFunds(rentAmount);
+            }else{
+                OnShowHumanPanel.Invoke(true,false,false);
+            }
         }
         money -= rentAmount;
         owner.CollectMoney(rentAmount);
@@ -109,11 +116,15 @@ public class Player_Mono
 
     internal void PayMoney(int amount)
     {
+        
         //dont have enough money
         if (money < amount)
         {
-            //handle insufficent funds > AI
+            if  (playerType == PlayerType.AI){
             HandleInsufficientFunds(amount);
+            }else{
+                OnShowHumanPanel.Invoke(true,false,false);
+            }
         }
         money -= amount;
         //Update Ui
@@ -313,7 +324,7 @@ public class Player_Mono
         }
     }
     //---------------------------TRADING SYSTEM---------------------------
-    void BuildHouseOrHotelEvenly(List<MonopolyNode> nodesToBuildOn)
+    internal void BuildHouseOrHotelEvenly(List<MonopolyNode> nodesToBuildOn)
     {
         int minHouse = int.MaxValue;
         int maxHouse = int.MinValue;
@@ -344,10 +355,25 @@ public class Player_Mono
         }
     }
 
-    
+    internal void SellHouseEvenly(List<MonopolyNode> nodesToSellFrom)
+    {
+        int minHouse = int.MaxValue;
+        foreach(var node in nodesToSellFrom)
+        {
+            minHouse = Mathf.Min(minHouse, node.NumberOfHouses);
+        }
+        for(int i = nodesToSellFrom.Count-1;i>=0 ; i--)
+        {
+            if(nodesToSellFrom[i].NumberOfHouses > minHouse)
+            {
+                CollectMoney(nodesToSellFrom[i].SellHouseOrHotel());
+                break;
+            }
+        }
+    }
     //---------------------------FIND MISSING PROPOERTY IN SET---------------------------
     //---------------------------HOUSE AND HOTLE - CAN AFFORT AND COUNT---------------------------
-    bool CanAffordHouse(int price)
+    public bool CanAffordHouse(int price)
     {
         if (playerType == PlayerType.AI)//AI Only
         {
