@@ -57,7 +57,9 @@ public class MonopolyNode : MonoBehaviour
     //human input panel
     public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn);
     public static ShowHumanPanel OnShowHumanPanel;
-
+    //Property buy panel;
+    public delegate void ShowPropertyBuyPanel(MonopolyNode node, Player_Mono player);
+    public static ShowPropertyBuyPanel OnShowPropertyBuyPanel;
     public Player_Mono owner;
     //Message System
     public delegate void UpdateMessage(string message);
@@ -67,6 +69,7 @@ public class MonopolyNode : MonoBehaviour
     public void SetOwner(Player_Mono newOwner)
     {
         owner = newOwner;
+        OnOwnerUpdate();
     }
 
 
@@ -210,7 +213,7 @@ public class MonopolyNode : MonoBehaviour
                         OnUpdateMessage.Invoke(currentPlayer.name + " buys "+ this.name);
                         Debug.Log("PLAYER COULD BUY");
                         currentPlayer.BuyProperty(this);
-                        OnOwnerUpdate();
+                        //OnOwnerUpdate();
 
                           //show a message about what happend 
                         }
@@ -236,6 +239,7 @@ public class MonopolyNode : MonoBehaviour
                     else if (owner.name == "")
                     {
                         //Show buy interface for the property
+                        OnShowPropertyBuyPanel.Invoke(this, currentPlayer);
 
 
                     }

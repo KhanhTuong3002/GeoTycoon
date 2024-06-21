@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class UIShowProperty : MonoBehaviour
 {
     MonopolyNode nodeReference;
+    Player_Mono playerReference;
+
     [Header("Buy Property UI")]
     [SerializeField] GameObject propertyUIPanel;
     [SerializeField] TMP_Text propertyNameText;
@@ -28,12 +30,28 @@ public class UIShowProperty : MonoBehaviour
     [SerializeField] TMP_Text propertyPriceText;
     [SerializeField] TMP_Text playerMoneyText;
 
+     void OnEnable()
+    {
+        MonopolyNode.OnShowPropertyBuyPanel += ShowBuyPropertyUI;
+        
+    }
+
+     void OnDisable()
+    {
+        MonopolyNode.OnShowPropertyBuyPanel -= ShowBuyPropertyUI;
+    }
+
+    void Start()
+    {
+        propertyUIPanel.SetActive(false);
+    }
     void ShowBuyPropertyUI(MonopolyNode node, Player_Mono currentPlayer)
     {
         nodeReference = node;
+        playerReference = currentPlayer;
         //top Panel content
         propertyNameText.text = node.name;
-        coloField.color = node.propertyColorField.color;
+        //coloField.color = node.propertyColorField.color;
         //center the card
         rentPriceText.text = "$ " + node.baseRent;
         oneHouseRentText.text = "$ " + node.rentWithHouse[0];
@@ -58,5 +76,23 @@ public class UIShowProperty : MonoBehaviour
         }
         //show the panel
         propertyUIPanel.SetActive(true);
+    }
+
+    public void BuyPropertyButton() //this call from the button
+    {
+        //tell the player buy
+        playerReference.BuyProperty(nodeReference);
+        // maybe colse thr property card
+
+        //make the button not interact anymore
+        buyPropertyButton.interactable = false;
+    }
+    public void ClosePropertyButton() //this call from the button
+    {
+        //colse the panel
+        propertyUIPanel.SetActive(false);
+        //clear node reference
+        nodeReference=null;
+        playerReference=null;
     }
 }
