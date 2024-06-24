@@ -60,6 +60,12 @@ public class MonopolyNode : MonoBehaviour
     //Property buy panel;
     public delegate void ShowPropertyBuyPanel(MonopolyNode node, Player_Mono player);
     public static ShowPropertyBuyPanel OnShowPropertyBuyPanel;
+    //railroad buy panel;
+    public delegate void ShowRailroadBuyPanel(MonopolyNode node, Player_Mono player);
+    public static ShowRailroadBuyPanel OnShowRailroadBuyPanel;
+    //utility buy panel;
+    public delegate void ShowUtilityBuyPanel(MonopolyNode node, Player_Mono player);
+    public static ShowUtilityBuyPanel OnShowUtilityBuyPanel;
     public Player_Mono owner;
     //Message System
     public delegate void UpdateMessage(string message);
@@ -86,7 +92,7 @@ public class MonopolyNode : MonoBehaviour
             {
                 if(baseRent > 0) 
                 {
-                    price = 3 * (baseRent * 10);
+                    price = 3 * (baseRent * 10);//baseRent - 1;
                     //MORTGAGE PRICE
                     mortgageValue = price / 2;
                     rentWithHouse.Clear();                  
@@ -230,9 +236,9 @@ public class MonopolyNode : MonoBehaviour
                     {
                         //pay rent to somebody
 
-                        //caculate the  rent
-
+                        int renToPay = CalculatePropertyRent();
                         //pay the rent to the owner
+                        currentPlayer.PayRent(renToPay, owner);
 
                         //show a message about what happend 
                     }
@@ -291,15 +297,15 @@ public class MonopolyNode : MonoBehaviour
                         //pay rent to somebody
 
                         //caculate the  rent
-
-                        //pay the rent to the owner
+                        int renToPay = CalculateUtilityRent();
+                        currentPlayer.PayRent(renToPay, owner);
 
                         //show a message about what happend 
                     }
                     else if (owner.name == "")
                     {
                         //Show buy interface for the property
-
+                        OnShowUtilityBuyPanel.Invoke(this, currentPlayer);
 
                     }
                     else
@@ -353,15 +359,16 @@ public class MonopolyNode : MonoBehaviour
                     {
                         //pay rent to somebody
 
-                        //caculate the  rent
-
+                        int renToPay = CalculateRailroadRent();
+                        currentRent = renToPay;
                         //pay the rent to the owner
+                        currentPlayer.PayRent(renToPay, owner);
 
                         //show a message about what happend 
                     }
                     else if (owner.name == "")
                     {
-                        //Show buy interface for the property
+                        OnShowRailroadBuyPanel.Invoke(this, currentPlayer);
 
 
                     }
@@ -417,8 +424,10 @@ public class MonopolyNode : MonoBehaviour
         }
         else
         {
+            bool canEndTurn = !GameManager.instance.RolledADouble && currentPlayer.ReadMoney>=0;
+            bool canRollDice = GameManager.instance.RolledADouble && currentPlayer.ReadMoney>=0;
             //show UI
-            OnShowHumanPanel.Invoke(true,GameManager.instance.RolledADouble,!GameManager.instance.RolledADouble);
+            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn);
         }
     }
 
@@ -575,12 +584,13 @@ public class MonopolyNode : MonoBehaviour
     }
     public int SellHouseOrHotel()
     {
-        if (monopolyNodeType == MonopolyNodeType.Property)
+        if (monopolyNodeType == MonopolyNodeType.Property && numberOfHouses>0)
         {
             numberOfHouses--;
             VisualizeHouses();
+            return houseCost / 2; // USE ANY NUMBER HERE
         }
-        return houseCost / 2; // USE ANY NUMBER HERE
+        return 0;
     }
 
 public void resetNode()
