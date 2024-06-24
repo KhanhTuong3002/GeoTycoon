@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using TMPro;
 
 [System.Serializable]
 public class Player_Mono
@@ -20,6 +21,7 @@ public class Player_Mono
     int numTurnsInJail = 0;
     [SerializeField] GameObject myTonken;
     [SerializeField] List<MonopolyNode> myMonopolyNodes = new List<MonopolyNode>();
+    public List<MonopolyNode> GetMonopolyNodes => myMonopolyNodes;
 
     //PLAYERINFOR
     Player_MonoInfor myInfor;
@@ -73,6 +75,13 @@ public class Player_Mono
     {
         money += amount;
         myInfor.SetPlayerCash(money);
+        if(playerType == PlayerType.HUMAN && GameManager.instance.GetCurrentPlayer == this)
+        {
+            bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0;
+            bool canRollDice = GameManager.instance.RolledADouble && ReadMoney>=0;
+            //show UI
+            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn);
+        }
     }
     internal bool CanAfford (int price)
     {
@@ -93,7 +102,7 @@ public class Player_Mono
 
     void SortPropertyByPrice()
     {
-        myMonopolyNodes.OrderBy(_node => _node.price).ToList();
+        myMonopolyNodes = myMonopolyNodes.OrderBy (_node => _node.price).ToList();
     }
 
     internal void PayRent(int rentAmount,Player_Mono owner)
@@ -122,13 +131,22 @@ public class Player_Mono
         {
             if  (playerType == PlayerType.AI){
             HandleInsufficientFunds(amount);
-            }else{
-                OnShowHumanPanel.Invoke(true,false,false);
             }
+            // else{
+            //     OnShowHumanPanel.Invoke(true,false,false);
+            // }
         }
         money -= amount;
         //Update Ui
         myInfor.SetPlayerCash(money);
+
+        if(playerType == PlayerType.HUMAN && GameManager.instance.GetCurrentPlayer == this)
+        {
+            bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0;
+            bool canRollDice = GameManager.instance.RolledADouble && ReadMoney>=0;
+            //show UI
+            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn);
+        }
     }
 
     //--------------------------JAIL-------------------------------------
@@ -196,7 +214,7 @@ public class Player_Mono
         return allBuildings;
     }
     //---------------------------HANDLE INSUFFICIENT FUND---------------------------
-    void HandleInsufficientFunds(int amountToPay)
+    public void HandleInsufficientFunds(int amountToPay)
     {
         int housesToSell = 0; // AVAILABLE HOUSE TO SELL
         int allHouses = 0;
@@ -358,6 +376,7 @@ public class Player_Mono
     internal void SellHouseEvenly(List<MonopolyNode> nodesToSellFrom)
     {
         int minHouse = int.MaxValue;
+        bool houseSold = false;
         foreach(var node in nodesToSellFrom)
         {
             minHouse = Mathf.Min(minHouse, node.NumberOfHouses);
@@ -367,8 +386,13 @@ public class Player_Mono
             if(nodesToSellFrom[i].NumberOfHouses > minHouse)
             {
                 CollectMoney(nodesToSellFrom[i].SellHouseOrHotel());
+                houseSold = true;
                 break;
             }
+        }
+        if(!houseSold)
+        {
+            CollectMoney(nodesToSellFrom[nodesToSellFrom.Count-1].SellHouseOrHotel());
         }
     }
     //---------------------------FIND MISSING PROPOERTY IN SET---------------------------

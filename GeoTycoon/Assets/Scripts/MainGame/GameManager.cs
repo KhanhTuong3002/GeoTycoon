@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public int GetGoMoney => goMoney;
     public List<Player_Mono> GetPlayers => playerList;
     public float SecondsBetweenTurns => secondsBetweenTurns;
+    public Player_Mono GetCurrentPlayer => playerList[currentPlayer];
     //Message System
     public delegate void UpdateMessage(string message);
     public static UpdateMessage OnUpdateMessage;
@@ -138,8 +139,8 @@ public class GameManager : MonoBehaviour
         //Debug
         if (AllwaysDoubleRoll)
         {
-            rolledDice[0] = 2;
-            rolledDice[1] = 1;
+            rolledDice[0] = 1;
+            rolledDice[1] = 0;
         }
         //check for double
         rolledADouble = rolledDice[0] == rolledDice[1];

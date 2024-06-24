@@ -92,7 +92,7 @@ public class MonopolyNode : MonoBehaviour
             {
                 if(baseRent > 0) 
                 {
-                    price = 3 * (baseRent * 10);
+                    price = 3 * (baseRent * 10);//baseRent - 1;
                     //MORTGAGE PRICE
                     mortgageValue = price / 2;
                     rentWithHouse.Clear();                  
@@ -424,8 +424,10 @@ public class MonopolyNode : MonoBehaviour
         }
         else
         {
+            bool canEndTurn = !GameManager.instance.RolledADouble && currentPlayer.ReadMoney>=0;
+            bool canRollDice = GameManager.instance.RolledADouble && currentPlayer.ReadMoney>=0;
             //show UI
-            OnShowHumanPanel.Invoke(true,GameManager.instance.RolledADouble,!GameManager.instance.RolledADouble);
+            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn);
         }
     }
 
@@ -582,12 +584,13 @@ public class MonopolyNode : MonoBehaviour
     }
     public int SellHouseOrHotel()
     {
-        if (monopolyNodeType == MonopolyNodeType.Property)
+        if (monopolyNodeType == MonopolyNodeType.Property && numberOfHouses>0)
         {
             numberOfHouses--;
             VisualizeHouses();
+            return houseCost / 2; // USE ANY NUMBER HERE
         }
-        return houseCost / 2; // USE ANY NUMBER HERE
+        return 0;
     }
 
 public void resetNode()
