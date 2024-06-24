@@ -3536,7 +3536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f19ff0f69722f4a8bf767743fdecaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monopolyNodeType: 8
+  monopolyNodeType: 9
   propertyColorField: {fileID: 0}
   name: "\u0110\u1EADu xe"
   nameText: {fileID: 468630766}
@@ -36432,15 +36432,11 @@ MonoBehaviour:
     name: AI_Bob
     myTonken: {fileID: 0}
     myMonopolyNodes: []
-  - playerType: 0
-    name: Tuong
-    myTonken: {fileID: 0}
-    myMonopolyNodes: []
   currentPlayer: 0
   maxTurnsInJail: 3
   startMoney: 2000
   goMoney: 500
-  secondsBetweenTurns: 3
+  secondsBetweenTurns: 5
   playerInfoPrefab: {fileID: 8490503056755805175, guid: a84862fd87f1300448c679ffcc77c73d, type: 3}
   playerPanel: {fileID: 74215602}
   playerTokenList:
@@ -38220,7 +38216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48f19ff0f69722f4a8bf767743fdecaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monopolyNodeType: 9
+  monopolyNodeType: 8
   propertyColorField: {fileID: 0}
   name: "L\u1EC4 H\u1ED8I"
   nameText: {fileID: 155723035}

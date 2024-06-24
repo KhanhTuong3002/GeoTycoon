@@ -86,9 +86,18 @@ public class TradingSystem : MonoBehaviour
             {
                 if(CaulateValueOfNode(node) + currntPlayer.ReadMoney >= requestedNode.price)
                 {
-                    int offeredMoney = CaulateValueOfNode(requestedNode) - CaulateValueOfNode(node);
+                    int diffreence = CaulateValueOfNode(requestedNode) - CaulateValueOfNode(node);
+                    //dif = 600 -300 > 0
                     //valid trade posible
-                    MakeTradeOffer(currntPlayer, nodeOwner, requestedNode, node, offeredMoney, 0);
+                    if(diffreence > 0)
+                    {
+                        MakeTradeOffer(currntPlayer, nodeOwner, requestedNode, node, diffreence, 0);
+                    }
+                    else
+                    {
+                        MakeTradeOffer(currntPlayer, nodeOwner, requestedNode, node, 0, Mathf.Abs(diffreence));
+                    }
+                  
                     //make a trade offer
                     break;
                 }
@@ -117,7 +126,13 @@ public class TradingSystem : MonoBehaviour
     //---------------------------- Consider trade Offer ----------------------------------AI
     void ConsiderTradeOffer(Player_Mono currentPlayer, Player_Mono nodeOwner, MonopolyNode requestedNode, MonopolyNode offeredNode, int offeredMoney, int requestedMoney)
     {
-        int valueOfTheTrade = CaulateValueOfNode(requestedNode) + offeredMoney - requestedMoney - CaulateValueOfNode(offeredNode);
+        int valueOfTheTrade = (CaulateValueOfNode(requestedNode) + requestedMoney) - (CaulateValueOfNode(offeredNode) + offeredMoney);
+        //300 - 600 (-300) + 0 - 300 = -600
+        //(300 + request 300) - (600 + 0) 
+        //(600 + req0) - (300 + offer 300)
+        //Watn         //        give
+        //200 + 200    > 200 + 100
+
         // sell a node for money only
         if(requestedNode == null && offeredNode != null && requestedMoney < nodeOwner.ReadMoney / 3)
         {
@@ -125,7 +140,7 @@ public class TradingSystem : MonoBehaviour
             return;
         }
         // just a nomal trade
-        if(valueOfTheTrade >= 0) 
+        if(valueOfTheTrade <= 0) 
         {
             //Trade the node is valid
             Trade(currentPlayer, nodeOwner, requestedNode, offeredNode, offeredMoney, requestedMoney);
