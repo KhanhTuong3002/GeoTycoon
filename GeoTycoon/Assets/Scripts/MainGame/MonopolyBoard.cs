@@ -152,6 +152,4 @@ public class MonopolyBoard : MonoBehaviour
         return (null, allSame);
     }
 
-
-
 }

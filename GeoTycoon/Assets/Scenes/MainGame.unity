@@ -7029,7 +7029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &239564780
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24552,8 +24552,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 69}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 12, y: 31}
+  m_SizeDelta: {x: -3.2817, y: -1079.6964}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &789546501
 MonoBehaviour:
@@ -36424,23 +36424,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameBoard: {fileID: 1643655544}
   playerList:
-  - playerType: 0
-    name: Tuong
-    myTonken: {fileID: 0}
-    myMonopolyNodes: []
   - playerType: 1
-    name: AI_Tina
+    name: Ai_Tina
     myTonken: {fileID: 0}
     myMonopolyNodes: []
   - playerType: 1
     name: AI_Bob
     myTonken: {fileID: 0}
     myMonopolyNodes: []
+  - playerType: 0
+    name: Tuong
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   currentPlayer: 0
   maxTurnsInJail: 3
-  startMoney: 49
+  startMoney: 2000
   goMoney: 500
-  secondsBetweenTurns: 5
+  secondsBetweenTurns: 3
   playerInfoPrefab: {fileID: 8490503056755805175, guid: a84862fd87f1300448c679ffcc77c73d, type: 3}
   playerPanel: {fileID: 74215602}
   playerTokenList:
@@ -36448,7 +36448,7 @@ MonoBehaviour:
   - {fileID: 1620120947878300540, guid: 7a1548c47ea554447af6a25b90a3ca25, type: 3}
   - {fileID: 1620120947878300540, guid: aa2f449d4fc8fa8448179e8bf377a9c2, type: 3}
   - {fileID: 1620120947878300540, guid: 22e3208e0e33b14449410b9a507ba5b5, type: 3}
-  AllwaysDoubleRoll: 1
+  AllwaysDoubleRoll: 0
 --- !u!224 &1225056570 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1098390629256398609, guid: 71d246f9722b74549a7006d03c3b78d4, type: 3}
@@ -36807,6 +36807,50 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e7efa12c3f0079a48b8ee2fbf2071b3e, type: 3}
   m_PrefabInstance: {fileID: 1245257041}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1248144481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1248144482}
+  - component: {fileID: 1248144483}
+  m_Layer: 0
+  m_Name: Trading System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1248144482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248144481}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 898.28107, y: 537.6744, z: 880.2477}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1248144483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248144481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e89f784e7398a242b79332bff3bbd2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1248145548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49825,8 +49869,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 69}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 12, y: 31}
+  m_SizeDelta: {x: -3.2817, y: -1079.6964}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1699793281
 MonoBehaviour:
@@ -63620,3 +63664,4 @@ SceneRoots:
   - {fileID: 1703788494}
   - {fileID: 465168808}
   - {fileID: 1368324367}
+  - {fileID: 1248144482}

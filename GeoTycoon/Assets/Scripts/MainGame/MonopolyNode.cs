@@ -593,7 +593,7 @@ public class MonopolyNode : MonoBehaviour
         return 0;
     }
 
-public void resetNode()
+    public void resetNode()
     {
         //if is morgtaged
         if(isMortgaged)
@@ -615,5 +615,16 @@ public void resetNode()
         owner.name = "";
         //update UI
         OnOwnerUpdate();
+    }
+
+    //---------------------------Trading System --------------------------
+
+    //-------------------------- Chage Node Owner ----------------------------
+    public void ChangeOwner(Player_Mono newOnwer)
+    {
+        owner.RemoveProperty(this);
+        newOnwer.AddProperty(this);
+        SetOwner(newOnwer);
+
     }
 }

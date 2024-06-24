@@ -60,8 +60,8 @@ public class ManageUI : MonoBehaviour
         foreach (var node in playerReference.GetMonopolyNodes)
         {
             var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(node);
-            List<MonopolyNode> nodeSet = list;//new List<MonopolyNode>();
-            //nodeSet.AddRange(list);
+            List<MonopolyNode> nodeSet = new List<MonopolyNode>();
+            nodeSet.AddRange(list);
 
             if(nodeSet != null && nodeSet != processedSet)
             {
