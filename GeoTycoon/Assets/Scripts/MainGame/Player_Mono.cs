@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using TMPro;
 
 [System.Serializable]
 public class Player_Mono
@@ -20,6 +21,7 @@ public class Player_Mono
     int numTurnsInJail = 0;
     [SerializeField] GameObject myTonken;
     [SerializeField] List<MonopolyNode> myMonopolyNodes = new List<MonopolyNode>();
+    public List<MonopolyNode> GetMonopolyNodes => myMonopolyNodes;
 
     //PLAYERINFOR
     Player_MonoInfor myInfor;
@@ -66,6 +68,7 @@ public class Player_Mono
             UnMortgageProperties();
 
             //Check if he could trde for missing properties
+            TradingSystem.instance.findMissingProperty(this);
         }
     }
 
@@ -73,6 +76,13 @@ public class Player_Mono
     {
         money += amount;
         myInfor.SetPlayerCash(money);
+        if(playerType == PlayerType.HUMAN && GameManager.instance.GetCurrentPlayer == this)
+        {
+            bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0;
+            bool canRollDice = GameManager.instance.RolledADouble && ReadMoney>=0;
+            //show UI
+            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn);
+        }
     }
     internal bool CanAfford (int price)
     {
@@ -93,7 +103,7 @@ public class Player_Mono
 
     void SortPropertyByPrice()
     {
-        myMonopolyNodes.OrderBy(_node => _node.price).ToList();
+        myMonopolyNodes = myMonopolyNodes.OrderBy (_node => _node.price).ToList();
     }
 
     internal void PayRent(int rentAmount,Player_Mono owner)
@@ -122,13 +132,22 @@ public class Player_Mono
         {
             if  (playerType == PlayerType.AI){
             HandleInsufficientFunds(amount);
-            }else{
-                OnShowHumanPanel.Invoke(true,false,false);
             }
+            // else{
+            //     OnShowHumanPanel.Invoke(true,false,false);
+            // }
         }
         money -= amount;
         //Update Ui
         myInfor.SetPlayerCash(money);
+
+        if(playerType == PlayerType.HUMAN && GameManager.instance.GetCurrentPlayer == this)
+        {
+            bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0;
+            bool canRollDice = GameManager.instance.RolledADouble && ReadMoney>=0;
+            //show UI
+            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn);
+        }
     }
 
     //--------------------------JAIL-------------------------------------
@@ -174,7 +193,6 @@ public class Player_Mono
     }
 
     //-----------------------SREET REPAIR-----------------------------------
-
     public int[] CountHousesAndHotels()
     {
         int houses = 0; //GOES TO INDEX 0
@@ -196,7 +214,7 @@ public class Player_Mono
         return allBuildings;
     }
     //---------------------------HANDLE INSUFFICIENT FUND---------------------------
-    void HandleInsufficientFunds(int amountToPay)
+    public void HandleInsufficientFunds(int amountToPay)
     {
         int housesToSell = 0; // AVAILABLE HOUSE TO SELL
         int allHouses = 0;
@@ -270,10 +288,10 @@ public class Player_Mono
         GameManager.instance.RemovePlayer(this);
     }
 
-    public void RemoveProperty(MonopolyNode node)
+/*    public void RemoveProperty(MonopolyNode node)
     {
         myMonopolyNodes.Remove(node);
-    }
+    }*/
     //---------------------------UNMORTGAGE PROPERTY ---------------------------
     void UnMortgageProperties()
     {
@@ -293,7 +311,6 @@ public class Player_Mono
         }
     }
     //---------------------------CHECK IF PLAYER HAS A PROPERTY SET---------------------------
-    //---------------------------BUILD HOUSE ENVENLY ON NODE SETS---------------------------
     void CheckIfPlayerHasASet()
     {
         //call it only once per set
@@ -302,7 +319,7 @@ public class Player_Mono
         foreach (var node in myMonopolyNodes)
         {
             var (list, allsame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(node);
-            if(!allsame)
+            if (!allsame)
             {
                 continue;
             }
@@ -323,20 +340,20 @@ public class Player_Mono
             }
         }
     }
-    //---------------------------TRADING SYSTEM---------------------------
+    //---------------------------BUILD HOUSE ENVENLY ON NODE SETS---------------------------
     internal void BuildHouseOrHotelEvenly(List<MonopolyNode> nodesToBuildOn)
     {
         int minHouse = int.MaxValue;
         int maxHouse = int.MinValue;
         //get min and max number of  houses currently on the property
-        foreach(var node in nodesToBuildOn)
+        foreach (var node in nodesToBuildOn)
         {
             int numOfHouse = node.NumberOfHouses;
-            if(numOfHouse < minHouse)
+            if (numOfHouse < minHouse)
             {
                 minHouse = numOfHouse;
             }
-            if(numOfHouse > maxHouse && numOfHouse < 5)
+            if (numOfHouse > maxHouse && numOfHouse < 5)
             {
                 maxHouse = numOfHouse;
             }
@@ -345,7 +362,7 @@ public class Player_Mono
         //buy houses on the properties for max allowed on the property
         foreach (var node in nodesToBuildOn)
         {
-            if(node.NumberOfHouses == minHouse && node.NumberOfHouses <5 && CanAffordHouse(node.houseCost))
+            if (node.NumberOfHouses == minHouse && node.NumberOfHouses < 5 && CanAffordHouse(node.houseCost))
             {
                 node.BuildHouseOrHotel();
                 PayMoney(node.houseCost);
@@ -354,25 +371,30 @@ public class Player_Mono
             }
         }
     }
-
     internal void SellHouseEvenly(List<MonopolyNode> nodesToSellFrom)
     {
         int minHouse = int.MaxValue;
-        foreach(var node in nodesToSellFrom)
+        bool houseSold = false;
+        foreach (var node in nodesToSellFrom)
         {
             minHouse = Mathf.Min(minHouse, node.NumberOfHouses);
         }
-        for(int i = nodesToSellFrom.Count-1;i>=0 ; i--)
+        for (int i = nodesToSellFrom.Count - 1; i >= 0; i--)
         {
-            if(nodesToSellFrom[i].NumberOfHouses > minHouse)
+            if (nodesToSellFrom[i].NumberOfHouses > minHouse)
             {
                 CollectMoney(nodesToSellFrom[i].SellHouseOrHotel());
+                houseSold = true;
                 break;
             }
         }
+        if (!houseSold)
+        {
+            CollectMoney(nodesToSellFrom[nodesToSellFrom.Count - 1].SellHouseOrHotel());
+        }
     }
-    //---------------------------FIND MISSING PROPOERTY IN SET---------------------------
-    //---------------------------HOUSE AND HOTLE - CAN AFFORT AND COUNT---------------------------
+
+    //---------------------------- Can Affort----------------------------------------
     public bool CanAffordHouse(int price)
     {
         if (playerType == PlayerType.AI)//AI Only
@@ -382,9 +404,28 @@ public class Player_Mono
         //Human Only
         return money >= price;
     }
-
+    //----------------------------- Selector ----------------------------------------
     public void ActivateSelector(bool active)
     {
         myInfor.ActivateArrow(active);
     }
+    //----------------------------- TRADING SYSTEM ------------------------------------------
+
+    //---------------------------- Remove and Add node ----------------------------------
+     public void AddProperty(MonopolyNode node)
+    {
+        myMonopolyNodes.Add(node);
+        //sort property by price
+        SortPropertyByPrice();
+    }
+    public void RemoveProperty(MonopolyNode node)
+    {
+        myMonopolyNodes.Remove(node);
+        //sort property by price
+        SortPropertyByPrice();
+    }
+    //--------------------------- HOUSE AND HOTLE - CAN AFFORT AND COUNT ------------------
+
+
+
 }
