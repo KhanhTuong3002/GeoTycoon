@@ -240,7 +240,9 @@ public class MonopolyNode : MonoBehaviour
                         //pay the rent to the owner
                         currentPlayer.PayRent(renToPay, owner);
 
-                        //show a message about what happend 
+                        //show a message about what happend
+                        OnUpdateMessage.Invoke(currentPlayer.name + " pay rent of: " + renToPay + " to " + owner.name);
+                        Debug.Log(currentPlayer.name + "pay rent of: " + renToPay + " to " + owner.name);
                     }
                     else if (owner.name == "")
                     {

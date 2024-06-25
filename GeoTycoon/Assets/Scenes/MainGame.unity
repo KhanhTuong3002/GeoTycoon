@@ -36432,6 +36432,10 @@ MonoBehaviour:
     name: AI_Bob
     myTonken: {fileID: 0}
     myMonopolyNodes: []
+  - playerType: 0
+    name: Tuong
+    myTonken: {fileID: 0}
+    myMonopolyNodes: []
   currentPlayer: 0
   maxTurnsInJail: 3
   startMoney: 2000
