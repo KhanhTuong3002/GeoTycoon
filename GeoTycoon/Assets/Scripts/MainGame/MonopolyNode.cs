@@ -335,8 +335,8 @@ public class MonopolyNode : MonoBehaviour
 
 
                         //show a message about what happend
-                        OnUpdateMessage.Invoke(currentPlayer.name + "pay Railroad rent of: " + renToPay + " to " + owner.name);
-                        Debug.Log(currentPlayer.name + "pay rent of: " + renToPay + " to " + owner.name);
+                        OnUpdateMessage.Invoke(currentPlayer.name + " pay Railroad rent of: " + renToPay + " to " + owner.name);
+                        Debug.Log(currentPlayer.name + " pay rent of: " + renToPay + " to " + owner.name);
                     }
                     else if (owner.name == "" && currentPlayer.CanAfford(price))
                     {
@@ -366,7 +366,9 @@ public class MonopolyNode : MonoBehaviour
                         //pay the rent to the owner
                         currentPlayer.PayRent(renToPay, owner);
 
-                        //show a message about what happend 
+                        //show a message about what happend
+                        OnUpdateMessage.Invoke(currentPlayer.name + " pay Railroad rent of: " + renToPay + " to " + owner.name);
+                        Debug.Log(currentPlayer.name + " pay rent of: " + renToPay + " to " + owner.name);
                     }
                     else if (owner.name == "")
                     {
