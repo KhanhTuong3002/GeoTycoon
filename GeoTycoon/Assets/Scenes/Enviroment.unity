@@ -6986,6 +6986,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Merchant
       objectReference: {fileID: 0}
+    - target: {fileID: 1982961777289929827, guid: def494cd8fa8fd94c8d44826f555ea9d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4158243083723213453, guid: def494cd8fa8fd94c8d44826f555ea9d, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.04
@@ -9217,7 +9221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1982961777289929827, guid: def494cd8fa8fd94c8d44826f555ea9d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4158243083723213453, guid: def494cd8fa8fd94c8d44826f555ea9d, type: 3}
       propertyPath: m_LocalPosition.y
