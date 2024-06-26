@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9087776879161562452}
   - component: {fileID: 7807616461332471176}
   - component: {fileID: 1478239811513442551}
+  - component: {fileID: 5956120513100205827}
   m_Layer: 5
   m_Name: TradeCardPrefab
   m_TagString: Untagged
@@ -76,6 +77,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5956120513100205827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232191631385760060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1886ef9b616d94a805ba38d6fa9c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorField: {fileID: 1116723157780236156}
+  propertyNameText: {fileID: 6114099908468269152}
+  typeImage: {fileID: 185947247184058816}
+  houseSprite: {fileID: 1659885459, guid: ab531a17b36944141aab2df57bff8924, type: 3}
+  railRoadSprite: {fileID: 162766936, guid: ab531a17b36944141aab2df57bff8924, type: 3}
+  utilitySprite: {fileID: -1924863875, guid: ab531a17b36944141aab2df57bff8924, type: 3}
+  mortgageImage: {fileID: 6063623747682174580}
+  propertyPriceText: {fileID: 6605641247398057124}
+  toggleButton: {fileID: 8528296361469309238}
 --- !u!1 &3702303975376784638
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +110,7 @@ GameObject:
   - component: {fileID: 402440320579605350}
   - component: {fileID: 6605641247398057124}
   m_Layer: 5
-  m_Name: PropertyNameText (1)
+  m_Name: PropertyPriceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: $200
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -763,8 +785,8 @@ RectTransform:
   - {fileID: 7143625628776395169}
   - {fileID: 2244937061687242914}
   - {fileID: 7942864560652040315}
-  - {fileID: 2683613014058264855}
   - {fileID: 1725570912587126926}
+  - {fileID: 2683613014058264855}
   m_Father: {fileID: 9087776879161562452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
