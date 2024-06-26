@@ -410,8 +410,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: b279024cc57d2214d806f57598ffc7ed, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 13325017644145143}
   - component: {fileID: 8354522316124220129}
   - component: {fileID: 3658580873673692645}
+  - component: {fileID: 727139854283417682}
   m_Layer: 5
   m_Name: House
   m_TagString: Untagged
@@ -534,14 +535,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.93349636, g: 1, b: 0.27058828, a: 1}
+  m_Color: {r: 0.96784407, g: 0.9716981, b: 0.9295301, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1659885459, guid: ab531a17b36944141aab2df57bff8924, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cccef8694b10f944922a2ec69e2c4c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -551,6 +552,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &727139854283417682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644181482867621736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: 1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &3603902060024993137
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,7 +634,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Mortgage Value:
 
-    $500'
+    $ 500'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -778,6 +794,7 @@ GameObject:
   - component: {fileID: 2028618303653771519}
   - component: {fileID: 6074789730564399008}
   - component: {fileID: 2536763574724138270}
+  - component: {fileID: 5620364293733507885}
   m_Layer: 5
   m_Name: House (3)
   m_TagString: Untagged
@@ -825,14 +842,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.93349636, g: 1, b: 0.27058828, a: 1}
+  m_Color: {r: 0.96784407, g: 0.9716981, b: 0.9295301, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1659885459, guid: ab531a17b36944141aab2df57bff8924, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cccef8694b10f944922a2ec69e2c4c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -842,6 +859,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5620364293733507885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122616935488578919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: 1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &4538450279621815708
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,6 +885,7 @@ GameObject:
   - component: {fileID: 4128968092268017787}
   - component: {fileID: 7824680654504428570}
   - component: {fileID: 9030635108946112632}
+  - component: {fileID: 6622358884742191317}
   m_Layer: 5
   m_Name: ICON
   m_TagString: Untagged
@@ -907,7 +940,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 162766936, guid: ab531a17b36944141aab2df57bff8924, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cccef8694b10f944922a2ec69e2c4c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -917,6 +950,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6622358884742191317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538450279621815708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &4820611846636789684
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,6 +976,7 @@ GameObject:
   - component: {fileID: 408907327582196}
   - component: {fileID: 6381727269570390394}
   - component: {fileID: 5169971134365697110}
+  - component: {fileID: 3351226314666613289}
   m_Layer: 5
   m_Name: House (2)
   m_TagString: Untagged
@@ -975,14 +1024,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.93349636, g: 1, b: 0.27058828, a: 1}
+  m_Color: {r: 0.96784407, g: 0.9716981, b: 0.9295301, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1659885459, guid: ab531a17b36944141aab2df57bff8924, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cccef8694b10f944922a2ec69e2c4c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -992,6 +1041,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3351226314666613289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4820611846636789684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: 1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &5261032522711047928
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,8 +1257,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: e67c00adc87143d4ba80d061602c4808, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1270,6 +1334,7 @@ GameObject:
   - component: {fileID: 4696545581532342895}
   - component: {fileID: 1270203915057112681}
   - component: {fileID: 3969704789848081638}
+  - component: {fileID: 6059833074272237855}
   m_Layer: 5
   m_Name: House (1)
   m_TagString: Untagged
@@ -1317,14 +1382,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.93349636, g: 1, b: 0.27058828, a: 1}
+  m_Color: {r: 0.96784407, g: 0.9716981, b: 0.9295301, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1659885459, guid: ab531a17b36944141aab2df57bff8924, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cccef8694b10f944922a2ec69e2c4c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1334,6 +1399,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6059833074272237855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6313632158945251727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: 1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &6740703070152301556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,15 +1441,15 @@ RectTransform:
   m_GameObject: {fileID: 6740703070152301556}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 365252605717757380}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 35, y: 35}
+  m_AnchoredPosition: {x: 0.0012, y: 0.3508}
+  m_SizeDelta: {x: 32.4334, y: 26.0725}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5582849604345784770
 CanvasRenderer:
@@ -1392,14 +1472,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.48474708, g: 0.3066038, b: 1, a: 1}
+  m_Color: {r: 0.9633209, g: 0.9570666, b: 0.9811321, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1613633992, guid: ab531a17b36944141aab2df57bff8924, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 265aa9065f9d8c8419ec7c01ce054aaa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1593,6 +1673,6 @@ MonoBehaviour:
   mortgageButton: {fileID: 1693175076077447784}
   unMortgageButton: {fileID: 9022744896853258873}
   iconImage: {fileID: 9030635108946112632}
-  houseSprite: {fileID: 1659885459, guid: ab531a17b36944141aab2df57bff8924, type: 3}
-  railroadSprite: {fileID: 162766936, guid: ab531a17b36944141aab2df57bff8924, type: 3}
+  houseSprite: {fileID: 21300000, guid: 6cccef8694b10f944922a2ec69e2c4c3, type: 3}
+  railroadSprite: {fileID: 21300000, guid: 7c0a431ea8375dc41bbbc388d23553ff, type: 3}
   utilitySprite: {fileID: -1924863875, guid: ab531a17b36944141aab2df57bff8924, type: 3}
