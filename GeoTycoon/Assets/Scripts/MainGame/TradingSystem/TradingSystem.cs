@@ -2,12 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 using UnityEngine.Rendering;
 using JetBrains.Annotations;
+using UnityEngine.UI;
 
 public class TradingSystem : MonoBehaviour
 {
     public static TradingSystem instance;
+
+    [SerializeField] GameObject cardPrefab;
+    [SerializeField] GameObject tradePanel;
+    [Header("LEFT SIDE")]
+    [SerializeField] TMP_Text leftOffererNameText;
+    [SerializeField] Transform leftCardGrid;
+    [SerializeField] ToggleGroup leftToggleGroup;//TO TOGGLE THE CARD SELECTION
+    [SerializeField] TMP_Text leftYourMoneyText;
+    [SerializeField] TMP_Text leftOfferMoney;
+    [SerializeField] Slider leftMoneySlider;
+    List<GameObject> leftCardPrefabList = new List<GameObject>();
+    int leftChoosenMoneyAmount;
+    MonopolyNode leftSelectedNode;
+    Player_Mono leftPlayerReference;
+    [Header("MIDDLE")]
+    [SerializeField] Transform buttonGrid;
+    [SerializeField] GameObject playerButtonPrefab;
+    List<GameObject> playerButtonList = new List<GameObject>();
+    [Header("RIGHT SIDE")]
+    [SerializeField] TMP_Text rightOffererNameText;
+    [SerializeField] Transform rightCardGrid;
+    [SerializeField] ToggleGroup rightToggleGroup;//TO TOGGLE THE CARD SELECTION
+    [SerializeField] TMP_Text rightYourMoneyText;
+    [SerializeField] TMP_Text rightOfferMoney;
+    [SerializeField] Slider rightMoneySlider;
+    List<GameObject> rightCardPrefabList = new List<GameObject>();
+    int rightChoosenMoneyAmount;
+    MonopolyNode rightSelectedNode;
+    Player_Mono rightPlayerReference;
 
     //Message System
     public delegate void UpdateMessage(string message);
@@ -16,6 +47,11 @@ public class TradingSystem : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        tradePanel.SetActive(false);
     }
     //--------------------------- FIND MISSING PROPOERTY IN SET ---------------------------AI
     public void findMissingProperty(Player_Mono currentPlayer)
@@ -199,5 +235,183 @@ public class TradingSystem : MonoBehaviour
            // show the message for the ui
             OnUpdateMessage.Invoke(currentPlayer.name + " sold " + offeredNode.name + " To " + nodeOwner.name + " for " +requestedMoney);
         }        
+    }
+
+    //---------------------------- USER INTERFACE CONTENT ---------------------------- HUMAN
+    //---------------------------- CURRENT PLAYER ------------------------------------ HUMAN
+    void CreateLeftPanel()
+    {
+        leftOffererNameText.text = leftPlayerReference.name;
+
+        List<MonopolyNode> referenceNodes = leftPlayerReference.GetMonopolyNodes;
+        for (int i = 0; i < referenceNodes.Count; i++)
+        {
+            GameObject tradeCard = Instantiate(cardPrefab, leftCardGrid,false);
+            //SET UP THE ACTUAL CARD CONTENT
+            tradeCard.GetComponent<TradePropertyCard>().SetTradeCard(referenceNodes[i],leftToggleGroup);
+
+            leftCardPrefabList.Add(tradeCard);
+        }
+        leftYourMoneyText.text = "Your money: " + leftPlayerReference.ReadMoney;
+        //SET UP THE MONEY SLIDER AND TEXT
+        leftMoneySlider.maxValue = leftPlayerReference.ReadMoney;
+        leftMoneySlider.value = 0;
+        UpdateLeftSlider(leftMoneySlider.value);
+        //leftMoneySlider.onValueChanged.AddListener(UpdateLeftSlider);
+        //RESET OLD CONTENT
+
+        tradePanel.SetActive(true);
+    }
+
+    public void UpdateLeftSlider(float value)
+    {
+        leftOfferMoney.text = "Offer Money: $ " + leftMoneySlider.value;
+    }
+
+    public void CloseTradePanel()
+    {
+        tradePanel.SetActive(false);
+        ClearAll();
+    }
+
+    public void OpenTradePanel()
+    {
+        leftPlayerReference = GameManager.instance.GetCurrentPlayer;
+        rightOffererNameText.text = "Select a Player";
+
+        CreateLeftPanel();
+
+        CreateMiddleButton();
+    }
+    //---------------------------- SELECTED PLAYER ----------------------------------- HUMAN
+    public void ShowRightPlayer(Player_Mono player)
+    {
+        rightPlayerReference = player;
+        //RESET THE CURRENT CONTENT
+        ClearRightPanel();
+
+        //SHOW RIGHT PLAYER OR ABOVE PLAYER
+        rightOffererNameText.text = rightPlayerReference.name;
+        List<MonopolyNode> referenceNodes = rightPlayerReference.GetMonopolyNodes;
+
+        for (int i = 0; i < referenceNodes.Count; i++)
+        {
+            GameObject tradeCard = Instantiate(cardPrefab, rightCardGrid, false);
+            //SET UP THE ACTUAL CARD CONTENT
+            tradeCard.GetComponent<TradePropertyCard>().SetTradeCard(referenceNodes[i], rightToggleGroup);
+
+            rightCardPrefabList.Add(tradeCard);
+        }
+        rightYourMoneyText.text = "Your money: " + rightPlayerReference.ReadMoney;
+        //SET UP THE MONEY SLIDER AND TEXT
+        rightMoneySlider.maxValue = rightPlayerReference.ReadMoney;
+        rightMoneySlider.value = 0;
+        UpdateRightSlider(rightMoneySlider.value);
+
+        //UPDATE THE MOBNEY AND THE SLIDER
+    }
+
+    //SET UP MIDDLE
+    void CreateMiddleButton()
+    {
+        //CLEAR CONTENT
+        for (int i = playerButtonList.Count - 1; i >= 0; i--)
+        {
+            Destroy(playerButtonList[i]);
+        }
+        playerButtonList.Clear();
+
+        //LOOP THROUGHT ALL PLAYER 
+        List<Player_Mono> allPlayers = new List<Player_Mono>();
+        allPlayers.AddRange(GameManager.instance.GetPlayers);
+        allPlayers.Remove(leftPlayerReference);
+
+        //AND THE BUTTONS FOR THEM
+        foreach (var player in allPlayers)
+        {
+            GameObject newPlayerButton = Instantiate(playerButtonPrefab,buttonGrid,false);
+            newPlayerButton.GetComponent<TradePlayerButton>().SetPlayer(player);
+
+            playerButtonList.Add(newPlayerButton);
+        }
+    }
+
+    void ClearAll()//IF WE OPEN OR CLOSE TRADE SYSTEM
+    {
+        rightOffererNameText.text = "Select a Player";
+        rightYourMoneyText.text = "Your Money: $ 0";
+        rightMoneySlider.maxValue = 0;
+        rightMoneySlider.value = 0;
+        UpdateRightSlider(rightMoneySlider.value);
+
+        //CLEAR MIDDLE BUTTONS
+        for (int i = playerButtonList.Count - 1; i >= 0; i--)
+        {
+            Destroy(playerButtonList[i]);
+        }
+        playerButtonList.Clear();
+
+        //CLEAR LEFT CARD CONTENT
+        for (int i = leftCardPrefabList.Count - 1; i >= 0; i--)
+        {
+            Destroy(leftCardPrefabList[i]);
+        }
+        leftCardPrefabList.Clear();
+
+        //CLEAR RIGHT CARD CONTENT
+        for (int i = rightCardPrefabList.Count - 1; i >= 0; i--)
+        {
+            Destroy(rightCardPrefabList[i]);
+        }
+        rightCardPrefabList.Clear();
+    }
+
+    void ClearRightPanel()
+    {
+        //CLEAR RIGHT CARD CONTENT
+        for (int i = rightCardPrefabList.Count - 1; i >= 0; i--)
+        {
+            Destroy(rightCardPrefabList[i]);
+        }
+        rightCardPrefabList.Clear();
+        //RESET THE SLIDER
+        //SET UP THE MONEY SLIDER AND TEXT
+        rightMoneySlider.maxValue = 0;
+        rightMoneySlider.value = 0;
+        UpdateRightSlider(rightMoneySlider.value);
+    }
+
+    public void UpdateRightSlider(float value)
+    {
+        rightOfferMoney.text = "Requested Money: $ " + rightMoneySlider.value;
+    }
+
+    //-----------------------------MAKE OFFER--------------------------HUMAN
+    public void MakeOfferButton()//HUMAN INPUT BUTTON
+    {
+        MonopolyNode requestedNode = null;
+        MonopolyNode offeredNode = null;
+        if (rightPlayerReference == null)
+        {
+            //ERROR MESSAGE HERE? - NO PLAYER TO TRADE WITH
+
+            return;
+        }
+
+        //LEFT SELECTED NODE
+        Toggle offeredToggle = leftToggleGroup.ActiveToggles().FirstOrDefault();
+        if (offeredToggle != null)
+        {
+            offeredNode = offeredToggle.GetComponentInParent<TradePropertyCard>().Node();
+        }
+
+        //RIGHT SELECTED NODE
+        Toggle requestedToggle = rightToggleGroup.ActiveToggles().FirstOrDefault();
+        if (requestedToggle != null)
+        {
+            requestedNode = requestedToggle.GetComponentInParent<TradePropertyCard>().Node();
+        }
+
+        MakeTradeOffer(leftPlayerReference,rightPlayerReference,requestedNode, offeredNode,(int)leftMoneySlider.value,(int)rightMoneySlider.value);
     }
 }
