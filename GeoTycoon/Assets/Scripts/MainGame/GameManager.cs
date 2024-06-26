@@ -139,8 +139,8 @@ public class GameManager : MonoBehaviour
         //Debug
         if (AllwaysDoubleRoll)
         {
-            rolledDice[0] = 4;
-            rolledDice[1] = 4;
+            rolledDice[0] = 2;
+            rolledDice[1] = 2;
         }
         //check for double
         rolledADouble = rolledDice[0] == rolledDice[1];
