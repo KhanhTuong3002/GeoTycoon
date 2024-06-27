@@ -19,13 +19,13 @@ public class TradePropertyCard : MonoBehaviour
     public void SetTradeCard(MonopolyNode node, ToggleGroup toggleGroup)
     {
         nodeReference = node;
-        colorField.color = (node.propertyColorField != null) ? node.propertyColorField.color : Color.black;
+        colorField.color = (node.propertyColorField != null) ? node.propertyColorField.color : Color.white;
         propertyNameText.text = node.name;
         switch (node.monopolyNodeType)
         {
             case MonopolyNodeType.Property:
                 typeImage.sprite = houseSprite;
-                typeImage.color = Color.blue;
+                typeImage.color = Color.white;
             break;
             case MonopolyNodeType.Railroad:
                 typeImage.sprite = railRoadSprite;
