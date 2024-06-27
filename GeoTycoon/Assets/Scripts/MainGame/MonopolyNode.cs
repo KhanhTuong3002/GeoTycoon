@@ -404,6 +404,12 @@ public class MonopolyNode : MonoBehaviour
                 OnUpdateMessage.Invoke(currentPlayer.name + " <color=red>has to go to the jail!</color>");
                 continueTurn = false;
                 break;
+            case MonopolyNodeType.Jail:
+                currentPlayer.RollToJail();
+                OnUpdateMessage.Invoke(currentPlayer.name + " <color=red>has to go to the jail!</color>");                
+                continueTurn = false;               
+                break;
+
             case MonopolyNodeType.Chance:
                 OnDrawChanceCard.Invoke(currentPlayer);
                 continueTurn = false;

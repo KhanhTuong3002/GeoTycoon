@@ -162,6 +162,13 @@ public class Player_Mono
         GameManager.instance.ResetRolledADouble();
     }
 
+    public void RollToJail()
+    {
+        isInjail = true;
+        GameManager.instance.SwitchPlayer();
+
+    }
+
     public void setOutOfJail()
     {
         isInjail = false;
