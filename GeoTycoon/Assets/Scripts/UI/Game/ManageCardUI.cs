@@ -33,7 +33,7 @@ public class ManageCardUI : MonoBehaviour
         }
         else
         {
-            colorField.color = Color.black;
+            colorField.color = Color.white;
         }
         //SHOW HOUSES
         ShowBuildings();
@@ -46,7 +46,7 @@ public class ManageCardUI : MonoBehaviour
         {
             case MonopolyNodeType.Property:
             iconImage.sprite = houseSprite;
-            iconImage.color = Color.blue;
+            iconImage.color = Color.white;
             break;
             case MonopolyNodeType.Railroad:
             iconImage.sprite = railroadSprite;
