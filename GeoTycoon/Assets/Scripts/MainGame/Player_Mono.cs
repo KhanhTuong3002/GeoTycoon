@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using TMPro;
+using System.Linq.Expressions;
 
 [System.Serializable]
 public class Player_Mono
@@ -29,6 +30,15 @@ public class Player_Mono
 
     //AI
     int aiMoneySavity = 200;
+
+    //AI STATES
+    public enum AiStates
+    {
+        IDLE,
+        TRADING
+    }
+
+    public AiStates aiState;
 
 
     //RETURN SOME INFORS
@@ -68,7 +78,7 @@ public class Player_Mono
             UnMortgageProperties();
 
             //Check if he could trde for missing properties
-            TradingSystem.instance.findMissingProperty(this);
+            //TradingSystem.instance.findMissingProperty(this);
         }
     }
 
@@ -78,8 +88,8 @@ public class Player_Mono
         myInfor.SetPlayerCash(money);
         if(playerType == PlayerType.HUMAN && GameManager.instance.GetCurrentPlayer == this)
         {
-            bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0;
-            bool canRollDice = GameManager.instance.RolledADouble && ReadMoney>=0;
+            bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0 && GameManager.instance.HasRolledDice;
+            bool canRollDice = (GameManager.instance.RolledADouble && ReadMoney >= 0) || (!GameManager.instance.HasRolledDice && ReadMoney >= 0);
             //show UI
             OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn);
         }
@@ -143,8 +153,8 @@ public class Player_Mono
 
         if(playerType == PlayerType.HUMAN && GameManager.instance.GetCurrentPlayer == this)
         {
-            bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0;
-            bool canRollDice = GameManager.instance.RolledADouble && ReadMoney>=0;
+            bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0 && GameManager.instance.HasRolledDice;
+            bool canRollDice = (GameManager.instance.RolledADouble && ReadMoney>=0) || (!GameManager.instance.HasRolledDice && ReadMoney >= 0);
             //show UI
             OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn);
         }
@@ -431,6 +441,49 @@ public class Player_Mono
         //sort property by price
         SortPropertyByPrice();
     }
+
+    //----------------------------- STATE MACHINE ------------------------------------------
+    public void ChangeState(AiStates state)
+    {
+        if(playerType == PlayerType.HUMAN)
+        {
+            return;
+        }
+        aiState = state;
+        switch (aiState)
+        {
+            case AiStates.IDLE:
+                {
+                    //CONTINUE THE GAME
+                    ContinueGame();
+                }
+                break;
+            case AiStates.TRADING:
+                {
+                    //HOLD THE GAME UNTIL CONTINUED
+                    TradingSystem.instance.findMissingProperty(this);
+                }
+                break;
+        }
+    }
+
+    void ContinueGame()
+    {
+        //if the last roll was a double
+        if (GameManager.instance.RolledADouble)
+        {
+            //roll again
+            GameManager.instance.RollDice();
+        }
+        else
+        {
+
+            //not a double
+            //switch player
+            GameManager.instance.SwitchPlayer();
+        }
+    }
+
     //--------------------------- HOUSE AND HOTLE - CAN AFFORT AND COUNT ------------------
 
 
