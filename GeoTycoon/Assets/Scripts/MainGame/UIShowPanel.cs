@@ -9,6 +9,8 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField] GameObject humanPanel;
     [SerializeField] Button rollDiceButton;
     [SerializeField] Button endTurnButton;
+    [SerializeField] Button JailFreeCard1;
+    [SerializeField] Button JailFreecard2;
 
     void OnEnable()
     {
@@ -28,10 +30,12 @@ public class NewBehaviourScript : MonoBehaviour
         Player_Mono.OnShowHumanPanel -= ShowPanel;
     }
 
-    void ShowPanel(bool showPanel, bool enableRollDice, bool enableEndTurn)
+    void ShowPanel(bool showPanel, bool enableRollDice, bool enableEndTurn, bool hasChanceJailCard, bool hasCommunityJailCard)
     {
         humanPanel.SetActive(showPanel);
         rollDiceButton.interactable = enableRollDice;
         endTurnButton.interactable = enableEndTurn;
+        JailFreeCard1.interactable = hasChanceJailCard;
+        JailFreecard2.interactable = hasCommunityJailCard;
     }
 }

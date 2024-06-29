@@ -70,6 +70,8 @@ public class MonopolyBoard : MonoBehaviour
 
     IEnumerator MovePlayerInSteps(int steps, Player_Mono player)
     {
+        //Just wait a second
+        yield return new WaitForSeconds(0.5f);
         int stepsLeft = steps;
         GameObject tonkenTomove = player.MyTonken;
         int indexOnBoard = route.IndexOf(player.MyMonopolyNode);

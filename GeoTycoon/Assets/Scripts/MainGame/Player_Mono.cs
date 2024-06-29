@@ -24,6 +24,9 @@ public class Player_Mono
     [SerializeField] List<MonopolyNode> myMonopolyNodes = new List<MonopolyNode>();
     public List<MonopolyNode> GetMonopolyNodes => myMonopolyNodes;
 
+    bool hasChanceJailFreeCard, hasCommunityJailFreeCard ;
+    public bool HasChanceJailFreeCard => hasChanceJailFreeCard;
+    public bool HasCommunityJailFreeCard => hasCommunityJailFreeCard;
     //PLAYERINFOR
     Player_MonoInfor myInfor;
 
@@ -51,7 +54,7 @@ public class Player_Mono
     public delegate void UpdateMessage(string message);
     public static UpdateMessage OnUpdateMessage;
 
-    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn);
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn, bool hasChanceJailCard, bool hasCommunityJailCard);
     public static ShowHumanPanel OnShowHumanPanel;
 
     public void Inititialize(MonopolyNode startNode, int startMoney, Player_MonoInfor info, GameObject token)
@@ -91,7 +94,7 @@ public class Player_Mono
             bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0 && GameManager.instance.HasRolledDice;
             bool canRollDice = (GameManager.instance.RolledADouble && ReadMoney >= 0) || (!GameManager.instance.HasRolledDice && ReadMoney >= 0);
             //show UI
-            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn);
+            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,hasChanceJailFreeCard,hasCommunityJailFreeCard);
         }
     }
     internal bool CanAfford (int price)
@@ -125,7 +128,7 @@ public class Player_Mono
           if  (playerType == PlayerType.AI){
             HandleInsufficientFunds(rentAmount);
             }else{
-                OnShowHumanPanel.Invoke(true,false,false);
+                OnShowHumanPanel.Invoke(true,false,false,hasChanceJailFreeCard,hasCommunityJailFreeCard);
             }
         }
         money -= rentAmount;
@@ -156,7 +159,7 @@ public class Player_Mono
             bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0 && GameManager.instance.HasRolledDice;
             bool canRollDice = (GameManager.instance.RolledADouble && ReadMoney>=0) || (!GameManager.instance.HasRolledDice && ReadMoney >= 0);
             //show UI
-            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn);
+            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,hasChanceJailFreeCard,hasCommunityJailFreeCard);
         }
     }
 
@@ -286,11 +289,15 @@ public class Player_Mono
                 }
             }
         }
-        // WE GO BANKRUPT IF WE REACH THIS POINT
-        Bankrupt();
+        if(playerType == PlayerType.AI )
+        {
+             // WE GO BANKRUPT IF WE REACH THIS POINT
+            Bankrupt();
+        }
+       
     }
     //---------------------------BANKRUPT GAME OVER ---------------------------
-    void Bankrupt()
+    internal void Bankrupt()
     {
         //TAKE OUT THE PLAYER OF THE GAME
 
@@ -300,6 +307,15 @@ public class Player_Mono
         for (int i = myMonopolyNodes.Count - 1; i >= 0; i--)
         {
             myMonopolyNodes[i].resetNode();
+        }
+
+        if (hasChanceJailFreeCard)
+        {
+            ChanceField.instance.AddBackJailFreeCard();
+        }
+        if (hasCommunityJailFreeCard)
+        {
+            CommunityChest.instance.AddBackJailFreeCard();
         }
         // REMOVE THE PLAYER
         GameManager.instance.RemovePlayer(this);
@@ -455,7 +471,8 @@ public class Player_Mono
             case AiStates.IDLE:
                 {
                     //CONTINUE THE GAME
-                    ContinueGame();
+                    GameManager.instance.Continue();
+                    
                 }
                 break;
             case AiStates.TRADING:
@@ -467,21 +484,37 @@ public class Player_Mono
         }
     }
 
-    void ContinueGame()
-    {
-        //if the last roll was a double
-        if (GameManager.instance.RolledADouble)
-        {
-            //roll again
-            GameManager.instance.RollDice();
-        }
-        else
-        {
+    //--------------------------- JAIL FREE CARD ------------------------------------------
 
-            //not a double
-            //switch player
-            GameManager.instance.SwitchPlayer();
+    public void AddChanceJailFreeCard()
+    {
+        hasChanceJailFreeCard = true;
+    }
+    public void AddCommunityJailFreeCard()
+    {   
+        hasCommunityJailFreeCard = true;
+    }
+    public void UseCommunityJailFreeCard() //JAIL2
+    {
+        if (!IsInjail)
+        {
+            return;
         }
+        hasCommunityJailFreeCard = false;
+        setOutOfJail();
+        CommunityChest.instance.AddBackJailFreeCard();
+        OnUpdateMessage.Invoke(name+ " <color:Green>used the jail free card!</color>");
+    }
+    public void UseChanceJailFreeCard() //JAIL1
+    {
+        if (!IsInjail)
+        {
+            return;
+        }
+        hasChanceJailFreeCard = false;
+        setOutOfJail();
+        ChanceField.instance.AddBackJailFreeCard();
+        OnUpdateMessage.Invoke(name+ " <color:Green>used the jail free card!</color>");
     }
 
     //--------------------------- HOUSE AND HOTLE - CAN AFFORT AND COUNT ------------------

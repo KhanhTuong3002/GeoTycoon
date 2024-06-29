@@ -76,7 +76,7 @@ public class TradingSystem : MonoBehaviour
                 var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(node);
                 List<MonopolyNode> nodeSet = new List<MonopolyNode>();
                 nodeSet.AddRange(list);
-            //check ìf all habe been purchased
+            //check ï¿½f all habe been purchased
             bool notAllPurchased = list.Any(n => n.Owner == null);
             //AI owns This full set Already;
             if(allSame || processedSet == list || notAllPurchased)
@@ -127,6 +127,8 @@ public class TradingSystem : MonoBehaviour
             MakeTradeOffer(currntPlayer, nodeOwner, requestedNode,null,CaulateValueOfNode(requestedNode),0);
             return;
         }
+
+        bool foundDecision = false;
         //find all incomplete set and exclude the set with the request node
         foreach(var node in currntPlayer.GetMonopolyNodes)
         {
@@ -154,6 +156,7 @@ public class TradingSystem : MonoBehaviour
                     }
                   
                     //make a trade offer
+                    foundDecision = true;
                     break;
                 }
             }
@@ -163,7 +166,10 @@ public class TradingSystem : MonoBehaviour
         //Caculate the value of that node and see if wirh enough money it could be affordanable
 
         // if so .. make trade offer
-
+        if (!foundDecision)
+        {
+            currentPlayer.ChangeState(Player_Mono.AiStates.IDLE);
+        }
     }
     //-----------------------------Make a trade offer--------------------------------
     void MakeTradeOffer(Player_Mono currentPlayer,Player_Mono nodeOwner, MonopolyNode requestedNode, MonopolyNode offeredNode, int offeredMoney, int requestedMoney)
@@ -532,7 +538,6 @@ public class TradingSystem : MonoBehaviour
     public void AcceptOffer()
     {
         Trade(currentPlayer, nodeOwner, requestedNode, offeredNode, offeredMoney, requestedMoney);
-        currentPlayer.ChangeState(Player_Mono.AiStates.IDLE);
         ResetOffer();
     }
     public void RejectOffer()

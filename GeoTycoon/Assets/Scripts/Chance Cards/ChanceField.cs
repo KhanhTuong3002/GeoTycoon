@@ -6,7 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ChanceField : MonoBehaviour
-{
+{   
+    public static ChanceField instance;
     [SerializeField] List<SCR_ChanceCard> cards = new List<SCR_ChanceCard> ();
     [SerializeField] TMP_Text cardText;
     [SerializeField] GameObject cardHolderBackground;
@@ -15,12 +16,13 @@ public class ChanceField : MonoBehaviour
 
     List<SCR_ChanceCard> cardPool = new List<SCR_ChanceCard>();
     List<SCR_ChanceCard> usedcardPool = new List<SCR_ChanceCard>();
+    SCR_ChanceCard jailFreeCard;
 
     SCR_ChanceCard pickedCard;
     Player_Mono currentPlayer;
 
     //Human input panel
-    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn);
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn, bool hasChanceJailCard, bool hasCommunityJailCard);
     public static ShowHumanPanel OnShowHumanPanel;
 
     void OnEnable()
@@ -31,7 +33,10 @@ public class ChanceField : MonoBehaviour
     {
         MonopolyNode.OnDrawChanceCard -= DrawCard;
     }
-
+    void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         cardHolderBackground.SetActive(false);
@@ -58,7 +63,17 @@ public class ChanceField : MonoBehaviour
         //DRAW AN ACTUAL CARD
         pickedCard = cardPool[0];
         cardPool.RemoveAt(0);
-        usedcardPool.Add(pickedCard);
+
+        if (pickedCard.jailFreeCard)
+        {
+            jailFreeCard = pickedCard;
+
+        }
+        else
+        {
+            usedcardPool.Add(pickedCard);
+        }
+
         if(cardPool.Count == 0)
         {
             //PUT BACK ALL CARDS
@@ -143,7 +158,7 @@ public class ChanceField : MonoBehaviour
         }
         else if(pickedCard.jailFreeCard) //JAIL FREE CARD
         {
-
+            currentPlayer.AddChanceJailFreeCard();
         }
         else if(pickedCard.moveStepsBackward != 0)
         {
@@ -164,13 +179,9 @@ public class ChanceField : MonoBehaviour
         Debug.Log(isMoving);
         if (currentPlayer.playerType == Player_Mono.PlayerType.AI)
         {
-            if (!isMoving && GameManager.instance.RolledADouble)
+            if (!isMoving)
             {
-                GameManager.instance.RollDice();
-            }
-            else if (!isMoving && !GameManager.instance.RolledADouble)
-            {
-                GameManager.instance.SwitchPlayer();
+                GameManager.instance.Continue();
             }
         }
         else //HUMAN INPUTS
@@ -178,8 +189,16 @@ public class ChanceField : MonoBehaviour
             if (!isMoving)
             {
                 Debug.Log("end");
-                OnShowHumanPanel.Invoke(true, !GameManager.instance.RolledADouble, GameManager.instance.RolledADouble);
+                bool jail1 = currentPlayer.HasChanceJailFreeCard;
+                bool jail2 = currentPlayer.HasCommunityJailFreeCard;
+                OnShowHumanPanel.Invoke(true, !GameManager.instance.RolledADouble, GameManager.instance.RolledADouble,jail1,jail2);
             }           
         }
+    }
+    public void AddBackJailFreeCard()
+    {
+        usedcardPool.Add(jailFreeCard);
+        jailFreeCard = null;
+        
     }
 }
