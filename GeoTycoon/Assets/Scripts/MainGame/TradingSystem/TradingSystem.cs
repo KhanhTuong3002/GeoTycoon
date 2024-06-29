@@ -67,7 +67,7 @@ public class TradingSystem : MonoBehaviour
         tradeOfferPanel.SetActive(false);
     }
     //--------------------------- FIND MISSING PROPOERTY IN SET ---------------------------AI
-    public void findMissingProperty(Player_Mono currentPlayer)
+    public void FindMissingProperty(Player_Mono currentPlayer)
     {
         List<MonopolyNode> processedSet = null;
         MonopolyNode requestNode = null;

@@ -478,7 +478,7 @@ public class Player_Mono
             case AiStates.TRADING:
                 {
                     //HOLD THE GAME UNTIL CONTINUED
-                    TradingSystem.instance.findMissingProperty(this);
+                    TradingSystem.instance.FindMissingProperty(this);
                 }
                 break;
         }
