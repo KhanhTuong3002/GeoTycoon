@@ -507,7 +507,7 @@ public class MonopolyNode : MonoBehaviour
 
     int CalculateUtilityRent()
     {
-        int[] lastRolledDice = GameManager.instance.LastRolledDice;
+        List<int> lastRolledDice = GameManager.instance.LastRolledDice;
 
         int result = 0;
         var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(this);
@@ -523,7 +523,7 @@ public class MonopolyNode : MonoBehaviour
     }
     int CalculateRailroadRent()
     {
-        int[] lastRolledDice = GameManager.instance.LastRolledDice;
+        List<int> lastRolledDice = GameManager.instance.LastRolledDice;
 
         int result = 0;
         var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(this);
