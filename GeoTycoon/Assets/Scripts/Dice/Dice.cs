@@ -44,7 +44,6 @@ public class Dice : MonoBehaviour
             rb.useGravity = true;
             rb.isKinematic = false;
             rb.AddTorque(Random.Range(0,500),Random.Range(0,500),Random.Range(0,500));
-
         }
         // else if (thrown && hasLanded)
         // {

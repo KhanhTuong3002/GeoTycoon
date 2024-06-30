@@ -291,13 +291,13 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator DelayBetweenSwitchPlayer()
     {
-        CameraSwitcher.instance.SwitchToTopDown();
         yield return new WaitForSeconds(secondsBetweenTurns);
         SwitchPlayer();
     }
 
     public void SwitchPlayer()
     {
+        CameraSwitcher.instance.SwitchToTopDown();
         currentPlayer++;
         //RESET DICE HAS ROLLED
         hasRolledDice = false;
