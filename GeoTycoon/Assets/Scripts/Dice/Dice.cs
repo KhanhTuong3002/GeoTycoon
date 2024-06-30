@@ -35,7 +35,7 @@ public class Dice : MonoBehaviour
         }
     }
 
-    public void RollDiced()
+    public void RollDice()
     {
         Reset();
         if (!thrown && !hasLanded)

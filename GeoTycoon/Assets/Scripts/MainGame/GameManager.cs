@@ -148,8 +148,8 @@ public class GameManager : MonoBehaviour
     {
         CheckForJailFree();
         rolledDice.Clear();
-        _dice1.RollDiced();
-        _dice2.RollDiced();
+        _dice1.RollDice();
+        _dice2.RollDice();
         CameraSwitcher.instance.SwitchToDice();
 
         //show or hide ui
