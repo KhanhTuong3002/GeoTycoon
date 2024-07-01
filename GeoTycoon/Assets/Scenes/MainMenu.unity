@@ -57970,8 +57970,8 @@ MonoBehaviour:
     typeDropdown: {fileID: 1605150223}
     colorDropdown: {fileID: 402559557}
     toggle: {fileID: 1901875680}
-  supportUrl: https://www.google.com/
-  webUrl: https://www.google.com/
+  supportUrl: 
+  webUrl: 
 --- !u!4 &1987510256
 Transform:
   m_ObjectHideFlags: 0
