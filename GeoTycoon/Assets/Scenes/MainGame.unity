@@ -51655,9 +51655,6 @@ MonoBehaviour:
   winnerNameText: {fileID: 524429170}
   _dice1: {fileID: 1139531124}
   _dice2: {fileID: 1845041818}
-  dice1: 1
-  dice2: 1
-  AllwaysDoubleRoll: 0
 --- !u!224 &1225056570 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1098390629256398609, guid: 71d246f9722b74549a7006d03c3b78d4, type: 3}

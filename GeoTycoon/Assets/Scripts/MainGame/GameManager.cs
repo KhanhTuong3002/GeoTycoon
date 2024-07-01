@@ -94,8 +94,8 @@ public class GameManager : MonoBehaviour
         //     return;
         // }
 
-        //// Tạo bản sao của danh sách token để tránh thao tác trực tiếp trên SerializedProperty
-        //List<GameObject> tempTokenList = new List<GameObject>(playerTokenList);
+        // // Tạo bản sao của danh sách token để tránh thao tác trực tiếp trên SerializedProperty
+        // List<GameObject> tempTokenList = new List<GameObject>(playerTokenList);
 
         // // Đảm bảo rằng tempTokenList không phải là null và có ít nhất một phần tử
         // if (tempTokenList == null || tempTokenList.Count == 0)
@@ -111,15 +111,15 @@ public class GameManager : MonoBehaviour
         foreach (var setting in GameSettings.settingsList)
         {
             Player_Mono p1 = new Player_Mono();
-            p1.name = Setting.playerName;
-            p1.playerType = (Player_Mono.PlayerType)Setting.selectedType;
+            p1.name = setting.playerName;
+            p1.playerType = (Player_Mono.PlayerType)setting.selectedType;
 
             playerList.Add(p1);
 
             GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
             Player_MonoInfor info = infoObject.GetComponent<Player_MonoInfor>();
-            //Debug.Log("color number" +Setting.selectColor);
-            GameObject newToken = Instantiate(playerTokenList[Setting.selectColor], gameBoard.route[0].transform.position, Quaternion.identity);
+            Debug.Log("color number" +Setting.selectedColor);
+            GameObject newToken = Instantiate(playerTokenList[setting.selectedColor], gameBoard.route[0].transform.position, Quaternion.identity);
             p1.Inititialize(gameBoard.route[0], startMoney, info, newToken);
         }
         // //Khởi tạo tất cả các player
