@@ -86,24 +86,8 @@ public class GameManager : MonoBehaviour
     }
 
     void Inititialize()
-    {
-        // // Đảm bảo rằng playerTokenList không phải là null và có ít nhất một phần tử
-        // if (playerTokenList == null || playerTokenList.Count == 0)
-        // {
-        //     Debug.LogError("Player token list is null or empty!");
-        //     return;
-        // }
-
-        //// Tạo bản sao của danh sách token để tránh thao tác trực tiếp trên SerializedProperty
-        //List<GameObject> tempTokenList = new List<GameObject>(playerTokenList);
-
-        // // Đảm bảo rằng tempTokenList không phải là null và có ít nhất một phần tử
-        // if (tempTokenList == null || tempTokenList.Count == 0)
-        // {
-        //     Debug.LogError("Temporary token list is null or empty after copying!");
-        //     return;
-        // }
-        if(GameSettings.settingsList.Count == 0)
+    { 
+        if (GameSettings.settingsList.Count == 0)
         {
             Debug.LogError("Start the game from the Main Menu!");
             return;
@@ -111,62 +95,28 @@ public class GameManager : MonoBehaviour
         foreach (var setting in GameSettings.settingsList)
         {
             Player_Mono p1 = new Player_Mono();
-            p1.name = Setting.playerName;
-            p1.playerType = (Player_Mono.PlayerType)Setting.selectedType;
+            p1.name = setting.playerName;
+            p1.playerType = (Player_Mono.PlayerType)setting.selectedType;
 
             playerList.Add(p1);
 
             GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
             Player_MonoInfor info = infoObject.GetComponent<Player_MonoInfor>();
             //Debug.Log("color number" +Setting.selectColor);
-            GameObject newToken = Instantiate(playerTokenList[Setting.selectColor], gameBoard.route[0].transform.position, Quaternion.identity);
+            GameObject newToken = Instantiate(playerTokenList[setting.selectColor], gameBoard.route[0].transform.position, Quaternion.identity);
             p1.Inititialize(gameBoard.route[0], startMoney, info, newToken);
         }
-        // //Khởi tạo tất cả các player
-        // for (int i = 0; i < playerList.Count; i++)
-        // {
-        //     GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
-        //     Player_MonoInfor info = infoObject.GetComponent<Player_MonoInfor>();
-
-        //     // Random token từ danh sách tạm thời
-        //     int randomIndex = Random.Range(0, tempTokenList.Count);
-
-        //     // Đảm bảo rằng randomIndex là hợp lệ
-        //     if (randomIndex < 0 || randomIndex >= tempTokenList.Count)
-        //     {
-        //         Debug.LogError("Random index is out of range!");
-        //         return;
-        //     }
-
-        //     // Instantiate the token
-        //     GameObject newToken = Instantiate(tempTokenList[randomIndex], gameBoard.route[0].transform.position, Quaternion.identity);
-
-        //     // Initialize player
-        //     playerList[i].Inititialize(gameBoard.route[0], startMoney, info, newToken);
-
-        //     // Remove the used token from the temporary list
-        //     tempTokenList.RemoveAt(randomIndex);
-
-        //     // Đảm bảo rằng tempTokenList không rỗng sau mỗi lần loại bỏ
-        //     if (tempTokenList.Count == 0 && i < playerList.Count - 1)
-        //     {
-        //         Debug.LogError("Not enough tokens for all players!");
-        //         return;
-        //     }
-        // }
-
-
         playerList[currentPlayer].ActivateSelector(true);
 
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN)
         {
-            bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+                bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
                 bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
             OnShowHumanPanel.Invoke(true, true, false,jail1,jail2);
         }
         else
         {
-            bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+                bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
                 bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
             OnShowHumanPanel.Invoke(false, false, false,jail1,jail2);
         }
