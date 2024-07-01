@@ -49,9 +49,9 @@ public class GameManager : MonoBehaviour
     public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn, bool hasChanceJailCard, bool hasCommunityJailCard);
     public static ShowHumanPanel OnShowHumanPanel;
     //debug
-    [SerializeField] int dice1;
-    [SerializeField] int dice2;
-    public bool AllwaysDoubleRoll = false;
+    // [SerializeField] int dice1;
+    // [SerializeField] int dice2;
+    // public bool AllwaysDoubleRoll = false;
 
     private void Awake()
     {
@@ -64,9 +64,17 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(false);
         Inititialize();
         CameraSwitcher.instance.SwitchToTopDown();
+
+        StartCoroutine(StartGame());
+        OnUpdateMessage.Invoke("Welcome to <b><color=black>GeoTycoon");
+    }
+
+    IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(3f);
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
         {
-            System.Threading.Thread.Sleep(2000); // Delay for 2 seconds
+            //System.Threading.Thread.Sleep(2000); // Delay for 2 seconds
             //RollDice();
             RollPhysicalDice();
         }
@@ -79,55 +87,75 @@ public class GameManager : MonoBehaviour
 
     void Inititialize()
     {
-        // Đảm bảo rằng playerTokenList không phải là null và có ít nhất một phần tử
-        if (playerTokenList == null || playerTokenList.Count == 0)
+        // // Đảm bảo rằng playerTokenList không phải là null và có ít nhất một phần tử
+        // if (playerTokenList == null || playerTokenList.Count == 0)
+        // {
+        //     Debug.LogError("Player token list is null or empty!");
+        //     return;
+        // }
+
+        //// Tạo bản sao của danh sách token để tránh thao tác trực tiếp trên SerializedProperty
+        //List<GameObject> tempTokenList = new List<GameObject>(playerTokenList);
+
+        // // Đảm bảo rằng tempTokenList không phải là null và có ít nhất một phần tử
+        // if (tempTokenList == null || tempTokenList.Count == 0)
+        // {
+        //     Debug.LogError("Temporary token list is null or empty after copying!");
+        //     return;
+        // }
+        if(GameSettings.settingsList.Count == 0)
         {
-            Debug.LogError("Player token list is null or empty!");
+            Debug.LogError("Start the game from the Main Menu!");
             return;
         }
-
-        // Tạo bản sao của danh sách token để tránh thao tác trực tiếp trên SerializedProperty
-        List<GameObject> tempTokenList = new List<GameObject>(playerTokenList);
-
-        // Đảm bảo rằng tempTokenList không phải là null và có ít nhất một phần tử
-        if (tempTokenList == null || tempTokenList.Count == 0)
+        foreach (var setting in GameSettings.settingsList)
         {
-            Debug.LogError("Temporary token list is null or empty after copying!");
-            return;
-        }
+            Player_Mono p1 = new Player_Mono();
+            p1.name = Setting.playerName;
+            p1.playerType = (Player_Mono.PlayerType)Setting.selectedType;
 
-        // Khởi tạo tất cả các player
-        for (int i = 0; i < playerList.Count; i++)
-        {
+            playerList.Add(p1);
+
             GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
             Player_MonoInfor info = infoObject.GetComponent<Player_MonoInfor>();
-
-            // Random token từ danh sách tạm thời
-            int randomIndex = Random.Range(0, tempTokenList.Count);
-
-            // Đảm bảo rằng randomIndex là hợp lệ
-            if (randomIndex < 0 || randomIndex >= tempTokenList.Count)
-            {
-                Debug.LogError("Random index is out of range!");
-                return;
-            }
-
-            // Instantiate the token
-            GameObject newToken = Instantiate(tempTokenList[randomIndex], gameBoard.route[0].transform.position, Quaternion.identity);
-
-            // Initialize player
-            playerList[i].Inititialize(gameBoard.route[0], startMoney, info, newToken);
-
-            // Remove the used token from the temporary list
-            tempTokenList.RemoveAt(randomIndex);
-
-            // Đảm bảo rằng tempTokenList không rỗng sau mỗi lần loại bỏ
-            if (tempTokenList.Count == 0 && i < playerList.Count - 1)
-            {
-                Debug.LogError("Not enough tokens for all players!");
-                return;
-            }
+            //Debug.Log("color number" +Setting.selectColor);
+            GameObject newToken = Instantiate(playerTokenList[Setting.selectColor], gameBoard.route[0].transform.position, Quaternion.identity);
+            p1.Inititialize(gameBoard.route[0], startMoney, info, newToken);
         }
+        // //Khởi tạo tất cả các player
+        // for (int i = 0; i < playerList.Count; i++)
+        // {
+        //     GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
+        //     Player_MonoInfor info = infoObject.GetComponent<Player_MonoInfor>();
+
+        //     // Random token từ danh sách tạm thời
+        //     int randomIndex = Random.Range(0, tempTokenList.Count);
+
+        //     // Đảm bảo rằng randomIndex là hợp lệ
+        //     if (randomIndex < 0 || randomIndex >= tempTokenList.Count)
+        //     {
+        //         Debug.LogError("Random index is out of range!");
+        //         return;
+        //     }
+
+        //     // Instantiate the token
+        //     GameObject newToken = Instantiate(tempTokenList[randomIndex], gameBoard.route[0].transform.position, Quaternion.identity);
+
+        //     // Initialize player
+        //     playerList[i].Inititialize(gameBoard.route[0], startMoney, info, newToken);
+
+        //     // Remove the used token from the temporary list
+        //     tempTokenList.RemoveAt(randomIndex);
+
+        //     // Đảm bảo rằng tempTokenList không rỗng sau mỗi lần loại bỏ
+        //     if (tempTokenList.Count == 0 && i < playerList.Count - 1)
+        //     {
+        //         Debug.LogError("Not enough tokens for all players!");
+        //         return;
+        //     }
+        // }
+
+
         playerList[currentPlayer].ActivateSelector(true);
 
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN)
