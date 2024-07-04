@@ -8,8 +8,8 @@ using Newtonsoft.Json;
 public class QuestionGetter : MonoBehaviour
 {
     public string URL;
-    public InputField Qid;
-    public GameObject QuestionPanel;
+    public GameObject QuizPanel;
+    public Text QuestionText;
     public Button OptionA;
     public Button OptionB;
     public Button OptionC;
@@ -19,43 +19,53 @@ public class QuestionGetter : MonoBehaviour
     private int currentQuestionIndex;
     private List<Question> currentQuestions;
 
-    public void GetData()
+    private void Start()
     {
-        StartCoroutine(FetchData());
+        if (QuizPanel == null || QuestionText == null || OptionA == null || OptionB == null || OptionC == null || OptionD == null)
+        {
+            Debug.LogError("Một hoặc nhiều thành phần UI chưa được gán trong Inspector.");
+            return;
+        }
+
+        string setID = GameSettings.SetID;
+        if (string.IsNullOrEmpty(setID))
+        {
+            setID = "defaultSetID";  // Thay bằng SetID mặc định của bạn
+        }
+        GetData(setID);
     }
 
-    public IEnumerator FetchData()
+    public void GetData(string setID)
     {
-        using (UnityWebRequest request = UnityWebRequest.Get(URL + Qid.text))
+        StartCoroutine(FetchData(setID));
+        Debug.Log("****QuizManager receive your SetID:**** " + setID);
+    }
+
+    public IEnumerator FetchData(string setID)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(URL + setID))
         {
             yield return request.SendWebRequest();
-            Debug.Log(request.result);
-            if (request.result == UnityWebRequest.Result.ConnectionError)
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
                 Debug.Log(request.error);
+                // Nếu có lỗi, sử dụng setID mặc định
+                StartCoroutine(FetchData("defaultSetID"));  // Thay bằng SetID mặc định của bạn
             }
             else
             {
                 questionSets = JsonConvert.DeserializeObject<List<SetQuestion>>(request.downloadHandler.text);
-                // Debug.Log(request.downloadHandler.text);
-                // foreach (SetQuestion s in questionSets)
-                // {
-                //     Debug.Log(s.SetName);
-                //     foreach (Question q in s.questions)
-                //     {
-                //         Debug.Log(q.Title);
-                //     }
-                // }
-                if (questionSets.Count > 0)
+                if (questionSets != null && questionSets.Count > 0)
                 {
-                    
                     currentQuestions = questionSets[0].questions;
                     currentQuestionIndex = Random.Range(0, currentQuestions.Count);
-                    
-                    Debug.Log("question remaining: "+currentQuestions.Count);
-                    Debug.Log(currentQuestions[currentQuestionIndex].Title);
-                    Debug.Log("Random index: "+currentQuestionIndex);
                     DisplayQuestion(currentQuestionIndex);
+                }
+                else
+                {
+                    Debug.Log("Không tìm thấy câu hỏi nào trong bộ câu hỏi.");
+                    Debug.Log("****QuizManager receive your SetID:**** " + setID);
                 }
             }
         }
@@ -64,14 +74,42 @@ public class QuestionGetter : MonoBehaviour
     private void DisplayQuestion(int index)
     {
         if (currentQuestions == null || currentQuestions.Count == 0 || index < 0 || index >= currentQuestions.Count)
+        {
+            Debug.LogWarning("Không có câu hỏi hoặc chỉ số không hợp lệ.");
             return;
+        }
+
+        if (QuizPanel == null || QuestionText == null || OptionA == null || OptionB == null || OptionC == null || OptionD == null)
+        {
+            Debug.LogError("QuizPanel hoặc một trong các thành phần không được gán.");
+            return;
+        }
 
         Question test = currentQuestions[index];
-        QuestionPanel.transform.GetChild(2).GetComponent<Text>().text = test.Content;
-        OptionA.GetComponentInChildren<Text>().text = test.Option1;
-        OptionB.GetComponentInChildren<Text>().text = test.Option2;
-        OptionC.GetComponentInChildren<Text>().text = test.Option3;
-        OptionD.GetComponentInChildren<Text>().text = test.Option4;
+        QuestionText.text = test.Content;
+        Debug.Log("Question: " + test.Content);
+
+        Text optionAText = OptionA.GetComponentInChildren<Text>();
+        Text optionBText = OptionB.GetComponentInChildren<Text>();
+        Text optionCText = OptionC.GetComponentInChildren<Text>();
+        Text optionDText = OptionD.GetComponentInChildren<Text>();
+
+        if (optionAText == null || optionBText == null || optionCText == null || optionDText == null)
+        {
+            Debug.LogError("Không tìm thấy thành phần Text bên trong một hoặc nhiều nút Option.");
+            return;
+        }
+
+        // Kiểm tra xem các tùy chọn có được lấy đúng cách không
+        Debug.Log("Option1: " + test.Option1);
+        Debug.Log("Option2: " + test.Option2);
+        Debug.Log("Option3: " + test.Option3);
+        Debug.Log("Option4: " + test.Option4);
+
+        optionAText.text = test.Option1;
+        optionBText.text = test.Option2;
+        optionCText.text = test.Option3;
+        optionDText.text = test.Option4;
 
         OptionA.onClick.RemoveAllListeners();
         OptionB.onClick.RemoveAllListeners();
@@ -88,26 +126,24 @@ public class QuestionGetter : MonoBehaviour
     {
         if (question.Answer == selectedAnswer)
         {
-            Debug.Log("correct!");
+            Debug.Log("Chính xác!");
             currentQuestions.Remove(question);
-            currentQuestionIndex = Random.Range(0, currentQuestions.Count);
-            Debug.Log("question remaining: " + currentQuestions.Count);
-            Debug.Log(currentQuestions[currentQuestionIndex].Title);
-            Debug.Log("Random index: "+currentQuestionIndex);
-            // currentQuestionIndex++;
-            if (currentQuestionIndex < currentQuestions.Count)
+            if (currentQuestions.Count > 0)
             {
+                currentQuestionIndex = Random.Range(0, currentQuestions.Count);
                 DisplayQuestion(currentQuestionIndex);
             }
             else
             {
-                //Debug.Log("All questions answered correctly!");
-                // Add any end of quiz logic here
+                Debug.Log("Đã trả lời đúng tất cả các câu hỏi!");
+                // Thêm logic kết thúc quiz tại đây
+                QuizPanel.SetActive(false);
             }
         }
         else
         {
-            // Incorrect answer, so redisplay the current question
+            Debug.Log("Trả lời sai");
+            // Nếu sai, hiển thị lại câu hỏi hiện tại
             DisplayQuestion(currentQuestionIndex);
         }
     }
