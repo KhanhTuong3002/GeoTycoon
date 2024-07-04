@@ -76,8 +76,9 @@ public class TradingSystem : MonoBehaviour
                 var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(node);
                 List<MonopolyNode> nodeSet = new List<MonopolyNode>();
                 nodeSet.AddRange(list);
-            //check �f all habe been purchased
+            //check if all have been purchased
             bool notAllPurchased = list.Any(n => n.Owner == null);
+            Debug.Log(notAllPurchased.ToString());
             //AI owns This full set Already;
             if(allSame || processedSet == list || notAllPurchased)
             {
