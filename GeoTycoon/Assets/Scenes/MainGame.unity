@@ -14961,6 +14961,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6150244666578408210, guid: 38e586cf00246214e90d5465219d0f25, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6258916711918443054, guid: 38e586cf00246214e90d5465219d0f25, type: 3}
       propertyPath: m_LocalPosition.x
       value: -69.91284
@@ -28656,7 +28660,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 863718264}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.49999994
+  m_Size: 0.5000002
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -58016,6 +58020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   propertyUIPanel: {fileID: 107104930}
+  quizPanel: {fileID: 1450283906}
   propertyNameText: {fileID: 1032169234}
   colorField: {fileID: 1563431255}
   rentPriceText: {fileID: 168825640}
@@ -81361,7 +81366,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 339, y: -262.54007}
+  m_AnchoredPosition: {x: 339, y: -262.54}
   m_SizeDelta: {x: 678, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1930542762
