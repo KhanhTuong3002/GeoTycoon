@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -20,27 +21,37 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject playerInfoPrefab;
     [SerializeField] Transform playerPanel; // For the playerInfo Prefabs to become parented to
     [SerializeField] List<GameObject> playerTokenList = new List<GameObject>();
-
+    [Header("Game Over/ Win Info")]
+    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] TMP_Text winnerNameText;
+    [Header("Dice")]
+    [SerializeField] Dice _dice1;
+    [SerializeField] Dice _dice2;
     //about the rolling dice
-    int[] rolledDice;
+    List <int> rolledDice = new List<int>();
     bool rolledADouble;
     public bool RolledADouble => rolledADouble;
     public void ResetRolledADouble() => rolledADouble=false;
     int doubleRollCount;
+    bool hasRolledDice;
+    public bool HasRolledDice => hasRolledDice;
     //tax ppol
     int taxPool = 0;
     // pass over go to get money
     public int GetGoMoney => goMoney;
     public List<Player_Mono> GetPlayers => playerList;
     public float SecondsBetweenTurns => secondsBetweenTurns;
+    public Player_Mono GetCurrentPlayer => playerList[currentPlayer];
     //Message System
     public delegate void UpdateMessage(string message);
     public static UpdateMessage OnUpdateMessage;
     //Human input panel
-    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn);
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn, bool hasChanceJailCard, bool hasCommunityJailCard);
     public static ShowHumanPanel OnShowHumanPanel;
     //debug
-    public bool AllwaysDoubleRoll = false;
+    // [SerializeField] int dice1;
+    // [SerializeField] int dice2;
+    // public bool AllwaysDoubleRoll = false;
 
     private void Awake()
     {
@@ -49,98 +60,135 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        currentPlayer = Random.Range(0, playerList.Count);
+        gameOverPanel.SetActive(false);
         Inititialize();
+        CameraSwitcher.instance.SwitchToTopDown();
+
+        StartCoroutine(StartGame());
+        OnUpdateMessage.Invoke("Welcome to <b><color=black>GeoTycoon");
+    }
+
+    IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(3f);
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
         {
-            System.Threading.Thread.Sleep(2000); // Delay for 2 seconds
-            RollDice();
+            //System.Threading.Thread.Sleep(2000); // Delay for 2 seconds
+            //RollDice();
+            RollPhysicalDice();
         }
         else
         {
             //show ui for human input
+            OnShowHumanPanel.Invoke(true,true,false,false,false);
         }
     }
 
     void Inititialize()
-    {
-        // Đảm bảo rằng playerTokenList không phải là null và có ít nhất một phần tử
-        if (playerTokenList == null || playerTokenList.Count == 0)
+    { 
+        if (GameSettings.settingsList.Count == 0)
         {
-            Debug.LogError("Player token list is null or empty!");
+            Debug.LogError("Start the game from the Main Menu!");
             return;
         }
-
-        // Tạo bản sao của danh sách token để tránh thao tác trực tiếp trên SerializedProperty
-        List<GameObject> tempTokenList = new List<GameObject>(playerTokenList);
-
-        // Đảm bảo rằng tempTokenList không phải là null và có ít nhất một phần tử
-        if (tempTokenList == null || tempTokenList.Count == 0)
+        foreach (var setting in GameSettings.settingsList)
         {
-            Debug.LogError("Temporary token list is null or empty after copying!");
-            return;
-        }
+            Player_Mono p1 = new Player_Mono();
+            p1.name = setting.playerName;
+            p1.playerType = (Player_Mono.PlayerType)setting.selectedType;
 
-        // Khởi tạo tất cả các player
-        for (int i = 0; i < playerList.Count; i++)
-        {
+            playerList.Add(p1);
+
             GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
             Player_MonoInfor info = infoObject.GetComponent<Player_MonoInfor>();
-
-            // Random token từ danh sách tạm thời
-            int randomIndex = Random.Range(0, tempTokenList.Count);
-
-            // Đảm bảo rằng randomIndex là hợp lệ
-            if (randomIndex < 0 || randomIndex >= tempTokenList.Count)
-            {
-                Debug.LogError("Random index is out of range!");
-                return;
-            }
-
-            // Instantiate the token
-            GameObject newToken = Instantiate(tempTokenList[randomIndex], gameBoard.route[0].transform.position, Quaternion.identity);
-
-            // Initialize player
-            playerList[i].Inititialize(gameBoard.route[0], startMoney, info, newToken);
-
-            // Remove the used token from the temporary list
-            tempTokenList.RemoveAt(randomIndex);
-
-            // Đảm bảo rằng tempTokenList không rỗng sau mỗi lần loại bỏ
-            if (tempTokenList.Count == 0 && i < playerList.Count - 1)
-            {
-                Debug.LogError("Not enough tokens for all players!");
-                return;
-            }
+            //Debug.Log("color number" +Setting.selectColor);
+            GameObject newToken = Instantiate(playerTokenList[setting.selectColor], gameBoard.route[0].transform.position, Quaternion.identity);
+            p1.Inititialize(gameBoard.route[0], startMoney, info, newToken);
         }
         playerList[currentPlayer].ActivateSelector(true);
 
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN)
         {
-            OnShowHumanPanel.Invoke(true, true, false);
+                bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+                bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+            OnShowHumanPanel.Invoke(true, true, false,jail1,jail2);
         }
         else
         {
-            OnShowHumanPanel.Invoke(false, false, false);
+                bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+                bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+            OnShowHumanPanel.Invoke(false, false, false,jail1,jail2);
         }
     }
 
-    public void RollDice() //press button form human or auto from ai
+    public void RollPhysicalDice()
+    {
+        CheckForJailFree();
+        rolledDice.Clear();
+        _dice1.RollDice();
+        _dice2.RollDice();
+        CameraSwitcher.instance.SwitchToDice();
+
+        //show or hide ui
+        if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN)
+        {
+            bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+            bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+            OnShowHumanPanel.Invoke(true,false,false,jail1,jail2);
+        }
+    }
+
+    void CheckForJailFree()
+    {
+        //Jail free card
+        if (playerList[currentPlayer].IsInjail && playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
+        {
+            if(playerList[currentPlayer].HasChanceJailFreeCard)
+            {
+                playerList[currentPlayer].UseChanceJailFreeCard();
+            }
+            else if (playerList[currentPlayer].HasCommunityJailFreeCard)
+            {
+                playerList[currentPlayer].UseCommunityJailFreeCard();
+            }
+        }
+    }
+
+    public void ReportDiceRolled(int diceValue)
+    {
+        rolledDice.Add(diceValue);
+        if(rolledDice.Count==2)
+        {
+            RollDice();
+        }
+    }
+
+    void RollDice() //press button form human or auto from ai
     {
         bool allowedToMove = true;
-        //reset last roll
-        rolledDice = new int[2];
-        //any roll dice and store them
-        rolledDice[0] = Random.Range(1, 7);
-        rolledDice[1] = Random.Range(1, 7);
+        hasRolledDice = true;
+        
+        
+        // //reset last roll
+        // rolledDice = new int[2];
+        // //any roll dice and store them
+        // rolledDice[0] = Random.Range(1, 7);
+        // rolledDice[1] = Random.Range(1, 7);
         Debug.Log("rolled dice are:" + rolledDice[0] + " & " + rolledDice[1]);
 
 
         //Debug
-        if (AllwaysDoubleRoll)
-        {
-            rolledDice[0] = 2;
-            rolledDice[1] = 1;
-        }
+        // if (AllwaysDoubleRoll)
+        // {
+        //     rolledDice[0] = 1;
+        //     rolledDice[1] = 2;
+        // }
+        // if (forceDiceRolls)
+        // {
+        //     rolledDice[0] = dice1;
+        //     rolledDice[1] = dice2;
+        // }
         //check for double
         rolledADouble = rolledDice[0] == rolledDice[1];
         //throw 3 times in a row -> jail anyhow -> end turn
@@ -209,14 +257,11 @@ public class GameManager : MonoBehaviour
             Debug.Log("WE CAN NOT MOVE BECAUSE NOT ALLOWED");
             StartCoroutine(DelayBetweenSwitchPlayer());
         }
-        //show or hide ui
-        if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN)
-        {
-            OnShowHumanPanel.Invoke(true,false,false);
-        }
+        
     }
     IEnumerator DelayBeforeMove(int rolledDice)
     {
+        CameraSwitcher.instance.SwitchToPlayer(playerList[currentPlayer].MyTonken.transform);
         yield return new WaitForSeconds(secondsBetweenTurns);
         //if we are allowed to move we do so
         gameBoard.MovePlayertonken(rolledDice, playerList[currentPlayer]);
@@ -230,7 +275,10 @@ public class GameManager : MonoBehaviour
 
     public void SwitchPlayer()
     {
+        CameraSwitcher.instance.SwitchToTopDown();
         currentPlayer++;
+        //RESET DICE HAS ROLLED
+        hasRolledDice = false;
         //rolledouble?
         doubleRollCount = 0;
 
@@ -248,16 +296,19 @@ public class GameManager : MonoBehaviour
         //is player Ai
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
         {
-            RollDice();
-            OnShowHumanPanel.Invoke(false, false, false);
+            //RollDice();
+            RollPhysicalDice();
+            OnShowHumanPanel.Invoke(false, false, false,false, false);
         }
         else  //if human - show ui
         {
-            OnShowHumanPanel.Invoke(true, true, false);
+            bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+            bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+            OnShowHumanPanel.Invoke(true, true, false,jail1 , jail2);
         }
     }
 
-    public int[] LastRolledDice => rolledDice;
+    public List<int> LastRolledDice => rolledDice;
 
     public void AddTaxToPool(int amount)
     {
@@ -292,6 +343,8 @@ public class GameManager : MonoBehaviour
             //STOP THE GAME LOOP ANYHOW
 
             //SHOW UI
+            gameOverPanel.SetActive(true);
+            winnerNameText.text = playerList[0].name;
         }
     }
 
@@ -302,5 +355,49 @@ public class GameManager : MonoBehaviour
         {
             player.ActivateSelector(false);
         }
+    }
+    //-------------------------------Continue Game stuff--------------------------
+    public void Continue()
+    {
+        if(playerList.Count > 1)
+        {
+            Invoke("ContinueGame",SecondsBetweenTurns);
+        }
+        
+    }
+    void ContinueGame()
+    {
+        //if the last roll was a double
+        if (RolledADouble)
+        {
+            //roll again
+            //RollDice();
+            RollPhysicalDice();
+        }
+        else
+        {
+            //Switch player
+          SwitchPlayer();
+            //not a double
+           
+        }
+    }
+    // Human Bankrupt
+    // Declare bankrupt button
+    // Sure button?
+    // Game Over Screen
+    public void HumanBankrupt()
+    {
+        playerList[currentPlayer].Bankrupt();
+    }
+    //-----------------JAIL FREE CARD---------------------------------
+    //BUTTONS
+    public void UseJail1Card()// CHANCE CARD
+    {
+        playerList[currentPlayer].UseChanceJailFreeCard();
+    }
+    public void UseJail2Card()// COMMUNITY CARD
+    {
+        playerList[currentPlayer].UseCommunityJailFreeCard();
     }
 }

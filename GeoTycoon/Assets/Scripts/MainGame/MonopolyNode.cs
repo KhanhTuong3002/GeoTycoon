@@ -55,7 +55,7 @@ public class MonopolyNode : MonoBehaviour
     public delegate void DrawChanceCard(Player_Mono player);
     public static DrawChanceCard OnDrawChanceCard;
     //human input panel
-    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn);
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn, bool hasChanceJailCard, bool hasCommunityJailCard);
     public static ShowHumanPanel OnShowHumanPanel;
     //Property buy panel;
     public delegate void ShowPropertyBuyPanel(MonopolyNode node, Player_Mono player);
@@ -92,7 +92,7 @@ public class MonopolyNode : MonoBehaviour
             {
                 if(baseRent > 0) 
                 {
-                    price = 3 * (baseRent * 10);
+                    price = 3 * (baseRent * 10);//baseRent - 1;
                     //MORTGAGE PRICE
                     mortgageValue = price / 2;
                     rentWithHouse.Clear();                  
@@ -240,7 +240,9 @@ public class MonopolyNode : MonoBehaviour
                         //pay the rent to the owner
                         currentPlayer.PayRent(renToPay, owner);
 
-                        //show a message about what happend 
+                        //show a message about what happend
+                        OnUpdateMessage.Invoke(currentPlayer.name + " pay rent of: " + renToPay + " to " + owner.name);
+                        Debug.Log(currentPlayer.name + "pay rent of: " + renToPay + " to " + owner.name);
                     }
                     else if (owner.name == "")
                     {
@@ -333,8 +335,8 @@ public class MonopolyNode : MonoBehaviour
 
 
                         //show a message about what happend
-                        OnUpdateMessage.Invoke(currentPlayer.name + "pay Railroad rent of: " + renToPay + " to " + owner.name);
-                        Debug.Log(currentPlayer.name + "pay rent of: " + renToPay + " to " + owner.name);
+                        OnUpdateMessage.Invoke(currentPlayer.name + " pay Railroad rent of: " + renToPay + " to " + owner.name);
+                        Debug.Log(currentPlayer.name + " pay rent of: " + renToPay + " to " + owner.name);
                     }
                     else if (owner.name == "" && currentPlayer.CanAfford(price))
                     {
@@ -364,7 +366,9 @@ public class MonopolyNode : MonoBehaviour
                         //pay the rent to the owner
                         currentPlayer.PayRent(renToPay, owner);
 
-                        //show a message about what happend 
+                        //show a message about what happend
+                        OnUpdateMessage.Invoke(currentPlayer.name + " pay Railroad rent of: " + renToPay + " to " + owner.name);
+                        Debug.Log(currentPlayer.name + " pay rent of: " + renToPay + " to " + owner.name);
                     }
                     else if (owner.name == "")
                     {
@@ -400,6 +404,12 @@ public class MonopolyNode : MonoBehaviour
                 OnUpdateMessage.Invoke(currentPlayer.name + " <color=red>has to go to the jail!</color>");
                 continueTurn = false;
                 break;
+            case MonopolyNodeType.Jail:
+                currentPlayer.RollToJail();
+                OnUpdateMessage.Invoke(currentPlayer.name + " <color=red>has to go to the jail!</color>");                
+                continueTurn = false;               
+                break;
+
             case MonopolyNodeType.Chance:
                 OnDrawChanceCard.Invoke(currentPlayer);
                 continueTurn = false;
@@ -420,31 +430,36 @@ public class MonopolyNode : MonoBehaviour
         //Continue
         if(!playerIsHuman)
         {
-            Invoke("ContinueGame", GameManager.instance.SecondsBetweenTurns);
+            //Invoke("ContinueGame", GameManager.instance.SecondsBetweenTurns);
+            currentPlayer.ChangeState(Player_Mono.AiStates.TRADING);
         }
         else
         {
+            bool canEndTurn = !GameManager.instance.RolledADouble && currentPlayer.ReadMoney>=0;
+            bool canRollDice = GameManager.instance.RolledADouble && currentPlayer.ReadMoney>=0;
+            bool jail1 = currentPlayer.HasChanceJailFreeCard;
+            bool jail2 = currentPlayer.HasCommunityJailFreeCard;
             //show UI
-            OnShowHumanPanel.Invoke(true,GameManager.instance.RolledADouble,!GameManager.instance.RolledADouble);
+            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,jail1,jail2);
         }
     }
 
-    void ContinueGame()
-    {
-        //if the last roll was a double
-        if (GameManager.instance.RolledADouble)
-        {
-            //roll again
-            GameManager.instance.RollDice();
-        }
-        else
-        {
+    //void ContinueGame()
+    //{
+    //    //if the last roll was a double
+    //    if (GameManager.instance.RolledADouble)
+    //    {
+    //        //roll again
+    //        GameManager.instance.RollDice();
+    //    }
+    //    else
+    //    {
 
-            //not a double
-            //switch player
-            GameManager.instance.SwitchPlayer();
-        }
-    }
+    //        //not a double
+    //        //switch player
+    //        GameManager.instance.SwitchPlayer();
+    //    }
+    //}
 
     int CalculatePropertyRent()
     {
@@ -492,7 +507,7 @@ public class MonopolyNode : MonoBehaviour
 
     int CalculateUtilityRent()
     {
-        int[] lastRolledDice = GameManager.instance.LastRolledDice;
+        List<int> lastRolledDice = GameManager.instance.LastRolledDice;
 
         int result = 0;
         var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(this);
@@ -508,7 +523,7 @@ public class MonopolyNode : MonoBehaviour
     }
     int CalculateRailroadRent()
     {
-        int[] lastRolledDice = GameManager.instance.LastRolledDice;
+        List<int> lastRolledDice = GameManager.instance.LastRolledDice;
 
         int result = 0;
         var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(this);
@@ -582,15 +597,16 @@ public class MonopolyNode : MonoBehaviour
     }
     public int SellHouseOrHotel()
     {
-        if (monopolyNodeType == MonopolyNodeType.Property)
+        if (monopolyNodeType == MonopolyNodeType.Property && numberOfHouses>0)
         {
             numberOfHouses--;
             VisualizeHouses();
+            return houseCost / 2; // USE ANY NUMBER HERE
         }
-        return houseCost / 2; // USE ANY NUMBER HERE
+        return 0;
     }
 
-public void resetNode()
+    public void resetNode()
     {
         //if is morgtaged
         if(isMortgaged)
@@ -610,7 +626,20 @@ public void resetNode()
         //remove property from owner
         owner.RemoveProperty(this);
         owner.name = "";
+        owner.ActivateSelector(false);
+        owner = null;
         //update UI
         OnOwnerUpdate();
+    }
+
+    //---------------------------Trading System --------------------------
+
+    //-------------------------- Chage Node Owner ----------------------------
+    public void ChangeOwner(Player_Mono newOnwer)
+    {
+        owner.RemoveProperty(this);
+        newOnwer.AddProperty(this);
+        SetOwner(newOnwer);
+
     }
 }

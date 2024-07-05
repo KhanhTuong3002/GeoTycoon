@@ -5,7 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 
 public class CommunityChest : MonoBehaviour
-{
+{   
+    public static CommunityChest instance;
     [SerializeField] List<SCR_CommunityCard> cards = new List<SCR_CommunityCard> ();
     [SerializeField] TMP_Text cardText;
     [SerializeField] GameObject cardHolderBackground;
@@ -14,13 +15,13 @@ public class CommunityChest : MonoBehaviour
 
     List<SCR_CommunityCard> cardPool = new List<SCR_CommunityCard>();
     List<SCR_CommunityCard> usedcardPool = new List<SCR_CommunityCard>();
-
+    SCR_CommunityCard jailFreeCard;
     //CURRENT CARD AND CURRENT PLAYER
     SCR_CommunityCard pickedCard;
     Player_Mono currentPlayer;
 
     //Human input panel
-    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn);
+    public delegate void ShowHumanPanel(bool activatePanel, bool activateRollDice, bool activateEndTurn, bool hasChanceJailCard, bool hasCommunityJailCard);
     public static ShowHumanPanel OnShowHumanPanel;
 
 
@@ -31,6 +32,10 @@ public class CommunityChest : MonoBehaviour
     void OnDisable()
     {
         MonopolyNode.OnDrawCommunityCard -= DrawCard;
+    }
+    void Awake()
+    {
+        instance = this;
     }
 
     void Start()
@@ -59,7 +64,15 @@ public class CommunityChest : MonoBehaviour
         //DRAW AN ACTUAL CARD
         pickedCard = cardPool[0];
         cardPool.RemoveAt(0);
-        usedcardPool.Add(pickedCard);
+        if (pickedCard.jailFreeCard)
+        {
+            jailFreeCard = pickedCard;
+
+        }
+        else
+        {
+            usedcardPool.Add(pickedCard);
+        }
         if(cardPool.Count == 0)
         {
             //PUT BACK ALL CARDS
@@ -145,7 +158,7 @@ public class CommunityChest : MonoBehaviour
         }
         else if(pickedCard.jailFreeCard) //JAIL FREE CARD
         {
-
+            currentPlayer.AddCommunityJailFreeCard();
         }
         cardHolderBackground.SetActive(false);
         ContinueGame(isMoving);
@@ -155,13 +168,9 @@ public class CommunityChest : MonoBehaviour
         Debug.Log(isMoving);
         if(currentPlayer.playerType == Player_Mono.PlayerType.AI)
         {
-            if(!isMoving && GameManager.instance.RolledADouble)
+            if(!isMoving)
             {
-                GameManager.instance.RollDice();
-            }
-            else if(!isMoving && !GameManager.instance.RolledADouble)
-            {
-               GameManager.instance.SwitchPlayer();
+                GameManager.instance.Continue();
             }
         }
         else //HUMAN INPUTS
@@ -169,9 +178,17 @@ public class CommunityChest : MonoBehaviour
             if (!isMoving)
             {
                 Debug.Log("start");
-                OnShowHumanPanel.Invoke(true, !GameManager.instance.RolledADouble, GameManager.instance.RolledADouble);
+                bool jail1 = currentPlayer.HasChanceJailFreeCard;
+                bool jail2 = currentPlayer.HasCommunityJailFreeCard;
+                OnShowHumanPanel.Invoke(true, !GameManager.instance.RolledADouble, GameManager.instance.RolledADouble,jail1,jail2);
                 Debug.Log("end");
             }
         }
+    }
+    public void AddBackJailFreeCard()
+    {
+        usedcardPool.Add(jailFreeCard);
+        jailFreeCard = null;
+        
     }
 }
