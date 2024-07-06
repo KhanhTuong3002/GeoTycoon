@@ -135,9 +135,11 @@ public class QuestionGetter : MonoBehaviour
             }
             else
             {
+                //moi them cho nay nha
+                currentQuestions = questionSets[0].questions;
+                currentQuestionIndex = Random.Range(0, currentQuestions.Count);
                 Debug.Log("Đã trả lời đúng tất cả các câu hỏi!");
-                // Thêm logic kết thúc quiz tại đây
-                QuizPanel.SetActive(false);
+                DisplayQuestion(currentQuestionIndex);
             }
         }
         else
