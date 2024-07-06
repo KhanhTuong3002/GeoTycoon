@@ -15,6 +15,9 @@ public class QuestionGetter : MonoBehaviour
     public Button OptionC;
     public Button OptionD;
 
+    public delegate void QuestionAnswered(bool isCorrect);
+    public static event QuestionAnswered OnQuestionAnswered;
+
     private List<SetQuestion> questionSets;
     private int currentQuestionIndex;
     private List<Question> currentQuestions;
@@ -30,7 +33,7 @@ public class QuestionGetter : MonoBehaviour
         string setID = GameSettings.SetID;
         if (string.IsNullOrEmpty(setID))
         {
-            setID = "defaultSetID";  // Thay bằng SetID mặc định của bạn
+            setID = "ec74b952-469c-4fc4-a175-498776ac12e3";  // Thay bằng SetID mặc định của bạn
         }
         GetData(setID);
     }
@@ -51,7 +54,7 @@ public class QuestionGetter : MonoBehaviour
             {
                 Debug.Log(request.error);
                 // Nếu có lỗi, sử dụng setID mặc định
-                StartCoroutine(FetchData("defaultSetID"));  // Thay bằng SetID mặc định của bạn
+                StartCoroutine(FetchData("ec74b952-469c-4fc4-a175-498776ac12e3"));  // Thay bằng SetID mặc định của bạn
             }
             else
             {
@@ -124,7 +127,9 @@ public class QuestionGetter : MonoBehaviour
 
     private void CheckAnswer(Question question, string selectedAnswer)
     {
-        if (question.Answer == selectedAnswer)
+        bool isCorrect = question.Answer == selectedAnswer;
+
+        if (isCorrect)
         {
             Debug.Log("Chính xác!");
             currentQuestions.Remove(question);
@@ -148,6 +153,9 @@ public class QuestionGetter : MonoBehaviour
             // Nếu sai, hiển thị lại câu hỏi hiện tại
             DisplayQuestion(currentQuestionIndex);
         }
+
+        // Notify the result of the question
+        OnQuestionAnswered?.Invoke(isCorrect);
     }
 
     public void CheckAnswerWrapper(string selectedAnswer)
