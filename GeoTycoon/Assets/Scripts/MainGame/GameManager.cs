@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
+using Photon.Pun;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance;
 
