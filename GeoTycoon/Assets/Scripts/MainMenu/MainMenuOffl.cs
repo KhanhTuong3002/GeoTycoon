@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class MainMenu1 : MonoBehaviour
+public class MainMenuOffl : MonoBehaviour
 {
     [Serializable]
     public class PlayerSelect
@@ -40,7 +40,7 @@ public class MainMenu1 : MonoBehaviour
         }
         GameSettings.SetSetID(setID);
         Debug.Log("****your SetID is**** "+ setID);
-        SceneManager.LoadScene("MainGame 1");
+        SceneManager.LoadScene("MainGame Offl");
     }
 
     public void SupportUs()
