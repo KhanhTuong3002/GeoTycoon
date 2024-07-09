@@ -5,6 +5,7 @@ using UnityEngine;
 public static class GameSettings
 {
     public static List<Setting> settingsList = new List<Setting>();
+    public static string SetID { get; private set; }
 
     public static void AddSetting(Setting setting)
     {
@@ -12,7 +13,10 @@ public static class GameSettings
         Debug.Log(setting.playerName + "+" + setting.selectedType+"+" + setting.selectColor);
     }
 
-    //public static List<Setting> SettingsList => settingsList;
+    public static void SetSetID(string setID)
+    {
+        SetID = setID;
+    }
 }
 
 public class Setting
@@ -28,3 +32,4 @@ public class Setting
         selectColor = color;
     }
 }
+

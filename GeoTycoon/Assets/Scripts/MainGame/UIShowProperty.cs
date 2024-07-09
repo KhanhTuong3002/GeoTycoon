@@ -12,6 +12,7 @@ public class UIShowProperty : MonoBehaviour
 
     [Header("Buy Property UI")]
     [SerializeField] GameObject propertyUIPanel;
+    [SerializeField] GameObject quizPanel;
     [SerializeField] TMP_Text propertyNameText;
     [SerializeField] Image colorField;
     [Space]
@@ -30,69 +31,96 @@ public class UIShowProperty : MonoBehaviour
     [SerializeField] TMP_Text propertyPriceText;
     [SerializeField] TMP_Text playerMoneyText;
 
-     void OnEnable()
+    private bool quizAnsweredCorrectly = false;
+
+    void OnEnable()
     {
         MonopolyNode.OnShowPropertyBuyPanel += ShowBuyPropertyUI;
-        
+        QuestionGetter.OnQuestionAnswered += HandleQuestionAnswered;
     }
 
-     void OnDisable()
+    void OnDisable()
     {
         MonopolyNode.OnShowPropertyBuyPanel -= ShowBuyPropertyUI;
+        QuestionGetter.OnQuestionAnswered -= HandleQuestionAnswered;
     }
 
     void Start()
     {
         propertyUIPanel.SetActive(false);
+        quizPanel.SetActive(false);
     }
+
     void ShowBuyPropertyUI(MonopolyNode node, Player_Mono currentPlayer)
     {
         nodeReference = node;
         playerReference = currentPlayer;
-        //top Panel content
-        propertyNameText.text = node.name;
-        //coloField.color = node.propertyColorField.color;
-        //center the card
-        rentPriceText.text = "$ " + node.baseRent;
-        oneHouseRentText.text = "$ " + node.rentWithHouse[0];
-        twoHouseRentText.text = "$ " + node.rentWithHouse[1];
-        threeHouseRentText.text = "$ " + node.rentWithHouse[2];
-        fourHouseRentText.text = "$ " + node.rentWithHouse[3];
-        hotelRentText.text = "$ " + node.rentWithHouse[4];
-        //cost of building
-        housePriceText.text = "$ " + node.houseCost;
-        mortgagePriceText.text = "$ " + node.MortgageValue;
-        //bottom bar
-        propertyPriceText.text = "Price: $ " + node.price;
-        playerMoneyText.text = "You have" + currentPlayer.ReadMoney;
-        //buy property button
-        if(currentPlayer.CanAfford(node.price))
+        // Display the quiz panel
+        quizPanel.SetActive(true);
+        propertyUIPanel.SetActive(false);
+    }
+
+    void HandleQuestionAnswered(bool isCorrect)
+    {
+        quizAnsweredCorrectly = isCorrect;
+        quizPanel.SetActive(false);
+
+        if (isCorrect)
         {
-            buyPropertyButton.interactable = true;
+            //top Panel content
+            propertyNameText.text = nodeReference.name;
+            //coloField.color = node.propertyColorField.color;
+            //center the card
+            rentPriceText.text = "$ " + nodeReference.baseRent;
+            oneHouseRentText.text = "$ " + nodeReference.rentWithHouse[0];
+            twoHouseRentText.text = "$ " + nodeReference.rentWithHouse[1];
+            threeHouseRentText.text = "$ " + nodeReference.rentWithHouse[2];
+            fourHouseRentText.text = "$ " + nodeReference.rentWithHouse[3];
+            hotelRentText.text = "$ " + nodeReference.rentWithHouse[4];
+            //cost of building
+            housePriceText.text = "$ " + nodeReference.houseCost;
+            mortgagePriceText.text = "$ " + nodeReference.MortgageValue;
+            //bottom bar
+            propertyPriceText.text = "Price: $ " + nodeReference.price;
+            playerMoneyText.text = "You have " + playerReference.ReadMoney;
+            //buy property button
+            if (playerReference.CanAfford(nodeReference.price))
+            {
+                buyPropertyButton.interactable = true;
+            }
+            else
+            {
+                buyPropertyButton.interactable = false;
+            }
+            //show the panel
+            propertyUIPanel.SetActive(true);
+            Debug.Log("Correct answer.");
         }
         else
         {
-            buyPropertyButton.interactable = false;
+            // Notify incorrect answer
+            Debug.Log("Incorrect answer, you cannot buy the property. End your turn.");
         }
-        //show the panel
-        propertyUIPanel.SetActive(true);
     }
 
     public void BuyPropertyButton() //this call from the button
     {
-        //tell the player buy
-        playerReference.BuyProperty(nodeReference);
-        // maybe colse thr property card
-
-        //make the button not interact anymore
-        buyPropertyButton.interactable = false;
+        if (quizAnsweredCorrectly)
+        {
+            //tell the player buy
+            playerReference.BuyProperty(nodeReference);
+            //maybe close the property card
+            //make the button not interact anymore
+            buyPropertyButton.interactable = false;
+        }
     }
+
     public void ClosePropertyButton() //this call from the button
     {
-        //colse the panel
+        //close the panel
         propertyUIPanel.SetActive(false);
         //clear node reference
-        nodeReference=null;
-        playerReference=null;
+        nodeReference = null;
+        playerReference = null;
     }
 }
