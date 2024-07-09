@@ -4,7 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
-public class NewBehaviourScript : MonoBehaviour
+public class UIShowPanel : MonoBehaviour
 {
     [SerializeField] GameObject humanPanel;
     [SerializeField] Button rollDiceButton;
