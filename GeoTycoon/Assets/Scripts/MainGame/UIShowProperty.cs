@@ -30,6 +30,9 @@ public class UIShowProperty : MonoBehaviour
     [Space]
     [SerializeField] TMP_Text propertyPriceText;
     [SerializeField] TMP_Text playerMoneyText;
+    //Message System
+    public delegate void UpdateMessage(string message);
+    public static UpdateMessage OnUpdateMessage;
 
     private bool quizAnsweredCorrectly = false;
 
@@ -94,11 +97,13 @@ public class UIShowProperty : MonoBehaviour
             }
             //show the panel
             propertyUIPanel.SetActive(true);
+            OnUpdateMessage.Invoke("Correct answer, you now can buy current property.");
             Debug.Log("Correct answer.");
         }
-        else
+        else if (!isCorrect)
         {
             // Notify incorrect answer
+            OnUpdateMessage.Invoke("Incorrect answer, you cannot buy the property. End your turn.");
             Debug.Log("Incorrect answer, you cannot buy the property. End your turn.");
         }
     }

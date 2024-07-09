@@ -13,6 +13,7 @@ public class MessageSystem : MonoBehaviour
         Player_Mono.OnUpdateMessage += RecieveMessage;
         MonopolyNode.OnUpdateMessage += RecieveMessage;
         TradingSystem.OnUpdateMessage += RecieveMessage;
+        UIShowProperty.OnUpdateMessage += RecieveMessage;
 
     }
     void OnDisable()
@@ -21,6 +22,7 @@ public class MessageSystem : MonoBehaviour
         Player_Mono.OnUpdateMessage -= RecieveMessage;
         MonopolyNode.OnUpdateMessage -= RecieveMessage;
         TradingSystem.OnUpdateMessage -= RecieveMessage;
+        UIShowProperty.OnUpdateMessage -= RecieveMessage;
 
     }
     void RecieveMessage(string _message)
