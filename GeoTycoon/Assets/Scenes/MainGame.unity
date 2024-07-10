@@ -5400,6 +5400,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -5447,6 +5448,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -10363,6 +10365,8 @@ GameObject:
   - component: {fileID: 239564783}
   - component: {fileID: 239564782}
   - component: {fileID: 239564781}
+  - component: {fileID: 239564785}
+  - component: {fileID: 239564784}
   m_Layer: 5
   m_Name: Card Canvas
   m_TagString: Untagged
@@ -10454,6 +10458,45 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &239564784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239564779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 239564785}
+  sceneViewId: 6
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &239564785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239564779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &239897419 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5303190115077511852, guid: f47cb8ddfd5390742aabe3ee81e3d76d, type: 3}
@@ -10879,6 +10922,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -11111,6 +11155,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -16620,6 +16665,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -17545,6 +17591,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
       propertyPath: m_Name
       value: Dice (1)
@@ -17583,6 +17633,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1845041824}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1845041825}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1845041826}
   m_SourcePrefab: {fileID: 100100000, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
 --- !u!1001 &394754674
 PrefabInstance:
@@ -18714,6 +18770,7 @@ GameObject:
   - component: {fileID: 435760656}
   - component: {fileID: 435760655}
   - component: {fileID: 435760654}
+  - component: {fileID: 435760658}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -18816,6 +18873,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &435760658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435760653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 12
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &435979010
 GameObject:
   m_ObjectHideFlags: 0
@@ -23691,6 +23770,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -28640,7 +28720,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 863718264}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.5000001
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -30061,6 +30141,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -31053,6 +31134,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -32296,7 +32378,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2137994538}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.50000006
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -32441,6 +32523,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
       propertyPath: m_Name
       value: Dice
@@ -32476,6 +32562,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1139531124}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1139531130}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1139531131}
   m_SourcePrefab: {fileID: 100100000, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
 --- !u!1 &758640436
 GameObject:
@@ -32914,6 +33006,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -34386,6 +34479,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -37998,6 +38092,8 @@ GameObject:
   m_Component:
   - component: {fileID: 887504600}
   - component: {fileID: 887504599}
+  - component: {fileID: 887504602}
+  - component: {fileID: 887504601}
   m_Layer: 0
   m_Name: CameraSwitcher
   m_TagString: Untagged
@@ -38035,6 +38131,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &887504601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887504598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &887504602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887504598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 887504601}
+  sceneViewId: 9
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &888587345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40107,7 +40242,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1224491724}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SwitchPlayer
+        m_MethodName: EndTurnButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -41104,6 +41239,8 @@ GameObject:
   - component: {fileID: 962626306}
   - component: {fileID: 962626305}
   - component: {fileID: 962626308}
+  - component: {fileID: 962626310}
+  - component: {fileID: 962626309}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -41219,6 +41356,45 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &962626309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962626304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &962626310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962626304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 962626309}
+  sceneViewId: 5
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &963444625
 GameObject:
   m_ObjectHideFlags: 0
@@ -47672,6 +47848,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -47855,6 +48032,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -48128,6 +48306,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -48797,6 +48976,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -49388,7 +49568,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139531123}
   serializedVersion: 4
-  m_Mass: 5000
+  m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -49412,6 +49592,45 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 630e1e3206a00c24c99a1912d444c541, type: 3}
   m_PrefabInstance: {fileID: 756736905}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1139531130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139531123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &1139531131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139531123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1139531130}
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1142509196 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1377663593684192427, guid: b1f26f7ef9779744596a1e8af2bf3e8d, type: 3}
@@ -50639,6 +50858,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -50971,6 +51191,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -52728,6 +52949,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1224491723}
   - component: {fileID: 1224491724}
+  - component: {fileID: 1224491725}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -52780,6 +53002,28 @@ MonoBehaviour:
   winnerNameText: {fileID: 524429170}
   _dice1: {fileID: 1139531124}
   _dice2: {fileID: 1845041818}
+--- !u!114 &1224491725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224491722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!224 &1225056570 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1098390629256398609, guid: 71d246f9722b74549a7006d03c3b78d4, type: 3}
@@ -53240,6 +53484,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -53741,7 +53986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 339, y: -262.79337}
+  m_AnchoredPosition: {x: 339, y: -262.79333}
   m_SizeDelta: {x: 678, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1252253244
@@ -55105,6 +55350,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -55219,6 +55465,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -58170,6 +58417,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -58640,6 +58888,7 @@ GameObject:
   - component: {fileID: 1368324369}
   - component: {fileID: 1368324370}
   - component: {fileID: 1368324371}
+  - component: {fileID: 1368324372}
   m_Layer: 0
   m_Name: UI Handler
   m_TagString: Untagged
@@ -58764,6 +59013,28 @@ MonoBehaviour:
   propertySetPrefab: {fileID: 3349135298852051163, guid: 5bd62958202849e4c91eb77e3d14fd84, type: 3}
   yourMoneyText: {fileID: 1806369401}
   systemMessageText: {fileID: 1804391930}
+--- !u!114 &1368324372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368324365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 11
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1368447282
 GameObject:
   m_ObjectHideFlags: 0
@@ -59001,6 +59272,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -59729,6 +60001,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -60135,6 +60408,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1401350322}
   - component: {fileID: 1401350321}
+  - component: {fileID: 1401350324}
+  - component: {fileID: 1401350323}
   m_Layer: 0
   m_Name: PlayerFollowCamera
   m_TagString: Untagged
@@ -60197,6 +60472,45 @@ Transform:
   - {fileID: 1281268278}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1401350323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401350320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1401350324}
+  sceneViewId: 8
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &1401350324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401350320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1001 &1405909924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65468,7 +65782,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1224491724}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: RollPhysicalDice
+        m_MethodName: RollDiceButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -68830,6 +69144,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -69283,6 +69598,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -69296,6 +69612,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1643655545}
   - component: {fileID: 1643655544}
+  - component: {fileID: 1643655546}
+  - component: {fileID: 1643655547}
   m_Layer: 0
   m_Name: MonopolyBoard
   m_TagString: Untagged
@@ -69437,6 +69755,45 @@ Transform:
   - {fileID: 1724564271}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1643655546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643655543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1643655547}
+  sceneViewId: 10
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &1643655547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643655543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &1643684155
 GameObject:
   m_ObjectHideFlags: 0
@@ -70788,6 +71145,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1681403539}
   - component: {fileID: 1681403538}
+  - component: {fileID: 1681403541}
+  - component: {fileID: 1681403540}
   m_Layer: 0
   m_Name: DiceCamera
   m_TagString: Untagged
@@ -70850,6 +71209,45 @@ Transform:
   - {fileID: 181690669}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 114.759, y: -90.72299, z: -180.52}
+--- !u!114 &1681403540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681403537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &1681403541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681403537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1681403540}
+  sceneViewId: 7
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1681666929 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5303190115077511852, guid: b1f26f7ef9779744596a1e8af2bf3e8d, type: 3}
@@ -72652,6 +73050,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -73186,6 +73585,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -73857,6 +74257,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -75689,6 +76090,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -76852,6 +77254,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -78938,6 +79341,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -78995,7 +79399,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845041817}
   serializedVersion: 4
-  m_Mass: 5000
+  m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -79037,8 +79441,48 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 1845041825}
   sceneViewId: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &1845041825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845041817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &1845041826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845041817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1845041825}
+  sceneViewId: 4
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1001 &1845546706
@@ -87603,6 +88047,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -90096,6 +90541,7 @@ MonoBehaviour:
   owner:
     playerType: 0
     name: 
+    playerId: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0

@@ -9,6 +9,8 @@ using Photon.Pun;
 using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
 using System.Linq;
+using Unity.VisualScripting;
+using Photon.Pun.UtilityScripts;
 public class MainMenu : MonoBehaviourPunCallbacks
 {
     public GameObject lobby;
@@ -17,8 +19,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
     public GameObject singlePlayerMenu;
 
+    public Button startGameButton;
+
 
     public string[] playerNameList = new string[4];
+    public int[] playerIdList = new int[4];
 
     [Serializable]
     public class PlayerSelect
@@ -35,6 +40,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         public TMP_Dropdown typeDropdown;
         public TMP_Dropdown colorDropdown;
         public Toggle toggle;
+        public int playerId;
     }
     [SerializeField] PlayerSelect[] playerSelection;
 
@@ -46,10 +52,12 @@ public class MainMenu : MonoBehaviourPunCallbacks
     
 
     [PunRPC]
-    void SyncSetting(string[] currentPlayerNameList)
+    void SyncSetting(string[] currentPlayerNameList, int[] currentPlayerIdList)
     {
         
         playerNameList = currentPlayerNameList;
+        playerIdList = currentPlayerIdList;
+        
     }
 
     [PunRPC]
@@ -59,8 +67,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
         {
             if (player.toggle.isOn)
             {
-                Setting newSet = new Setting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value);
-                GameSettings.AddSetting(newSet);
+                MultiSetting newSet = new MultiSetting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value, player.playerId);
+                GameSettings.AddMultiSetting(newSet);
             }
         }
     }
@@ -70,8 +78,9 @@ public class MainMenu : MonoBehaviourPunCallbacks
         loadingScreen.SetActive(false);
         multiPlayerMenu.SetActive(false);
         singlePlayerMenu.SetActive(true);
-
+        
     }
+
     
     public IEnumerator RoomListing(float delayTime)
     {
@@ -79,11 +88,10 @@ public class MainMenu : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsConnected && PhotonNetwork.PlayerList.Count() > 0)
         {
             PhotonView PV = GetComponent<PhotonView>();
-            PV.RPC("SyncSetting", RpcTarget.OthersBuffered, (object)playerNameList);
+            PV.RPC("SyncSetting", RpcTarget.OthersBuffered, (object)playerNameList,(object)playerIdList);
 
             UpdateListing();
         }
-        
     }
 
     public void UpdateListing()
@@ -94,6 +102,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         {
             if (playerNameList[i] != "") playerSelectionMulti.toggle.isOn = true;
             playerSelectionMulti.nameInput.text = playerNameList[i];
+            playerSelectionMulti.playerId = playerIdList[i];
             i++;
         }
     }
@@ -109,13 +118,16 @@ public class MainMenu : MonoBehaviourPunCallbacks
         }
         if (PhotonNetwork.IsMasterClient)
         {
-            
+            Debug.Log("Master ID " + PhotonNetwork.MasterClient.ActorNumber);
             playerSelectionMulti[0].nameInput.text = PhotonNetwork.NickName;
             playerSelectionMulti[0].toggle.isOn = true;
+            playerSelectionMulti[0].playerId = PhotonNetwork.MasterClient.ActorNumber;
+            playerIdList[0] = PhotonNetwork.MasterClient.ActorNumber;
             playerNameList[0] = PhotonNetwork.NickName;
         }
         else
         {
+            startGameButton.gameObject.SetActive(false);
             StartCoroutine(RoomListing(0.6f));
         }
         
@@ -129,8 +141,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
             {
                 if (player.toggle.isOn)
                 {
-                    Setting newSet = new Setting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value);
-                    GameSettings.AddSetting(newSet);
+                    MultiSetting newSet = new MultiSetting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value, player.playerId);
+                    GameSettings.AddMultiSetting(newSet);
                 }
             }
             PhotonView PV = GetComponent<PhotonView>();
@@ -163,7 +175,9 @@ public class MainMenu : MonoBehaviourPunCallbacks
             if (playerSelectionMulti.nameInput.text == "" && playerSelectionMulti.toggle.isOn == false)
             {
                 playerNameList[i] = newPlayer.NickName;
+                playerIdList[i] = newPlayer.ActorNumber;
                 playerSelectionMulti.nameInput.text = playerNameList[i];
+                playerSelectionMulti.playerId = playerIdList[i];
                 playerSelectionMulti.typeDropdown.value = 0;
                 playerSelectionMulti.toggle.isOn = true;
                 break;
@@ -184,7 +198,9 @@ public class MainMenu : MonoBehaviourPunCallbacks
             if (playerSelectionMulti.nameInput.text == otherPlayer.NickName && playerSelectionMulti.toggle.isOn == true)
             {
                 playerNameList[i] = "";
+                playerIdList[i] = -1;
                 playerSelectionMulti.nameInput.text = playerNameList[i];
+                playerSelectionMulti.playerId = playerIdList[i];
                 playerSelectionMulti.typeDropdown.value = 0;
                 playerSelectionMulti.toggle.isOn = false;
                 break;
@@ -194,6 +210,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
         
         StartCoroutine(RoomListing(0.3f));
     }
+
+    
 
     public void SupportUs()
     {

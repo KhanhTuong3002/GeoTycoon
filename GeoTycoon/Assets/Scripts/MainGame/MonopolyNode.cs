@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+using Photon.Pun;
+
 public enum MonopolyNodeType
 {
     Property,
@@ -18,7 +20,7 @@ public enum MonopolyNodeType
     FreeParking,
     Gotojail
 }
-public class MonopolyNode : MonoBehaviour
+public class MonopolyNode : MonoBehaviourPunCallbacks
 {
     public MonopolyNodeType monopolyNodeType;
     public Image propertyColorField;
@@ -246,8 +248,16 @@ public class MonopolyNode : MonoBehaviour
                     }
                     else if (owner.name == "")
                     {
+                        if(PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == currentPlayer.playerId)
+                        {
+                            OnShowPropertyBuyPanel.Invoke(this, currentPlayer);
+                        }
+                        if(!PhotonNetwork.IsConnected) // offline mode
+                        {
+                            OnShowPropertyBuyPanel.Invoke(this, currentPlayer);
+                        }
                         //Show buy interface for the property
-                        OnShowPropertyBuyPanel.Invoke(this, currentPlayer);
+                        
 
 
                     }
@@ -307,7 +317,15 @@ public class MonopolyNode : MonoBehaviour
                     else if (owner.name == "")
                     {
                         //Show buy interface for the property
-                        OnShowUtilityBuyPanel.Invoke(this, currentPlayer);
+                        if(PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == currentPlayer.playerId)
+                        {
+                            OnShowUtilityBuyPanel.Invoke(this, currentPlayer);
+                        }
+                        if(!PhotonNetwork.IsConnected) // offline mode
+                        {
+                            OnShowUtilityBuyPanel.Invoke(this, currentPlayer);
+                        }
+                        
 
                     }
                     else
@@ -372,7 +390,15 @@ public class MonopolyNode : MonoBehaviour
                     }
                     else if (owner.name == "")
                     {
-                        OnShowRailroadBuyPanel.Invoke(this, currentPlayer);
+                        if(PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == currentPlayer.playerId)
+                        {
+                            OnShowRailroadBuyPanel.Invoke(this, currentPlayer);
+                        }
+                        if(!PhotonNetwork.IsConnected) // offline mode
+                        {
+                            OnShowRailroadBuyPanel.Invoke(this, currentPlayer);
+                        }
+                        
 
 
                     }
@@ -440,7 +466,20 @@ public class MonopolyNode : MonoBehaviour
             bool jail1 = currentPlayer.HasChanceJailFreeCard;
             bool jail2 = currentPlayer.HasCommunityJailFreeCard;
             //show UI
-            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,jail1,jail2);
+
+            if(PhotonNetwork.LocalPlayer.ActorNumber == currentPlayer.playerId)
+            {
+                OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,jail1,jail2);
+            }
+            else if (PhotonNetwork.LocalPlayer.ActorNumber != currentPlayer.playerId) 
+            {
+                //OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,jail1,jail2);
+            }
+
+            if (!PhotonNetwork.IsConnected) // offline
+            {
+                OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,jail1,jail2);
+            }
         }
     }
 

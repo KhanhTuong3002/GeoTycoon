@@ -17,6 +17,24 @@ public class CreateAndJoinRoon : MonoBehaviourPunCallbacks
     public TMP_InputField joinId;
     public TMP_InputField nickName;
 
+    bool IsMasterClientStillIn = true;
+
+    private void FixedUpdate() 
+    {
+        if(IsMasterClientStillIn==false)
+        {
+            PhotonNetwork.LeaveRoom();
+            multiPlayerMenu.SetActive(false);
+            lobbyLayout.SetActive(true);
+            IsMasterClientStillIn = true;
+        }
+    }
+    [PunRPC]
+    public void AllLeaveRoom(bool currentMasterStatus)
+    {
+        IsMasterClientStillIn = currentMasterStatus;
+    }
+
     public void CreateRoom()
     {
         PhotonNetwork.NickName = nickName.text;
@@ -29,6 +47,14 @@ public class CreateAndJoinRoon : MonoBehaviourPunCallbacks
     }
     public void LeaveRoom()
     {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            IsMasterClientStillIn = false;
+        }
+        PhotonView PV = GetComponent<PhotonView>();
+        PV.RPC("AllLeaveRoom", RpcTarget.OthersBuffered, IsMasterClientStillIn);
+
         PhotonNetwork.LeaveRoom();
         multiPlayerMenu.SetActive(false);
         lobbyLayout.SetActive(true);
@@ -69,23 +95,11 @@ public class CreateAndJoinRoon : MonoBehaviourPunCallbacks
         }
     }
 
-    // public override void OnPlayerEnteredRoom(Player newPlayer)
-    // {
-    //     Debug.Log("Player " + newPlayer.NickName + " has joined.");
-    //     int numberOfPlayer = PhotonNetwork.PlayerList.Count();
-    //     Debug.Log("number of players: " + numberOfPlayer);
-    // }
-
-    // public override void OnPlayerLeftRoom(Player otherPlayer)
-    // {
-    //     Debug.Log("Player " + otherPlayer.NickName + " has left.");
-    //     int numberOfPlayer = PhotonNetwork.PlayerList.Count();
-    //     Debug.Log("number of players: " + numberOfPlayer);
-    // }
+    
 
     public override void OnLeftRoom()
     {
-        PhotonNetwork.LeaveRoom(true);
+        //PhotonNetwork.LeaveRoom(true);
         PhotonNetwork.NickName = null;
         Debug.Log("Leave room");
     }

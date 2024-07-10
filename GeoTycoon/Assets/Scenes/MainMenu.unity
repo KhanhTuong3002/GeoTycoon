@@ -30191,6 +30191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 851268835}
   - component: {fileID: 851268834}
+  - component: {fileID: 851268836}
   m_Layer: 0
   m_Name: CreateAndJoinRoom
   m_TagString: Untagged
@@ -30230,6 +30231,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &851268836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851268833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 4
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &852800451
 GameObject:
   m_ObjectHideFlags: 0
@@ -73964,6 +73987,13 @@ MonoBehaviour:
   loadingScreen: {fileID: 1290299041}
   multiPlayerMenu: {fileID: 1338999362}
   singlePlayerMenu: {fileID: 1636913240}
+  startGameButton: {fileID: 66181471}
+  playerNameList:
+  - 
+  - 
+  - 
+  - 
+  playerIdList: 00000000000000000000000000000000
   playerSelection:
   - nameInput: {fileID: 687864787}
     typeDropdown: {fileID: 381558701}
@@ -73986,18 +74016,22 @@ MonoBehaviour:
     typeDropdown: {fileID: 680229076}
     colorDropdown: {fileID: 1709197841}
     toggle: {fileID: 1552416417}
+    playerId: 0
   - nameInput: {fileID: 1990325395}
     typeDropdown: {fileID: 1139381854}
     colorDropdown: {fileID: 170513594}
     toggle: {fileID: 1522267461}
+    playerId: 0
   - nameInput: {fileID: 1021438400}
     typeDropdown: {fileID: 700818972}
     colorDropdown: {fileID: 1542483231}
     toggle: {fileID: 397576042}
+    playerId: 0
   - nameInput: {fileID: 1252471884}
     typeDropdown: {fileID: 2048116225}
     colorDropdown: {fileID: 2056973955}
     toggle: {fileID: 1681393629}
+    playerId: 0
   supportUrl: 
   webUrl: 
 --- !u!4 &1987510256

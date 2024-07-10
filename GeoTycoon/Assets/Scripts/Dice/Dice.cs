@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class Dice : MonoBehaviour
@@ -27,7 +28,15 @@ public class Dice : MonoBehaviour
             hasLanded = true;
             rb.useGravity = false;
             rb.isKinematic = true;
-            SideValueCheck();
+            if(PhotonNetwork.IsConnected)
+            {
+                PhotonView PV = GetComponent<PhotonView>();
+                PV.RPC("SideValueCheck", RpcTarget.AllBuffered);
+            }
+            else
+            {
+                SideValueCheck();
+            }
         }
         else if(rb.IsSleeping() && hasLanded && diceValue == 0)
         {
@@ -45,6 +54,26 @@ public class Dice : MonoBehaviour
             rb.isKinematic = false;
             rb.AddTorque(Random.Range(0,500),Random.Range(0,500),Random.Range(0,500));
         }
+        //Random.Range(0,500)
+        // else if (thrown && hasLanded)
+        // {
+        //     //RESET DICE
+        //     Reset();
+
+        // }
+    }
+
+    public void RollDice(int rangeOne, int rangeTwo, int rangeThree)
+    {
+        Reset();
+        if (!thrown && !hasLanded)
+        {
+            thrown = true;
+            rb.useGravity = true;
+            rb.isKinematic = false;
+            rb.AddTorque(rangeOne,rangeTwo,rangeThree);
+        }
+        //Random.Range(0,500)
         // else if (thrown && hasLanded)
         // {
         //     //RESET DICE
@@ -72,6 +101,7 @@ public class Dice : MonoBehaviour
 
     }
 
+    [PunRPC]
     void SideValueCheck()
     {
         diceValue = 0;

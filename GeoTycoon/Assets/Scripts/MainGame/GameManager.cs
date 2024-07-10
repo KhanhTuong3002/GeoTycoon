@@ -29,10 +29,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Dice _dice1;
     [SerializeField] Dice _dice2;
     //about the rolling dice
-    List <int> rolledDice = new List<int>();
+    List<int> rolledDice = new List<int>();
     bool rolledADouble;
     public bool RolledADouble => rolledADouble;
-    public void ResetRolledADouble() => rolledADouble=false;
+    public void ResetRolledADouble() => rolledADouble = false;
     int doubleRollCount;
     bool hasRolledDice;
     public bool HasRolledDice => hasRolledDice;
@@ -73,6 +73,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     IEnumerator StartGame()
     {
         yield return new WaitForSeconds(3f);
+        Debug.Log("Player ID "+playerList[currentPlayer].playerId+" " +playerList[currentPlayer].name + " will go first");
+        Debug.Log("Your ID " + PhotonNetwork.LocalPlayer.ActorNumber);
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
         {
             //System.Threading.Thread.Sleep(2000); // Delay for 2 seconds
@@ -82,61 +84,146 @@ public class GameManager : MonoBehaviourPunCallbacks
         else
         {
             //show ui for human input
-            OnShowHumanPanel.Invoke(true,true,false,false,false);
+            if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
+            {
+                OnShowHumanPanel.Invoke(true, true, false, false, false);
+            }
+            else if (PhotonNetwork.LocalPlayer.ActorNumber != playerList[currentPlayer].playerId)
+            {
+                OnShowHumanPanel.Invoke(false, false, false, false, false);
+            }
+
+            if (!PhotonNetwork.IsConnected) OnShowHumanPanel.Invoke(true, true, false, false, false); // offline mode
+        }
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            Debug.Log("Client name: " + PhotonNetwork.LocalPlayer.NickName + " | Player name: " + playerList[i].name + " | Player ID: " + playerList[i].playerId);
         }
     }
 
+
     void Inititialize()
-    { 
-        if (GameSettings.settingsList.Count == 0)
+    {
+        if (GameSettings.settingsList.Count == 0 && GameSettings.multisettingsList.Count == 0)
         {
             Debug.LogError("Start the game from the Main Menu!");
             return;
         }
-        foreach (var setting in GameSettings.settingsList)
+        if (!PhotonNetwork.IsConnected)
         {
-            Player_Mono p1 = new Player_Mono();
-            p1.name = setting.playerName;
-            p1.playerType = (Player_Mono.PlayerType)setting.selectedType;
+            foreach (var setting in GameSettings.settingsList)
+            {
+                Player_Mono p1 = new Player_Mono();
 
-            playerList.Add(p1);
+                p1.name = setting.playerName;
+                p1.playerType = (Player_Mono.PlayerType)setting.selectedType;
 
-            GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
-            Player_MonoInfor info = infoObject.GetComponent<Player_MonoInfor>();
-            //Debug.Log("color number" +Setting.selectColor);
-            GameObject newToken = Instantiate(playerTokenList[setting.selectColor], gameBoard.route[0].transform.position, Quaternion.identity);
-            p1.Inititialize(gameBoard.route[0], startMoney, info, newToken);
+                playerList.Add(p1);
+
+                GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
+                Player_MonoInfor info = infoObject.GetComponent<Player_MonoInfor>();
+                //Debug.Log("color number" +Setting.selectColor);
+                GameObject newToken = Instantiate(playerTokenList[setting.selectColor], gameBoard.route[0].transform.position, Quaternion.identity);
+                p1.Inititialize(gameBoard.route[0], startMoney, info, newToken);
+            }
         }
+        else
+        {
+            foreach (var setting in GameSettings.multisettingsList)
+            {
+                Player_Mono p1 = new Player_Mono();
+
+                p1.name = setting.playerName;
+                p1.playerType = (Player_Mono.PlayerType)setting.selectedType;
+                p1.playerId = setting.playerId;
+
+                playerList.Add(p1);
+
+                GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
+                Player_MonoInfor info = infoObject.GetComponent<Player_MonoInfor>();
+                //Debug.Log("color number" +Setting.selectColor);
+                GameObject newToken = Instantiate(playerTokenList[setting.selectColor], gameBoard.route[0].transform.position, Quaternion.identity);
+                p1.Inititialize(gameBoard.route[0], startMoney, info, newToken);
+            }
+        }
+
         playerList[currentPlayer].ActivateSelector(true);
 
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN)
         {
+            if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
+            {
                 bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
                 bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
-            OnShowHumanPanel.Invoke(true, true, false,jail1,jail2);
+                OnShowHumanPanel.Invoke(true, true, false, jail1, jail2);
+            }
+            else if (PhotonNetwork.LocalPlayer.ActorNumber != playerList[currentPlayer].playerId)
+            {
+                bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+                bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+                OnShowHumanPanel.Invoke(false, false, false, jail1, jail2);
+            }
+
+            if (!PhotonNetwork.IsConnected) // offline mode
+            {
+                bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+                bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+                OnShowHumanPanel.Invoke(true, true, false, jail1, jail2);
+            }
+
         }
         else
         {
-                bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
-                bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
-            OnShowHumanPanel.Invoke(false, false, false,jail1,jail2);
+            bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+            bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+            OnShowHumanPanel.Invoke(false, false, false, jail1, jail2);
         }
     }
 
+    [PunRPC]
     public void RollPhysicalDice()
     {
         CheckForJailFree();
         rolledDice.Clear();
-        _dice1.RollDice();
-        _dice2.RollDice();
+        if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
+        {
+            _dice1.RollDice();
+            _dice2.RollDice();
+        }
+        if (!PhotonNetwork.IsConnected) // offline mode
+        {
+            _dice1.RollDice();
+            _dice2.RollDice();
+        }
         CameraSwitcher.instance.SwitchToDice();
 
         //show or hide ui
-        if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN)
+        if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN && PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
         {
             bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
             bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
-            OnShowHumanPanel.Invoke(true,false,false,jail1,jail2);
+            OnShowHumanPanel.Invoke(true, false, false, jail1, jail2);
+        }
+        if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN && !PhotonNetwork.IsConnected) // offline mode
+        {
+            bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+            bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+            OnShowHumanPanel.Invoke(true, false, false, jail1, jail2);
+        }
+    }
+
+
+
+    public void RollDiceButton()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("RollPhysicalDice", RpcTarget.AllBuffered);
+        }
+        else
+        {
+            RollPhysicalDice();
         }
     }
 
@@ -145,7 +232,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Jail free card
         if (playerList[currentPlayer].IsInjail && playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
         {
-            if(playerList[currentPlayer].HasChanceJailFreeCard)
+            if (playerList[currentPlayer].HasChanceJailFreeCard)
             {
                 playerList[currentPlayer].UseChanceJailFreeCard();
             }
@@ -159,24 +246,36 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void ReportDiceRolled(int diceValue)
     {
         rolledDice.Add(diceValue);
-        if(rolledDice.Count==2)
+        if (rolledDice.Count == 2)
         {
-            RollDice();
+            if (PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
+            {
+                PhotonView PV = GetComponent<PhotonView>();
+                PV.RPC("RollDice", RpcTarget.All, rolledDice[0], rolledDice[1]);
+            }
+            else
+            {
+                RollDice(rolledDice[0], rolledDice[1]);
+            }
+
         }
     }
+    [PunRPC]
 
-    void RollDice() //press button form human or auto from ai
+    void RollDice(int diceOne, int diceTwo) //press button form human or auto from ai
     {
+
+
         bool allowedToMove = true;
         hasRolledDice = true;
-        
-        
+
+
         // //reset last roll
         // rolledDice = new int[2];
         // //any roll dice and store them
         // rolledDice[0] = Random.Range(1, 7);
         // rolledDice[1] = Random.Range(1, 7);
-        Debug.Log("rolled dice are:" + rolledDice[0] + " & " + rolledDice[1]);
+        Debug.Log("rolled dice are:" + diceOne + " & " + diceTwo);
 
 
         //Debug
@@ -191,7 +290,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         //     rolledDice[1] = dice2;
         // }
         //check for double
-        rolledADouble = rolledDice[0] == rolledDice[1];
+        rolledADouble = diceOne == diceTwo;
         //throw 3 times in a row -> jail anyhow -> end turn
 
         //is in jail already
@@ -199,7 +298,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             playerList[currentPlayer].IcreaseNumTurnInJail();
 
-            if(rolledADouble)
+            if (rolledADouble)
             {
                 playerList[currentPlayer].setOutOfJail();
                 OnUpdateMessage.Invoke(playerList[currentPlayer].name + " <color=green>can leave jail</color>, because a double was rolled");
@@ -228,7 +327,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             else
             {
                 doubleRollCount++;
-                if(doubleRollCount >= 3)
+                if (doubleRollCount >= 3)
                 {
                     //move to jail
                     int indexOnBoard = MonopolyBoard.instance.route.IndexOf(playerList[currentPlayer].MyMonopolyNode);
@@ -245,10 +344,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         //move anyhow if allowed
 
-        if(allowedToMove)
+        if (allowedToMove)
         {
-            OnUpdateMessage.Invoke(playerList[currentPlayer].name + " has rolled: " +rolledDice[0] + " & "+ rolledDice[1]);
-            StartCoroutine(DelayBeforeMove(rolledDice[0] + rolledDice[1]));
+            OnUpdateMessage.Invoke(playerList[currentPlayer].name + " has rolled: " + diceOne + " & " + diceTwo);
+            StartCoroutine(DelayBeforeMove(diceOne + diceTwo));
 
         }
         else
@@ -258,7 +357,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             Debug.Log("WE CAN NOT MOVE BECAUSE NOT ALLOWED");
             StartCoroutine(DelayBetweenSwitchPlayer());
         }
-        
+
     }
     IEnumerator DelayBeforeMove(int rolledDice)
     {
@@ -266,13 +365,37 @@ public class GameManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(secondsBetweenTurns);
         //if we are allowed to move we do so
         gameBoard.MovePlayertonken(rolledDice, playerList[currentPlayer]);
-            //else we switch
+        //else we switch
     }
     IEnumerator DelayBetweenSwitchPlayer()
     {
         yield return new WaitForSeconds(secondsBetweenTurns);
-        SwitchPlayer();
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("SwitchPlayer", RpcTarget.All);
+        }
+        else
+        {
+            SwitchPlayer();
+        }
+
     }
+
+    public void EndTurnButton()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("SwitchPlayer", RpcTarget.All);
+        }
+        else
+        {
+            SwitchPlayer();
+        }
+    }
+
+    [PunRPC]
 
     public void SwitchPlayer()
     {
@@ -282,10 +405,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         hasRolledDice = false;
         //rolledouble?
         doubleRollCount = 0;
-
-
         //overflow check
-        if(currentPlayer >= playerList.Count)
+        if (currentPlayer >= playerList.Count)
         {
             currentPlayer = 0;
         }
@@ -293,19 +414,50 @@ public class GameManager : MonoBehaviourPunCallbacks
         playerList[currentPlayer].ActivateSelector(true);
         //check if in jail
 
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if (player.ActorNumber == playerList[currentPlayer].playerId)
+            {
+                PhotonNetwork.SetMasterClient(player);
+                Debug.Log(PhotonNetwork.IsMasterClient);
+            }
+        }
 
         //is player Ai
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
         {
             //RollDice();
             RollPhysicalDice();
-            OnShowHumanPanel.Invoke(false, false, false,false, false);
+            OnShowHumanPanel.Invoke(false, false, false, false, false);
         }
         else  //if human - show ui
         {
-            bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
-            bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
-            OnShowHumanPanel.Invoke(true, true, false,jail1 , jail2);
+            Debug.Log("It's " + playerList[currentPlayer].name + " turn");
+
+            if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
+            {
+                bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+                bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+                OnShowHumanPanel.Invoke(true, true, false, jail1, jail2);
+
+                Debug.Log("Show panel");
+                
+                
+            }
+            else if (PhotonNetwork.LocalPlayer.ActorNumber != playerList[currentPlayer].playerId)
+            {
+                OnShowHumanPanel.Invoke(false, false, false, false, false);
+                Debug.Log("Hide panel");
+                
+            }
+
+            if (!PhotonNetwork.IsConnected) // offline mode
+            {
+                bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+                bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+                OnShowHumanPanel.Invoke(true, true, false, jail1, jail2);
+            }
+
         }
     }
 
@@ -360,11 +512,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     //-------------------------------Continue Game stuff--------------------------
     public void Continue()
     {
-        if(playerList.Count > 1)
+        if (playerList.Count > 1)
         {
-            Invoke("ContinueGame",SecondsBetweenTurns);
+            Invoke("ContinueGame", SecondsBetweenTurns);
         }
-        
+
     }
     void ContinueGame()
     {
@@ -378,9 +530,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         else
         {
             //Switch player
-          SwitchPlayer();
+            SwitchPlayer();
             //not a double
-           
+
         }
     }
     // Human Bankrupt

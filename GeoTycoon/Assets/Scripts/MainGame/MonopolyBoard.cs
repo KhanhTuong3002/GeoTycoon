@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class MonopolyBoard : MonoBehaviour
+using Photon.Pun;
+
+public class MonopolyBoard : MonoBehaviourPunCallbacks
 {
     public static MonopolyBoard instance;
 
@@ -131,7 +133,7 @@ public class MonopolyBoard : MonoBehaviour
 
         player.SetMyCurrentNode(route[indexOnBoard]);
     }
-
+    
     bool MoveToNextNode(GameObject tonkenTomove, Vector3 endPos, float speed)
     {
         return endPos != (tonkenTomove.transform.position = Vector3.MoveTowards(tonkenTomove.transform.position,endPos,speed * Time.deltaTime));

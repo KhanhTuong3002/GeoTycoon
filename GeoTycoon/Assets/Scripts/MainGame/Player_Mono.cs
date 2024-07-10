@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using TMPro;
 using System.Linq.Expressions;
+using Photon.Pun;
 
 [System.Serializable]
 public class Player_Mono
@@ -16,6 +17,7 @@ public class Player_Mono
     }//HUMAN
     public PlayerType playerType;
     public string name;
+    public int playerId;
     int money;
     MonopolyNode currentnode;
     bool isInjail;
@@ -71,6 +73,11 @@ public class Player_Mono
     {
         currentnode = newNode;
         //Player Landed on node so lets
+        if (PhotonNetwork.IsConnected)
+        {
+            
+        }
+
         newNode.PlayerLandedOnNode(this);
         // if its ai player
         if(playerType == PlayerType.AI)

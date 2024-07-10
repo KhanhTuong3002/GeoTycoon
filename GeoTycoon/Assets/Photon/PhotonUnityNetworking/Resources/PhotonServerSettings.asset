@@ -41,6 +41,13 @@ MonoBehaviour:
   - RespawnSpaceship
   - SyncSetting
   - SyncStart
+  - LeaveRoom
+  - AllLeaveRoom
+  - RollPhysicalDice
+  - RollPhysicalDiceMulti
+  - RollDice
+  - SwitchPlayer
+  - SideValueCheck
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
