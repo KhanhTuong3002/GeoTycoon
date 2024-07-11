@@ -4,7 +4,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class CommunityChest : MonoBehaviour
+using Photon.Pun;
+
+public class CommunityChest :  MonoBehaviourPunCallbacks
 {   
     public static CommunityChest instance;
     [SerializeField] List<SCR_CommunityCard> cards = new List<SCR_CommunityCard> ();
@@ -44,18 +46,36 @@ public class CommunityChest : MonoBehaviour
         //ADD ALL CARDS TO THE POOL
         cardPool.AddRange(cards);
         //SHUFFLE THE CARDS
-        ShuffleCards();
+        StartCoroutine(ShuffleCards());
     }
 
-    void ShuffleCards()
+    IEnumerator ShuffleCards()
     {
+        yield return new WaitForSeconds(1);
         for (int i = 0; i < cardPool.Count; i++)
         {
             int index = Random.Range(0, cardPool.Count);
-            SCR_CommunityCard tempCard = cardPool[index];
-            cardPool[index] = cardPool[i];
-            cardPool[i] = tempCard;
+            if(PhotonNetwork.IsConnected)
+            {
+                PhotonView PV = GetComponent<PhotonView>();
+                PV.RPC("ShuffleCommunityCardsMulti", RpcTarget.AllBuffered, index, i);
+            }
+            else
+            {
+                SCR_CommunityCard tempCard = cardPool[index];
+                cardPool[index] = cardPool[i];
+                cardPool[i] = tempCard;
+            }
         }
+        //Debug.Log("community card number: " + cardPool.Count);
+    }
+
+    [PunRPC]
+    public void ShuffleCommunityCardsMulti(int index, int i)
+    {
+        SCR_CommunityCard tempCard = cardPool[index];
+        cardPool[index] = cardPool[i];
+        cardPool[i] = tempCard;
         Debug.Log("community card number: " + cardPool.Count);
     }
 
@@ -79,7 +99,7 @@ public class CommunityChest : MonoBehaviour
             cardPool.AddRange(usedcardPool);
             usedcardPool.Clear();
             //SHUFFLE ALL
-            ShuffleCards();
+            StartCoroutine(ShuffleCards());
         }
         //WHO IS CURRENT PLAYER
         currentPlayer = cardTaker;
@@ -99,6 +119,20 @@ public class CommunityChest : MonoBehaviour
         }
     }
 
+    public void CloseCardButton()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("ApplyCardEffect", RpcTarget.AllBuffered);
+        }
+        else
+        {
+            ApplyCardEffect();
+        }
+    }
+    
+    [PunRPC]
     public void ApplyCardEffect() //CLOSE BUTTON OF THE CARD
     {
         bool isMoving = false;

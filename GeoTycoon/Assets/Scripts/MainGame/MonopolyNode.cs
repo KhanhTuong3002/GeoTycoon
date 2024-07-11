@@ -248,14 +248,7 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
                     }
                     else if (owner.name == "")
                     {
-                        if(PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == currentPlayer.playerId)
-                        {
-                            OnShowPropertyBuyPanel.Invoke(this, currentPlayer);
-                        }
-                        if(!PhotonNetwork.IsConnected) // offline mode
-                        {
-                            OnShowPropertyBuyPanel.Invoke(this, currentPlayer);
-                        }
+                        OnShowPropertyBuyPanel.Invoke(this, currentPlayer);
                         //Show buy interface for the property
                         
 
@@ -317,14 +310,7 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
                     else if (owner.name == "")
                     {
                         //Show buy interface for the property
-                        if(PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == currentPlayer.playerId)
-                        {
-                            OnShowUtilityBuyPanel.Invoke(this, currentPlayer);
-                        }
-                        if(!PhotonNetwork.IsConnected) // offline mode
-                        {
-                            OnShowUtilityBuyPanel.Invoke(this, currentPlayer);
-                        }
+                        OnShowUtilityBuyPanel.Invoke(this, currentPlayer);
                         
 
                     }
@@ -390,14 +376,7 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
                     }
                     else if (owner.name == "")
                     {
-                        if(PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == currentPlayer.playerId)
-                        {
-                            OnShowRailroadBuyPanel.Invoke(this, currentPlayer);
-                        }
-                        if(!PhotonNetwork.IsConnected) // offline mode
-                        {
-                            OnShowRailroadBuyPanel.Invoke(this, currentPlayer);
-                        }
+                        OnShowRailroadBuyPanel.Invoke(this, currentPlayer);
                         
 
 

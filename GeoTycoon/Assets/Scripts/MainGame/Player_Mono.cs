@@ -68,7 +68,6 @@ public class Player_Mono
         myTonken = token;
         myInfor.ActivateArrow(false);
     }
-
     public void SetMyCurrentNode(MonopolyNode newNode)// turn is over
     {
         currentnode = newNode;
@@ -185,7 +184,7 @@ public class Player_Mono
     public void RollToJail()
     {
         isInjail = true;
-        GameManager.instance.SwitchPlayer();
+        GameManager.instance.EndTurnButton();
 
     }
 

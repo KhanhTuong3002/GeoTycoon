@@ -5,7 +5,9 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class UIShowProperty : MonoBehaviour
+using Photon.Pun;
+
+public class UIShowProperty : MonoBehaviourPunCallbacks
 {
     MonopolyNode nodeReference;
     Player_Mono playerReference;
@@ -36,10 +38,14 @@ public class UIShowProperty : MonoBehaviour
         
     }
 
+    
+
      void OnDisable()
     {
         MonopolyNode.OnShowPropertyBuyPanel -= ShowBuyPropertyUI;
+        
     }
+    
 
     void Start()
     {
@@ -48,7 +54,9 @@ public class UIShowProperty : MonoBehaviour
     void ShowBuyPropertyUI(MonopolyNode node, Player_Mono currentPlayer)
     {
         nodeReference = node;
+        
         playerReference = currentPlayer;
+        
         //top Panel content
         propertyNameText.text = node.name;
         //coloField.color = node.propertyColorField.color;
@@ -75,8 +83,37 @@ public class UIShowProperty : MonoBehaviour
             buyPropertyButton.interactable = false;
         }
         //show the panel
-        propertyUIPanel.SetActive(true);
+        if (playerReference.playerId==PhotonNetwork.LocalPlayer.ActorNumber) propertyUIPanel.SetActive(true);
+        else propertyUIPanel.SetActive(false);
+        if(!PhotonNetwork.IsConnected) propertyUIPanel.SetActive(true);
     }
+
+    public void OnClickBuy()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("BuyPropertyButton", RpcTarget.AllBuffered);
+        }
+        else
+        {
+            BuyPropertyButton();
+        }
+    }
+
+    public void OnClickClose()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("ClosePropertyButton", RpcTarget.AllBuffered);
+        }
+        else
+        {
+            BuyPropertyButton();
+        }
+    }
+    [PunRPC]
 
     public void BuyPropertyButton() //this call from the button
     {
@@ -87,6 +124,8 @@ public class UIShowProperty : MonoBehaviour
         //make the button not interact anymore
         buyPropertyButton.interactable = false;
     }
+
+    [PunRPC]
     public void ClosePropertyButton() //this call from the button
     {
         //colse the panel

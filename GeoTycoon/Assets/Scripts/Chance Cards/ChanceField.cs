@@ -5,7 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChanceField : MonoBehaviour
+using Photon.Pun;
+
+public class ChanceField : MonoBehaviourPunCallbacks
 {   
     public static ChanceField instance;
     [SerializeField] List<SCR_ChanceCard> cards = new List<SCR_ChanceCard> ();
@@ -43,18 +45,37 @@ public class ChanceField : MonoBehaviour
         //ADD ALL CARDS TO THE POOL
         cardPool.AddRange(cards);
         //SHUFFLE THE CARDS
-        ShuffleCards();
+        StartCoroutine(ShuffleCards());
     }
 
-    void ShuffleCards()
+    IEnumerator ShuffleCards()
     {
+        yield return new WaitForSeconds(0.6f);
         for (int i = 0; i < cardPool.Count; i++)
         {
             int index = Random.Range(0, cardPool.Count);
+            if(PhotonNetwork.IsConnected)
+            {
+                PhotonView PV = GetComponent<PhotonView>();
+                PV.RPC("ShuffleChanceCardsMulti", RpcTarget.AllBuffered, index, i);
+            }
+            else
+            {
+                SCR_ChanceCard tempCard = cardPool[index];
+                cardPool[index] = cardPool[i];
+                cardPool[i] = tempCard;
+            }
+        }
+        //Debug.Log("chance card number: " + cardPool.Count);
+    }
+    [PunRPC]
+    public void ShuffleChanceCardsMulti(int index, int i)
+    {
+        
             SCR_ChanceCard tempCard = cardPool[index];
             cardPool[index] = cardPool[i];
             cardPool[i] = tempCard;
-        }
+
         Debug.Log("chance card number: " + cardPool.Count);
     }
 
@@ -80,7 +101,7 @@ public class ChanceField : MonoBehaviour
             cardPool.AddRange(usedcardPool);
             usedcardPool.Clear();
             //SHUFFLE ALL
-            ShuffleCards();
+            StartCoroutine(ShuffleCards());
         }
         //WHO IS CURRENT PLAYER
         currentPlayer = cardTaker;
@@ -99,6 +120,20 @@ public class ChanceField : MonoBehaviour
             closeCardButton.interactable = true;
         }
     }
+
+    public void CloseCardButton()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("ApplyCardEffect", RpcTarget.AllBuffered);
+        }
+        else
+        {
+            ApplyCardEffect();
+        }
+    }
+    [PunRPC]
     public void ApplyCardEffect() //CLOSE BUTTON OF THE CARD
     {
         bool isMoving = false;

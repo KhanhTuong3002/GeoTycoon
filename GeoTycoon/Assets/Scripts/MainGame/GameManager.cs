@@ -73,8 +73,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     IEnumerator StartGame()
     {
         yield return new WaitForSeconds(3f);
-        Debug.Log("Player ID "+playerList[currentPlayer].playerId+" " +playerList[currentPlayer].name + " will go first");
-        Debug.Log("Your ID " + PhotonNetwork.LocalPlayer.ActorNumber);
+        // // Debug.Log("Player ID "+playerList[currentPlayer].playerId+" " +playerList[currentPlayer].name + " will go first");
+        // // Debug.Log("Your ID " + PhotonNetwork.LocalPlayer.ActorNumber);
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
         {
             //System.Threading.Thread.Sleep(2000); // Delay for 2 seconds
@@ -95,10 +95,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             if (!PhotonNetwork.IsConnected) OnShowHumanPanel.Invoke(true, true, false, false, false); // offline mode
         }
-        for (int i = 0; i < playerList.Count; i++)
-        {
-            Debug.Log("Client name: " + PhotonNetwork.LocalPlayer.NickName + " | Player name: " + playerList[i].name + " | Player ID: " + playerList[i].playerId);
-        }
+        // // for (int i = 0; i < playerList.Count; i++)
+        // // {
+        // //     Debug.Log("Client name: " + PhotonNetwork.LocalPlayer.NickName + " | Player name: " + playerList[i].name + " | Player ID: " + playerList[i].playerId);
+        // // }
     }
 
 

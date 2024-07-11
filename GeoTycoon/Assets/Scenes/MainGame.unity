@@ -13178,7 +13178,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1368324369}
         m_TargetAssemblyTypeName: UIShowRailroad, Assembly-CSharp
-        m_MethodName: BuyRailroadButton
+        m_MethodName: OnClickBuy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23495,7 +23495,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1368324370}
         m_TargetAssemblyTypeName: UIShowUtility, Assembly-CSharp
-        m_MethodName: BuyUtilityButton
+        m_MethodName: OnClickBuy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23947,7 +23947,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1703788495}
         m_TargetAssemblyTypeName: CommunityChest, Assembly-CSharp
-        m_MethodName: ApplyCardEffect
+        m_MethodName: CloseCardButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28720,7 +28720,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 863718264}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.5000001
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -32378,7 +32378,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2137994538}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.50000006
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -34743,7 +34743,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1703788496}
         m_TargetAssemblyTypeName: ChanceField, Assembly-CSharp
-        m_MethodName: ApplyCardEffect
+        m_MethodName: CloseCardButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -42802,7 +42802,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1368324368}
         m_TargetAssemblyTypeName: UIShowProperty, Assembly-CSharp
-        m_MethodName: ClosePropertyButton
+        m_MethodName: OnClickClose
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -49941,7 +49941,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1368324369}
         m_TargetAssemblyTypeName: UIShowRailroad, Assembly-CSharp
-        m_MethodName: CloseRailroadButton
+        m_MethodName: OnClickClose
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -53986,7 +53986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 339, y: -262.79333}
+  m_AnchoredPosition: {x: 339, y: -262.79337}
   m_SizeDelta: {x: 678, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1252253244
@@ -63285,7 +63285,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1368324368}
         m_TargetAssemblyTypeName: UIShowProperty, Assembly-CSharp
-        m_MethodName: BuyPropertyButton
+        m_MethodName: OnClickBuy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -72401,6 +72401,7 @@ GameObject:
   - component: {fileID: 1703788494}
   - component: {fileID: 1703788495}
   - component: {fileID: 1703788496}
+  - component: {fileID: 1703788497}
   m_Layer: 0
   m_Name: Card Handler
   m_TagString: Untagged
@@ -72491,6 +72492,28 @@ MonoBehaviour:
   cardHolderBackground: {fileID: 1996526539}
   showTime: 3
   closeCardButton: {fileID: 549476065}
+--- !u!114 &1703788497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703788492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 13
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1705994501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75223,7 +75246,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1368324370}
         m_TargetAssemblyTypeName: UIShowUtility, Assembly-CSharp
-        m_MethodName: CloseUtilityButton
+        m_MethodName: OnClickClose
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

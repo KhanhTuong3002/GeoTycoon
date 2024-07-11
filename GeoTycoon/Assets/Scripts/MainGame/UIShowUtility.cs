@@ -4,7 +4,9 @@ using UnityEngine;
 
 using TMPro;
 using UnityEngine.UI;
-public class UIShowUtility : MonoBehaviour
+
+using Photon.Pun;
+public class UIShowUtility : MonoBehaviourPunCallbacks
 {
     MonopolyNode nodeReference;
     Player_Mono playerReference;
@@ -61,8 +63,39 @@ public class UIShowUtility : MonoBehaviour
             buyUtilityButton.interactable = false;
         }
         //show the panel
-        utilityUIPanel.SetActive(true);
+        
+        if (playerReference.playerId==PhotonNetwork.LocalPlayer.ActorNumber) utilityUIPanel.SetActive(true);
+        else utilityUIPanel.SetActive(false);
+        if(!PhotonNetwork.IsConnected) utilityUIPanel.SetActive(true);
     }
+
+    public void OnClickBuy()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("BuyUtilityButton", RpcTarget.AllBuffered);
+        }
+        else
+        {
+            BuyUtilityButton();
+        }
+    }
+
+    public void OnClickClose()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("CloseUtilityButton", RpcTarget.AllBuffered);
+        }
+        else
+        {
+            CloseUtilityButton();
+        }
+    }
+
+    [PunRPC]
 
     public void BuyUtilityButton() //this call from the button
     {
@@ -73,6 +106,7 @@ public class UIShowUtility : MonoBehaviour
         //make the button not interact anymore
         buyUtilityButton.interactable = false;
     }
+    [PunRPC]
     public void CloseUtilityButton() //this call from the button
     {
         //colse the panel

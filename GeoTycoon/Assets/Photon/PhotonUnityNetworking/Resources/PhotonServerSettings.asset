@@ -48,6 +48,18 @@ MonoBehaviour:
   - RollDice
   - SwitchPlayer
   - SideValueCheck
+  - ShuffleCardsMulti
+  - ApplyCardEffect
+  - BuyPropertyButton
+  - ShuffleChanceCardsMulti
+  - ShuffleCommunityCardsMulti
+  - ClosePropertyButton
+  - DisableMulti
+  - EnableMulti
+  - BuyRailroadButton
+  - CloseRailroadButton
+  - BuyUtilityButton
+  - CloseUtilityButton
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

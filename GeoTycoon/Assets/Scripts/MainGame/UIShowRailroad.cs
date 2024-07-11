@@ -4,7 +4,9 @@ using UnityEngine;
 
 using TMPro;
 using UnityEngine.UI;
-public class UIShowRailroad : MonoBehaviour
+
+using Photon.Pun;
+public class UIShowRailroad : MonoBehaviourPunCallbacks
 {
     MonopolyNode nodeReference;
     Player_Mono playerReference;
@@ -70,8 +72,39 @@ public class UIShowRailroad : MonoBehaviour
             buyRailroadButton.interactable = false;
         }
         //show the panel
-        railroadUIPanel.SetActive(true);
+        if (playerReference.playerId==PhotonNetwork.LocalPlayer.ActorNumber) railroadUIPanel.SetActive(true);
+        else railroadUIPanel.SetActive(false);
+        if(!PhotonNetwork.IsConnected) railroadUIPanel.SetActive(true);
+        
     }
+
+    public void OnClickBuy()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("BuyRailroadButton", RpcTarget.AllBuffered);
+        }
+        else
+        {
+            BuyRailroadButton();
+        }
+    }
+
+    public void OnClickClose()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("CloseRailroadButton", RpcTarget.AllBuffered);
+        }
+        else
+        {
+            CloseRailroadButton();
+        }
+    }
+
+    [PunRPC]
 
     public void BuyRailroadButton() //this call from the button
     {
@@ -82,6 +115,7 @@ public class UIShowRailroad : MonoBehaviour
         //make the button not interact anymore
         buyRailroadButton.interactable = false;
     }
+    [PunRPC]
     public void CloseRailroadButton() //this call from the button
     {
         //colse the panel
