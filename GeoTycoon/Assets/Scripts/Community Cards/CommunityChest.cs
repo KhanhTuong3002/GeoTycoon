@@ -76,7 +76,7 @@ public class CommunityChest :  MonoBehaviourPunCallbacks
         SCR_CommunityCard tempCard = cardPool[index];
         cardPool[index] = cardPool[i];
         cardPool[i] = tempCard;
-        Debug.Log("community card number: " + cardPool.Count);
+        //Debug.Log("community card number: " + cardPool.Count);
     }
 
     void DrawCard(Player_Mono cardTaker)

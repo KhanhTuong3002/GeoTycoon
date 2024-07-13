@@ -76,7 +76,7 @@ public class ChanceField : MonoBehaviourPunCallbacks
             cardPool[index] = cardPool[i];
             cardPool[i] = tempCard;
 
-        Debug.Log("chance card number: " + cardPool.Count);
+        //Debug.Log("chance card number: " + cardPool.Count);
     }
 
     void DrawCard(Player_Mono cardTaker)

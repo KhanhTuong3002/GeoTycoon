@@ -128,7 +128,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         else
         {
             startGameButton.gameObject.SetActive(false);
-            StartCoroutine(RoomListing(0.6f));
+            StartCoroutine(RoomListing(1f));
         }
         
     }

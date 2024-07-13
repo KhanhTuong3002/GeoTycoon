@@ -63,25 +63,6 @@ public class Dice : MonoBehaviour
         // }
     }
 
-    public void RollDice(int rangeOne, int rangeTwo, int rangeThree)
-    {
-        Reset();
-        if (!thrown && !hasLanded)
-        {
-            thrown = true;
-            rb.useGravity = true;
-            rb.isKinematic = false;
-            rb.AddTorque(rangeOne,rangeTwo,rangeThree);
-        }
-        //Random.Range(0,500)
-        // else if (thrown && hasLanded)
-        // {
-        //     //RESET DICE
-        //     Reset();
-
-        // }
-    }
-
     void Reset()
     {
         transform.position = initPosition;
@@ -109,7 +90,8 @@ public class Dice : MonoBehaviour
         {
             if (side.OnGround)
             {
-                diceValue = side.SideValue();
+                // diceValue = side.SideValue();
+                diceValue = 4;
                 Debug.Log("ROLLED NUMBER = " + diceValue);
                 break;
             }

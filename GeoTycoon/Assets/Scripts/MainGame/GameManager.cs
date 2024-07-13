@@ -245,15 +245,18 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void ReportDiceRolled(int diceValue)
     {
+        // rolledDice.Add(diceValue);
         rolledDice.Add(diceValue);
         if (rolledDice.Count == 2)
         {
             if (PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
             {
                 PhotonView PV = GetComponent<PhotonView>();
-                PV.RPC("RollDice", RpcTarget.All, rolledDice[0], rolledDice[1]);
+                // PV.RPC("RollDice", RpcTarget.All, rolledDice[0], rolledDice[1]);
+                PV.RPC("RollDice", RpcTarget.All, 3, 5);
+                // RollDice(3, 5);
             }
-            else
+            else if (!PhotonNetwork.IsConnected)
             {
                 RollDice(rolledDice[0], rolledDice[1]);
             }
@@ -297,7 +300,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (playerList[currentPlayer].IsInjail)
         {
             playerList[currentPlayer].IcreaseNumTurnInJail();
-
+            Debug.Log("Player "+ playerList[currentPlayer].name + " has been in jail for " + playerList[currentPlayer].NumTurnInjail + " turns");
             if (rolledADouble)
             {
                 playerList[currentPlayer].setOutOfJail();
@@ -346,8 +349,20 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (allowedToMove)
         {
+            Debug.Log("Player " + playerList[currentPlayer].name + " is about to move");
             OnUpdateMessage.Invoke(playerList[currentPlayer].name + " has rolled: " + diceOne + " & " + diceTwo);
-            StartCoroutine(DelayBeforeMove(diceOne + diceTwo));
+            //StartCoroutine(DelayBeforeMove(diceOne + diceTwo));
+            // if (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
+            // {
+            //     PhotonView PV = GetComponent<PhotonView>();
+            //     PV.RPC("MovePlayer", RpcTarget.All,(diceOne + diceTwo));
+            // }
+            // else if (!PhotonNetwork.IsConnected)
+            // {
+            //     MovePlayer(diceOne + diceTwo);
+            // }
+        //    MovePlayer(diceOne + diceTwo);
+           StartCoroutine(DelayBeforeMove(diceOne + diceTwo));
 
         }
         else
@@ -356,9 +371,15 @@ public class GameManager : MonoBehaviourPunCallbacks
             OnUpdateMessage.Invoke(playerList[currentPlayer].name + " <b><color=red>has to stay in Jail</color></b>");
             Debug.Log("WE CAN NOT MOVE BECAUSE NOT ALLOWED");
             StartCoroutine(DelayBetweenSwitchPlayer());
+            //EndTurnButton();
         }
 
     }
+    // [PunRPC]
+    // public void MovePlayer(int steps)
+    // {
+    //     StartCoroutine(DelayBeforeMove(steps));
+    // }
     IEnumerator DelayBeforeMove(int rolledDice)
     {
         CameraSwitcher.instance.SwitchToPlayer(playerList[currentPlayer].MyTonken.transform);
@@ -369,60 +390,73 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     IEnumerator DelayBetweenSwitchPlayer()
     {
-        yield return new WaitForSeconds(secondsBetweenTurns);
-        if (PhotonNetwork.IsConnected)
+        currentPlayer++;
+        if (currentPlayer >= playerList.Count)
+        {
+            currentPlayer = 0;
+        }
+        int nextPlayerIndex = currentPlayer;
+        yield return new WaitForSeconds(2);
+        if (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
         {
             PhotonView PV = GetComponent<PhotonView>();
-            PV.RPC("SwitchPlayer", RpcTarget.All);
+            PV.RPC("SwitchPlayer", RpcTarget.All, nextPlayerIndex);
         }
-        else
+        else if (!PhotonNetwork.IsConnected)
         {
-            SwitchPlayer();
+            Debug.Log("Switch via mechanic");
+            SwitchPlayer(nextPlayerIndex);
         }
 
     }
 
     public void EndTurnButton()
     {
-        if (PhotonNetwork.IsConnected)
-        {
-            PhotonView PV = GetComponent<PhotonView>();
-            PV.RPC("SwitchPlayer", RpcTarget.All);
-        }
-        else
-        {
-            SwitchPlayer();
-        }
+        // if (PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
+        // {
+        //     PhotonView PV = GetComponent<PhotonView>();
+        //     // Debug.Log(playerList[currentPlayer].name);
+        //     // Debug.Log("Switch via button");
+        //     PV.RPC("SwitchPlayer", RpcTarget.All);
+        // }
+        // else if (!PhotonNetwork.IsConnected)
+        // {
+        //     //Debug.Log("Switch via button");
+        //     SwitchPlayer();
+        // }
+        StartCoroutine(DelayBetweenSwitchPlayer());
     }
+    
+    
 
     [PunRPC]
 
-    public void SwitchPlayer()
+    public void SwitchPlayer(int nextPlayer)
     {
         CameraSwitcher.instance.SwitchToTopDown();
-        currentPlayer++;
-        //RESET DICE HAS ROLLED
-        hasRolledDice = false;
+        //currentPlayer++;
+        currentPlayer = nextPlayer;
         //rolledouble?
         doubleRollCount = 0;
         //overflow check
-        if (currentPlayer >= playerList.Count)
-        {
-            currentPlayer = 0;
-        }
+        // if (currentPlayer >= playerList.Count)
+        // {
+        //     currentPlayer = 0;
+        // }
         DeactivateArrows();
         playerList[currentPlayer].ActivateSelector(true);
         //check if in jail
 
         foreach (Player player in PhotonNetwork.PlayerList)
         {
-            if (player.ActorNumber == playerList[currentPlayer].playerId)
+            if (player.ActorNumber == playerList[currentPlayer].playerId && hasRolledDice)
             {
                 PhotonNetwork.SetMasterClient(player);
-                Debug.Log(PhotonNetwork.IsMasterClient);
+                //RESET DICE HAS ROLLED
+                hasRolledDice = false;
             }
         }
-
+        
         //is player Ai
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
         {
@@ -432,7 +466,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else  //if human - show ui
         {
-            Debug.Log("It's " + playerList[currentPlayer].name + " turn");
+            Debug.Log("Master is now: "+PhotonNetwork.MasterClient.NickName);
+            Debug.Log("It's " + playerList[currentPlayer].name + "'s turn");
 
             if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
             {
@@ -440,14 +475,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                 bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
                 OnShowHumanPanel.Invoke(true, true, false, jail1, jail2);
 
-                Debug.Log("Show panel");
+                //Debug.Log("Show panel");
                 
                 
             }
             else if (PhotonNetwork.LocalPlayer.ActorNumber != playerList[currentPlayer].playerId)
             {
                 OnShowHumanPanel.Invoke(false, false, false, false, false);
-                Debug.Log("Hide panel");
+                //Debug.Log("Hide panel");
                 
             }
 
@@ -530,7 +565,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         else
         {
             //Switch player
-            SwitchPlayer();
+            EndTurnButton();
             //not a double
 
         }

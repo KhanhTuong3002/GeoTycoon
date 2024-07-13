@@ -10,7 +10,7 @@ public static class GameSettings
     public static void AddSetting(Setting setting)
     {
         settingsList.Add(setting);
-        Debug.Log(setting.playerName + "+" + setting.selectedType+"+" + setting.selectColor);
+        // Debug.Log(setting.playerName + "+" + setting.selectedType+"+" + setting.selectColor);
     }
 
     public static void AddMultiSetting(MultiSetting setting)
