@@ -5,7 +5,12 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 
-public class ManagePropertyUI : MonoBehaviour
+using Photon.Pun;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
+using Unity.Mathematics;
+
+public class ManagePropertyUI : MonoBehaviourPunCallbacks
 {
     [SerializeField] Transform cardHolder;
     [SerializeField] GameObject cardPrefab;
@@ -15,6 +20,7 @@ public class ManagePropertyUI : MonoBehaviour
     Player_Mono playerReference;
     List<MonopolyNode> nodesInSet = new List<MonopolyNode>();
     List<GameObject> cardsInSet = new List<GameObject>();
+    string[] nodeNameList;
     [SerializeField] GameObject buttonBox;
     public void SetProperty(List<MonopolyNode> nodes, Player_Mono owner)
     {
@@ -23,12 +29,13 @@ public class ManagePropertyUI : MonoBehaviour
         for (int i = 0; i < nodesInSet.Count; i++)
         {
             GameObject newCard = Instantiate(cardPrefab,cardHolder,false);
+            
             ManageCardUI manageCardUI = newCard.GetComponent<ManageCardUI>();
             cardsInSet.Add(newCard);
             manageCardUI.SetCard(nodesInSet[i],owner,this);
         }
         var (list, allsame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(nodesInSet[0]);
-        Debug.Log(allsame +"allsame");
+        Debug.Log(allsame +" allsame");
         buyHouseButton.interactable = allsame && CheckIfBuyAllowed();
         sellHouseButton.interactable = CheckIfSellAllowed();
 
@@ -39,18 +46,30 @@ public class ManagePropertyUI : MonoBehaviour
             buttonBox.SetActive(false);
         }
     }
+    
+    
+
     public void BuyHouseButton()
     {
+        //for multiplayer rpc call
+        int playerId = playerReference.playerId;
+        nodeNameList = new string[nodesInSet.Count];
+        for(int i = 0; i< nodesInSet.Count; i++)
+        {
+            nodeNameList[i] = nodesInSet[i].name;
+        }
+
         if(!CheckIfBuyAllowed())
         {
             //ERROR MESSAGE
-            string message = "One or moreProperties are mortgaged, you can't build a house";
+            string message = "One or more Properties are mortgaged, you can't build a house";
             ManageUI.instance.UpdateSystemMessage(message);
             return;
         }
         if (playerReference.CanAffordHouse(nodesInSet[0].houseCost))
         {
-            playerReference.BuildHouseOrHotelEvenly(nodesInSet);
+            if(!PhotonNetwork.IsConnected) playerReference.BuildHouseOrHotelEvenly(nodesInSet);
+            else ManageUI.instance.BuyHouseMulti(playerId, nodeNameList);
             //UPDATE MONEY TEXT - IN MANAGE UI
             UpdateHouseVisulas();
             string message = "You build a house.";
@@ -65,13 +84,22 @@ public class ManagePropertyUI : MonoBehaviour
         sellHouseButton.interactable = CheckIfSellAllowed();
         ManageUI.instance.UpdateMoneyText();
     }
+
     public void SellHouseButton()
     {
-        playerReference.SellHouseEvenly(nodesInSet);
+        int playerId = playerReference.playerId;
+        nodeNameList = new string[nodesInSet.Count];
+        for(int i = 0; i< nodesInSet.Count; i++)
+        {
+            nodeNameList[i] = nodesInSet[i].name;
+        }
+        
+        if(!PhotonNetwork.IsConnected) playerReference.SellHouseEvenly(nodesInSet);
+        else ManageUI.instance.SellHouseMulti(playerId, nodeNameList);
         //UPDATE MONEY TEXT - IN MANAGE UI
         UpdateHouseVisulas();
         string message = "You sell a house.";
-            ManageUI.instance.UpdateSystemMessage(message);
+        ManageUI.instance.UpdateSystemMessage(message);
         sellHouseButton.interactable = CheckIfSellAllowed();
         ManageUI.instance.UpdateMoneyText();
     }

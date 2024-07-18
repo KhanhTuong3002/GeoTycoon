@@ -32,6 +32,10 @@ public class MonopolyBoard : MonoBehaviourPunCallbacks
             route.Add(node.GetComponent<MonopolyNode>());
         }
     }
+    public List<MonopolyNode> GetNodeList()
+    {
+        return route;
+    }
     private void OnDrawGizmos()
     {
         if (route.Count > 1) 

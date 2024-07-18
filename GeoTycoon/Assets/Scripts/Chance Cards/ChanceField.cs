@@ -54,12 +54,12 @@ public class ChanceField : MonoBehaviourPunCallbacks
         for (int i = 0; i < cardPool.Count; i++)
         {
             int index = Random.Range(0, cardPool.Count);
-            if(PhotonNetwork.IsConnected)
+            if(PhotonNetwork.IsConnected  && PhotonNetwork.IsMasterClient)
             {
                 PhotonView PV = GetComponent<PhotonView>();
                 PV.RPC("ShuffleChanceCardsMulti", RpcTarget.AllBuffered, index, i);
             }
-            else
+            else if(!PhotonNetwork.IsConnected)
             {
                 SCR_ChanceCard tempCard = cardPool[index];
                 cardPool[index] = cardPool[i];
@@ -123,17 +123,21 @@ public class ChanceField : MonoBehaviourPunCallbacks
 
     public void CloseCardButton()
     {
-        if(PhotonNetwork.IsConnected)
+        if(PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
         {
             PhotonView PV = GetComponent<PhotonView>();
-            PV.RPC("ApplyCardEffect", RpcTarget.AllBuffered);
+            PV.RPC("ApplyCardEffectChance", RpcTarget.All);
         }
-        else
+        else if(!PhotonNetwork.IsConnected)
         {
             ApplyCardEffect();
         }
     }
     [PunRPC]
+    public void ApplyCardEffectChance()
+    {
+        ApplyCardEffect();
+    }
     public void ApplyCardEffect() //CLOSE BUTTON OF THE CARD
     {
         bool isMoving = false;
@@ -223,11 +227,13 @@ public class ChanceField : MonoBehaviourPunCallbacks
         {
             if (!isMoving)
             {
-                Debug.Log("end");
+                Debug.Log("start");
                 bool jail1 = currentPlayer.HasChanceJailFreeCard;
                 bool jail2 = currentPlayer.HasCommunityJailFreeCard;
-                OnShowHumanPanel.Invoke(true, !GameManager.instance.RolledADouble, GameManager.instance.RolledADouble,jail1,jail2);
-            }           
+                OnShowHumanPanel.Invoke(true, GameManager.instance.RolledADouble, !GameManager.instance.RolledADouble, jail1, jail2);
+                if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient) OnShowHumanPanel.Invoke(false, GameManager.instance.RolledADouble, !GameManager.instance.RolledADouble, jail1, jail2);
+                Debug.Log("end");
+            }
         }
     }
     public void AddBackJailFreeCard()

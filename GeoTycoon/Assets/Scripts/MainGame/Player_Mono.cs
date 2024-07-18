@@ -18,6 +18,7 @@ public class Player_Mono
     public PlayerType playerType;
     public string name;
     public int playerId;
+    public bool isStillInGameMulti;
     int money;
     MonopolyNode currentnode;
     bool isInjail;
@@ -72,10 +73,6 @@ public class Player_Mono
     {
         currentnode = newNode;
         //Player Landed on node so lets
-        if (PhotonNetwork.IsConnected)
-        {
-            
-        }
 
         newNode.PlayerLandedOnNode(this);
         // if its ai player
@@ -100,7 +97,10 @@ public class Player_Mono
             bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0 && GameManager.instance.HasRolledDice;
             bool canRollDice = (GameManager.instance.RolledADouble && ReadMoney >= 0) || (!GameManager.instance.HasRolledDice && ReadMoney >= 0);
             //show UI
-            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,hasChanceJailFreeCard,hasCommunityJailFreeCard);
+            if(PhotonNetwork.IsMasterClient) OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,hasChanceJailFreeCard,hasCommunityJailFreeCard);
+            else if(!PhotonNetwork.IsMasterClient) OnShowHumanPanel.Invoke(false,canRollDice,canEndTurn,hasChanceJailFreeCard,hasCommunityJailFreeCard);
+            
+            else if (!PhotonNetwork.IsConnected) OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,hasChanceJailFreeCard,hasCommunityJailFreeCard);
         }
     }
     internal bool CanAfford (int price)
@@ -165,7 +165,11 @@ public class Player_Mono
             bool canEndTurn = !GameManager.instance.RolledADouble && ReadMoney>=0 && GameManager.instance.HasRolledDice;
             bool canRollDice = (GameManager.instance.RolledADouble && ReadMoney>=0) || (!GameManager.instance.HasRolledDice && ReadMoney >= 0);
             //show UI
-            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,hasChanceJailFreeCard,hasCommunityJailFreeCard);
+            if(PhotonNetwork.IsMasterClient) OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,hasChanceJailFreeCard,hasCommunityJailFreeCard);
+            else if(!PhotonNetwork.IsMasterClient) OnShowHumanPanel.Invoke(false,canRollDice,canEndTurn,hasChanceJailFreeCard,hasCommunityJailFreeCard);
+            
+            else if (!PhotonNetwork.IsConnected) OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,hasChanceJailFreeCard,hasCommunityJailFreeCard);
+        
         }
     }
 

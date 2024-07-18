@@ -5,7 +5,11 @@ using System.Linq;
 using TMPro;
 using UnityEngine.UI;
 
-public class ManageUI : MonoBehaviour
+using Photon.Pun;
+using Photon.Realtime;
+using UnityEngine.SceneManagement;
+
+public class ManageUI : MonoBehaviourPunCallbacks
 {
     public static ManageUI instance;
 
@@ -13,6 +17,7 @@ public class ManageUI : MonoBehaviour
     [SerializeField] Transform propertyGrid; //YO PARENT PROPERTY SETS TO IT
     [SerializeField] GameObject propertySetPrefab; //
     Player_Mono playerReference;
+    MonopolyNode nodeReference;
     List<GameObject> propertyPrefabs = new List<GameObject>();
     [SerializeField] TMP_Text yourMoneyText;
     [SerializeField] TMP_Text systemMessageText;
@@ -25,17 +30,20 @@ public class ManageUI : MonoBehaviour
     {
         managePanel.SetActive(false);
     }
+
+    
     public void OpenManager() //CALL FROM BUTTON
     {
         playerReference = GameManager.instance.GetCurrentPlayer;
         CreateProperties();
-        managePanel.SetActive(true);
+        if(PhotonNetwork.IsMasterClient) managePanel.SetActive(true);
         UpdateMoneyText();
         //COMOPARE IF OWNER IS PLAYER REF
 
         //FILL PROPERTY SETS AND CREATE AS MUCH AS NEEDED
+        
     }
-
+    
     public void CloseManager()
     {
         managePanel.SetActive(false);
@@ -46,17 +54,23 @@ public class ManageUI : MonoBehaviour
     {
         for (int i = propertyPrefabs.Count-1; i >= 0; i--)
         {
+            // if(PhotonNetwork.IsMasterClient && PhotonNetwork.IsConnected && SceneManager.GetActiveScene().name == "MainGame") 
+            // {
+            //     Debug.Log("PhotonView.Find(0).IsMine");
+            //     PhotonNetwork.Destroy(propertyPrefabs[i]);
+            // }
+            // else Destroy(propertyPrefabs[i]);
             Destroy(propertyPrefabs[i]);
-
         }
         propertyPrefabs.Clear();
     }
+    
 
     void CreateProperties()
     {
         //GET ALL NODES AS NODE SETS
         List<MonopolyNode> processedSet = null;
-
+        Debug.Log(PhotonNetwork.LocalPlayer.NickName + " running create properties");
         foreach (var node in playerReference.GetMonopolyNodes)
         {
             var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(node);
@@ -72,8 +86,8 @@ public class ManageUI : MonoBehaviour
 
                 //CREATE PREFAB WITH ALL NODES OWNED BY THE PLAYER
                 GameObject newPropertySet = Instantiate(propertySetPrefab,propertyGrid,false);
+                
                 newPropertySet.GetComponent<ManagePropertyUI>().SetProperty(nodeSet,playerReference);
-
                 propertyPrefabs.Add(newPropertySet);
             }
         }
@@ -90,6 +104,38 @@ public class ManageUI : MonoBehaviour
         systemMessageText.text = message;
     }
 
+    public void AutoHandleFundsButton()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("AutoHandleFundsMulti", RpcTarget.All, playerReference.playerId);
+        }
+        else AutoHandleFunds();
+    }
+    [PunRPC]
+    public void AutoHandleFundsMulti(int playerId)//CALL FROM BUTTON
+    {
+        List<Player_Mono> playerList = GameManager.instance.GetPlayerList();
+        foreach(Player_Mono player in playerList)
+        {
+            if(playerId == player.playerId) playerReference = player;
+        }
+        if(playerReference.ReadMoney>0)
+        {
+            UpdateSystemMessage("You don't need to do that, you have enough money!");
+            return;
+        }
+        playerReference.HandleInsufficientFunds(Mathf.Abs(playerReference.ReadMoney));
+        //UPDATE THE UI
+        if(PhotonNetwork.IsMasterClient)
+        {
+            ClearProperties();
+            CreateProperties();
+            //UPDATE SYSTEM MESSAGE
+            UpdateMoneyText();
+        }
+    }
     public void AutoHandleFunds()//CALL FROM BUTTON
     {
         if(playerReference.ReadMoney>0)
@@ -104,5 +150,126 @@ public class ManageUI : MonoBehaviour
         //UPDATE SYSTEM MESSAGE
         UpdateMoneyText();
     }
+    
+    public void MortagagePropertyMulti(int playerReferenceId, string nodeName)
+    {
+        PhotonView PV = GetComponent<PhotonView>();
+        PV.RPC("MortgageMultiPlayer", RpcTarget.All, playerReferenceId, nodeName);
+    }
 
+    [PunRPC]
+    void MortgageMultiPlayer(int playerReferenceId, string nodeName)
+    {
+        List<Player_Mono> playerList = GameManager.instance.GetPlayerList();
+        List<MonopolyNode> nodeList = MonopolyBoard.instance.GetNodeList();
+        foreach(Player_Mono player in playerList)
+        {
+            if(playerReferenceId == player.playerId) playerReference = player;
+        }
+        foreach(MonopolyNode node in nodeList)
+        {
+            if (nodeName == node.name) nodeReference = node;
+        }
+
+        playerReference.CollectMoney(nodeReference.MortagageProperty());
+        UpdateMoneyText();
+    }
+
+    
+    public void UnMortagagePropertyMulti(int playerReferenceId, string nodeName)
+    {
+        PhotonView PV = GetComponent<PhotonView>();
+        PV.RPC("UnMortgageMultiPlayer", RpcTarget.All, playerReferenceId, nodeName);
+    }
+    [PunRPC]
+    void UnMortgageMultiPlayer(int playerReferenceId, string nodeName)
+    {
+        List<Player_Mono> playerList = GameManager.instance.GetPlayerList();
+        List<MonopolyNode> nodeList = MonopolyBoard.instance.GetNodeList();
+        foreach(Player_Mono player in playerList)
+        {
+            if(playerReferenceId == player.playerId) playerReference = player;
+        }
+        foreach(MonopolyNode node in nodeList)
+        {
+            if (nodeName == node.name) nodeReference = node;
+        }
+        playerReference.PayMoney(nodeReference.MortagageProperty());
+        nodeReference.UnMortgageProperty();
+        UpdateMoneyText();
+    }
+
+    public void BuyHouseMulti(int playerId, string[] nodename)
+    {
+        PhotonView PV = GetComponent<PhotonView>();
+        PV.RPC("BuyHouseMultiCall", RpcTarget.All, playerId, (object)nodename);
+    }
+
+    [PunRPC]
+    void BuyHouseMultiCall(int playerId, string[] nodename)
+    {
+        Player_Mono buyer = new Player_Mono();
+        List<Player_Mono> playerList = GameManager.instance.GetPlayerList();
+        List<MonopolyNode> nodeToBuy = new List<MonopolyNode>();
+        List<MonopolyNode> nodeList = MonopolyBoard.instance.GetNodeList();
+        foreach(Player_Mono player in playerList)
+        {
+            if (player.playerId == playerId)
+            {
+                buyer = player;
+                break;
+            }
+        }
+        Debug.Log("" + buyer.name);
+        foreach(string nodeName in nodename)
+        {
+            foreach(MonopolyNode node in nodeList)
+            {
+                if(node.name == nodeName)
+                {
+                    nodeToBuy.Add(node);
+                    break;
+                }
+            }
+        }
+        Debug.Log("" + nodeToBuy[0].name);
+        buyer.BuildHouseOrHotelEvenly(nodeToBuy);
+
+        
+    }
+
+    public void SellHouseMulti(int playerId, string[] nodename)
+    {
+        PhotonView PV = GetComponent<PhotonView>();
+        PV.RPC("SellHouseMultiCall", RpcTarget.All, playerId, (object)nodename);
+    }
+
+    [PunRPC]
+    void SellHouseMultiCall(int playerId, string[] nodename)
+    {
+        Player_Mono seller = new Player_Mono();
+        List<Player_Mono> playerList = GameManager.instance.GetPlayerList();
+        List<MonopolyNode> nodeToSell = new List<MonopolyNode>();
+        List<MonopolyNode> nodeList = MonopolyBoard.instance.GetNodeList();
+        foreach(Player_Mono player in playerList)
+        {
+            if (player.playerId == playerId)
+            {
+                seller = player;
+                break;
+            }
+        }
+        foreach(string nodeName in nodename)
+        {
+            foreach(MonopolyNode node in nodeList)
+            {
+                if(node.name == nodeName)
+                {
+                    nodeToSell.Add(node);
+                    break;
+                }
+            }
+        }
+        seller.SellHouseEvenly(nodeToSell);
+    }
 }

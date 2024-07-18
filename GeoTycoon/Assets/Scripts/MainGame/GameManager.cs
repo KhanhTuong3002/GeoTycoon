@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 using Photon.Pun;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -69,6 +70,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         StartCoroutine(StartGame());
         OnUpdateMessage.Invoke("Welcome to <b><color=black>GeoTycoon");
     }
+    //playerList getter
+
+    public List<Player_Mono> GetPlayerList()
+    {
+        return playerList;
+    }
 
     IEnumerator StartGame()
     {
@@ -100,8 +107,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         // //     Debug.Log("Client name: " + PhotonNetwork.LocalPlayer.NickName + " | Player name: " + playerList[i].name + " | Player ID: " + playerList[i].playerId);
         // // }
     }
-
-
     void Inititialize()
     {
         if (GameSettings.settingsList.Count == 0 && GameSettings.multisettingsList.Count == 0)
@@ -136,7 +141,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 p1.name = setting.playerName;
                 p1.playerType = (Player_Mono.PlayerType)setting.selectedType;
                 p1.playerId = setting.playerId;
-
+                p1.isStillInGameMulti = true;
                 playerList.Add(p1);
 
                 GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
@@ -185,29 +190,34 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         CheckForJailFree();
         rolledDice.Clear();
+        
         if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
         {
             _dice1.RollDice();
-            _dice2.RollDice();
+            //_dice2.RollDice();
         }
         if (!PhotonNetwork.IsConnected) // offline mode
         {
             _dice1.RollDice();
             _dice2.RollDice();
         }
+        bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+        bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+        if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId || !PhotonNetwork.IsConnected) OnShowHumanPanel.Invoke(true, false, false, jail1, jail2);
         CameraSwitcher.instance.SwitchToDice();
+        
 
         //show or hide ui
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN && PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
         {
-            bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
-            bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+            // bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+            // bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
             OnShowHumanPanel.Invoke(true, false, false, jail1, jail2);
         }
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.HUMAN && !PhotonNetwork.IsConnected) // offline mode
         {
-            bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
-            bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+            // bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+            // bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
             OnShowHumanPanel.Invoke(true, false, false, jail1, jail2);
         }
     }
@@ -247,13 +257,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         // rolledDice.Add(diceValue);
         rolledDice.Add(diceValue);
-        if (rolledDice.Count == 2)
+        if (rolledDice.Count == 1)
         {
             if (PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
             {
                 PhotonView PV = GetComponent<PhotonView>();
                 // PV.RPC("RollDice", RpcTarget.All, rolledDice[0], rolledDice[1]);
-                PV.RPC("RollDice", RpcTarget.All, 3, 5);
+                PV.RPC("RollDice", RpcTarget.All, 0, 1);
                 // RollDice(3, 5);
             }
             else if (!PhotonNetwork.IsConnected)
@@ -351,17 +361,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("Player " + playerList[currentPlayer].name + " is about to move");
             OnUpdateMessage.Invoke(playerList[currentPlayer].name + " has rolled: " + diceOne + " & " + diceTwo);
-            //StartCoroutine(DelayBeforeMove(diceOne + diceTwo));
-            // if (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
-            // {
-            //     PhotonView PV = GetComponent<PhotonView>();
-            //     PV.RPC("MovePlayer", RpcTarget.All,(diceOne + diceTwo));
-            // }
-            // else if (!PhotonNetwork.IsConnected)
-            // {
-            //     MovePlayer(diceOne + diceTwo);
-            // }
-        //    MovePlayer(diceOne + diceTwo);
+            
            StartCoroutine(DelayBeforeMove(diceOne + diceTwo));
 
         }
@@ -375,11 +375,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
     }
-    // [PunRPC]
-    // public void MovePlayer(int steps)
-    // {
-    //     StartCoroutine(DelayBeforeMove(steps));
-    // }
+    
     IEnumerator DelayBeforeMove(int rolledDice)
     {
         CameraSwitcher.instance.SwitchToPlayer(playerList[currentPlayer].MyTonken.transform);
@@ -396,7 +392,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             currentPlayer = 0;
         }
         int nextPlayerIndex = currentPlayer;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         if (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
         {
             PhotonView PV = GetComponent<PhotonView>();
@@ -404,7 +400,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else if (!PhotonNetwork.IsConnected)
         {
-            Debug.Log("Switch via mechanic");
             SwitchPlayer(nextPlayerIndex);
         }
 
@@ -412,18 +407,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void EndTurnButton()
     {
-        // if (PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
-        // {
-        //     PhotonView PV = GetComponent<PhotonView>();
-        //     // Debug.Log(playerList[currentPlayer].name);
-        //     // Debug.Log("Switch via button");
-        //     PV.RPC("SwitchPlayer", RpcTarget.All);
-        // }
-        // else if (!PhotonNetwork.IsConnected)
-        // {
-        //     //Debug.Log("Switch via button");
-        //     SwitchPlayer();
-        // }
+        
         StartCoroutine(DelayBetweenSwitchPlayer());
     }
     
@@ -449,14 +433,21 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         foreach (Player player in PhotonNetwork.PlayerList)
         {
-            if (player.ActorNumber == playerList[currentPlayer].playerId && hasRolledDice)
+            if (player.ActorNumber == playerList[currentPlayer].playerId)
             {
                 PhotonNetwork.SetMasterClient(player);
                 //RESET DICE HAS ROLLED
-                hasRolledDice = false;
             }
         }
-        
+        if(playerList[currentPlayer].isStillInGameMulti = false) 
+        {
+            HumanBankrupt();
+            EndTurnButton();
+            return;
+        }
+
+        hasRolledDice = false;
+
         //is player Ai
         if (playerList[currentPlayer].playerType == Player_Mono.PlayerType.AI)
         {
@@ -534,6 +525,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             gameOverPanel.SetActive(true);
             winnerNameText.text = playerList[0].name;
         }
+        else{
+            Continue();
+        }
     }
 
     //---------------------------------UI STUFF-----------------------------------
@@ -576,8 +570,37 @@ public class GameManager : MonoBehaviourPunCallbacks
     // Game Over Screen
     public void HumanBankrupt()
     {
+        if(!PhotonNetwork.IsConnected) playerList[currentPlayer].Bankrupt();
+        else
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("HumanBankruptMulti", RpcTarget.All);
+        }
+    }
+    [PunRPC]
+    public void HumanBankruptMulti()
+    {
         playerList[currentPlayer].Bankrupt();
     }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        foreach(Player_Mono player_ in playerList)
+        {
+            if(otherPlayer.ActorNumber == player_.playerId)
+            {
+                player_.isStillInGameMulti = false;
+                OnUpdateMessage.Invoke(player_.name + " <b><color=red>has left the game</color></b>");
+                if(playerList[currentPlayer]==player_)
+                {
+                    HumanBankrupt();
+                    //EndTurnButton();
+                }
+                break;
+            }
+        }
+    }
+
     //-----------------JAIL FREE CARD---------------------------------
     //BUTTONS
     public void UseJail1Card()// CHANCE CARD

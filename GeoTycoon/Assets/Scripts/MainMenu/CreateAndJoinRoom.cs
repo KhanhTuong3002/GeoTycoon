@@ -17,22 +17,13 @@ public class CreateAndJoinRoon : MonoBehaviourPunCallbacks
     public TMP_InputField joinId;
     public TMP_InputField nickName;
 
-    bool IsMasterClientStillIn = true;
 
-    private void FixedUpdate() 
-    {
-        if(IsMasterClientStillIn==false)
-        {
-            PhotonNetwork.LeaveRoom();
-            multiPlayerMenu.SetActive(false);
-            lobbyLayout.SetActive(true);
-            IsMasterClientStillIn = true;
-        }
-    }
     [PunRPC]
-    public void AllLeaveRoom(bool currentMasterStatus)
+    public void AllLeaveRoom()
     {
-        IsMasterClientStillIn = currentMasterStatus;
+        PhotonNetwork.LeaveRoom();
+        multiPlayerMenu.SetActive(false);
+        lobbyLayout.SetActive(true);
     }
 
     public void CreateRoom()
@@ -50,11 +41,9 @@ public class CreateAndJoinRoon : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.CurrentRoom.IsOpen = false;
-            IsMasterClientStillIn = false;
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("AllLeaveRoom", RpcTarget.Others);
         }
-        PhotonView PV = GetComponent<PhotonView>();
-        PV.RPC("AllLeaveRoom", RpcTarget.OthersBuffered, IsMasterClientStillIn);
-
         PhotonNetwork.LeaveRoom();
         multiPlayerMenu.SetActive(false);
         lobbyLayout.SetActive(true);

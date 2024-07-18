@@ -63,6 +63,33 @@ MonoBehaviour:
   - RollToJail
   - RollToJailMulti
   - MovePlayer
+  - ApplyCardEffectChance
+  - ApplyCardEffectCommunity
+  - ShowTradeOfferPanelMulti
+  - AcceptOffer
+  - RejectOffer
+  - TradeResult
+  - MortagageProperty
+  - UnMortgageProperty
+  - MortgageButton
+  - UnMortgageButton
+  - BuyHouseButton
+  - SellHouseButton
+  - OpenManager
+  - CloseManager
+  - AutoHandleFundsMulti
+  - MortgageMultiPlayer
+  - UnMortagagePropertyMulti
+  - BuyHouseButtonMulti
+  - SellHouseButtonMulti
+  - UnMortgageMultiPlayer
+  - DestroyPrefab
+  - OnManagerOpen
+  - BuyHouseMultiRPC
+  - SellHouseMultiRPC
+  - HumanBankruptMulti
+  - BuyHouseMultiCall
+  - SellHouseMultiCall
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

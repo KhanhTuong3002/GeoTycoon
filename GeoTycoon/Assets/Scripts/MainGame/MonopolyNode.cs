@@ -139,6 +139,17 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
         }     
     }
     // MONRTGAGE CONTENT
+
+    public void MortagagePropertyButton()
+    {
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("MortagageProperty", RpcTarget.All);
+        } else if (!PhotonNetwork.IsConnected) MortagageProperty();
+    }
+
+    [PunRPC]
     public int MortagageProperty()
     {
         isMortgaged = true;
@@ -153,6 +164,16 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
         return mortgageValue;
     }
 
+    public void UnMortgagePropertyButton()
+    {
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("UnMortgageProperty", RpcTarget.All);
+        } else if (!PhotonNetwork.IsConnected) UnMortgageProperty();
+    }
+    [PunRPC]
+
     public void UnMortgageProperty()
     {
         isMortgaged = false;
@@ -164,6 +185,7 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
         {
             propertyImage.SetActive(true);
         }
+        
     }
 
     public bool IsMortgaged => isMortgaged;
@@ -446,19 +468,8 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
             bool jail2 = currentPlayer.HasCommunityJailFreeCard;
             //show UI
 
-            if(PhotonNetwork.LocalPlayer.ActorNumber == currentPlayer.playerId)
-            {
-                OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,jail1,jail2);
-            }
-            else if (PhotonNetwork.LocalPlayer.ActorNumber != currentPlayer.playerId) 
-            {
-                //OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,jail1,jail2);
-            }
-
-            if (!PhotonNetwork.IsConnected) // offline
-            {
-                OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,jail1,jail2);
-            }
+            OnShowHumanPanel.Invoke(true,canRollDice,canEndTurn,jail1,jail2);
+            if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient) OnShowHumanPanel.Invoke(false,false,false,false,false);
         }
     }
 

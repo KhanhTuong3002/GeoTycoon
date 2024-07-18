@@ -57,7 +57,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         
         playerNameList = currentPlayerNameList;
         playerIdList = currentPlayerIdList;
-        
+        UpdateListing();
     }
 
     [PunRPC]
@@ -87,23 +87,19 @@ public class MainMenu : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(delayTime);
         if (PhotonNetwork.IsConnected && PhotonNetwork.PlayerList.Count() > 0)
         {
-            PhotonView PV = GetComponent<PhotonView>();
-            PV.RPC("SyncSetting", RpcTarget.OthersBuffered, (object)playerNameList,(object)playerIdList);
-
             UpdateListing();
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("SyncSetting", RpcTarget.Others, (object)playerNameList, (object)playerIdList);
         }
     }
 
     public void UpdateListing()
     {
-        int i = 0;
-        
-        foreach (PlayerSelectMulti playerSelectionMulti in playerSelectionMulti)
+        for(int i = 0; i < playerSelectionMulti.Count(); i++)
         {
-            if (playerNameList[i] != "") playerSelectionMulti.toggle.isOn = true;
-            playerSelectionMulti.nameInput.text = playerNameList[i];
-            playerSelectionMulti.playerId = playerIdList[i];
-            i++;
+            if (playerNameList[i] != "") playerSelectionMulti[i].toggle.isOn = true;
+            playerSelectionMulti[i].nameInput.text = playerNameList[i];
+            playerSelectionMulti[i].playerId = playerIdList[i];
         }
     }
 
@@ -128,7 +124,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         else
         {
             startGameButton.gameObject.SetActive(false);
-            StartCoroutine(RoomListing(1f));
+            //StartCoroutine(RoomListing(1f));
         }
         
     }
@@ -167,48 +163,43 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        int i = 0;
-        Debug.Log("current index on join: " + i);
-        foreach (PlayerSelectMulti playerSelectionMulti in playerSelectionMulti)
+        for(int i = 0; i < playerSelectionMulti.Count(); i++)
         {
-            Debug.Log("Slot: " + (i+1) + " | " + "Current name: " + playerSelectionMulti.nameInput.text + " | " + "Player nick name: " + newPlayer.NickName);
-            if (playerSelectionMulti.nameInput.text == "" && playerSelectionMulti.toggle.isOn == false)
+            
+            if (playerSelectionMulti[i].nameInput.text == "" && playerSelectionMulti[i].toggle.isOn == false)
             {
                 playerNameList[i] = newPlayer.NickName;
                 playerIdList[i] = newPlayer.ActorNumber;
-                playerSelectionMulti.nameInput.text = playerNameList[i];
-                playerSelectionMulti.playerId = playerIdList[i];
-                playerSelectionMulti.typeDropdown.value = 0;
-                playerSelectionMulti.toggle.isOn = true;
+                playerSelectionMulti[i].nameInput.text = playerNameList[i];
+                playerSelectionMulti[i].playerId = playerIdList[i];
+                playerSelectionMulti[i].typeDropdown.value = 0;
+                playerSelectionMulti[i].toggle.isOn = true;
                 break;
             }
-            i++;
         }
-        StartCoroutine(RoomListing(0.3f));
+        Debug.Log("player joinned: " + newPlayer.NickName);
+        if(PhotonNetwork.IsMasterClient) StartCoroutine(RoomListing(0.3f));
         
 
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        int i = 0;
-        Debug.Log("current index on left: " + i);
-        foreach (PlayerSelectMulti playerSelectionMulti in playerSelectionMulti)
+        for(int i = 0; i < playerSelectionMulti.Count(); i++)
         {
-             Debug.Log("Slot: " + (i+1) + " | " + "Current name: " + playerSelectionMulti.nameInput.text + " | " + "Player nick name: " + otherPlayer.NickName);
-            if (playerSelectionMulti.nameInput.text == otherPlayer.NickName && playerSelectionMulti.toggle.isOn == true)
+            if (playerSelectionMulti[i].nameInput.text == otherPlayer.NickName && playerSelectionMulti[i].toggle.isOn == true)
             {
                 playerNameList[i] = "";
                 playerIdList[i] = -1;
-                playerSelectionMulti.nameInput.text = playerNameList[i];
-                playerSelectionMulti.playerId = playerIdList[i];
-                playerSelectionMulti.typeDropdown.value = 0;
-                playerSelectionMulti.toggle.isOn = false;
+                playerSelectionMulti[i].nameInput.text = playerNameList[i];
+                playerSelectionMulti[i].playerId = playerIdList[i];
+                playerSelectionMulti[i].typeDropdown.value = 0;
+                playerSelectionMulti[i].toggle.isOn = false;
                 break;
             }
-            i++;
+            
         }
-        
-        StartCoroutine(RoomListing(0.3f));
+        Debug.Log("player left: " + otherPlayer.NickName);
+        if(PhotonNetwork.IsMasterClient) StartCoroutine(RoomListing(0.3f));
     }
 
     

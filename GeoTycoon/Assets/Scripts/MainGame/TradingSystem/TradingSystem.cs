@@ -6,14 +6,18 @@ using TMPro;
 using UnityEngine.Rendering;
 using JetBrains.Annotations;
 using UnityEngine.UI;
+using Photon.Pun;
 // using UnityEditor.Experimental.GraphView;
 
-public class TradingSystem : MonoBehaviour
+public class TradingSystem : MonoBehaviourPunCallbacks
 {
     public static TradingSystem instance;
-
+    [SerializeField] List<Player_Mono> playerList = new List<Player_Mono>();
+    public List<MonopolyNode> nodesList = new List<MonopolyNode>();
+    
     [SerializeField] GameObject cardPrefab;
     [SerializeField] GameObject tradePanel;
+    [SerializeField] GameObject waitPanel;
     [SerializeField] GameObject resultPanel;
     [SerializeField] TMP_Text resultMessageText;
     [Header("LEFT SIDE")]
@@ -65,6 +69,7 @@ public class TradingSystem : MonoBehaviour
         tradePanel.SetActive(false);
         resultPanel.SetActive(false);
         tradeOfferPanel.SetActive(false);
+        waitPanel.SetActive(false);
     }
     //--------------------------- FIND MISSING PROPOERTY IN SET ---------------------------AI
     public void FindMissingProperty(Player_Mono currentPlayer)
@@ -174,14 +179,27 @@ public class TradingSystem : MonoBehaviour
     //-----------------------------Make a trade offer--------------------------------
     void MakeTradeOffer(Player_Mono currentPlayer,Player_Mono nodeOwner, MonopolyNode requestedNode, MonopolyNode offeredNode, int offeredMoney, int requestedMoney)
     {
-        if(nodeOwner.playerType == Player_Mono.PlayerType.AI)
+        int currentPlayerId = currentPlayer.playerId;
+        int nodeOwnerId = nodeOwner.playerId;
+        string requestedNodeName = requestedNode.name;
+        string offeredNodeName = offeredNode.name;
+
+        if (nodeOwner.playerType == Player_Mono.PlayerType.AI)
         {
             ConsiderTradeOffer(currentPlayer, nodeOwner, requestedNode, offeredNode, offeredMoney, requestedMoney);
         }
         else if(nodeOwner.playerType == Player_Mono.PlayerType.HUMAN) 
         {
             //show Ui for Human
-            ShowTradeOfferPanel(currentPlayer, nodeOwner, requestedNode, offeredNode, offeredMoney, requestedMoney);
+            if(PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
+            {
+                PhotonView PV = GetComponent<PhotonView>();
+                PV.RPC("ShowTradeOfferPanelMulti", RpcTarget.All, currentPlayerId, nodeOwnerId, requestedNodeName, offeredNodeName, offeredMoney, requestedMoney);
+            }
+            else if (!PhotonNetwork.IsConnected)
+            {
+                ShowTradeOfferPanel(currentPlayer, nodeOwner, requestedNode, offeredNode, offeredMoney, requestedMoney);
+            }
         }
     }
 
@@ -201,7 +219,11 @@ public class TradingSystem : MonoBehaviour
             Trade(currentPlayer, nodeOwner, requestedNode, offeredNode, offeredMoney, requestedMoney);
             if (currentPlayer.playerType == Player_Mono.PlayerType.HUMAN)
             {
-                TradeResult(true);
+                if(PhotonNetwork.IsConnected)
+                {
+                    PhotonView PV = GetComponent<PhotonView>();
+                    PV.RPC("TradeResult", RpcTarget.All, true);
+                }else TradeResult(true);
             }
             return;
         }
@@ -212,14 +234,22 @@ public class TradingSystem : MonoBehaviour
             Trade(currentPlayer, nodeOwner, requestedNode, offeredNode, offeredMoney, requestedMoney);
             if (currentPlayer.playerType == Player_Mono.PlayerType.HUMAN)
             {
-                TradeResult(true);
+                if(PhotonNetwork.IsConnected)
+                {
+                    PhotonView PV = GetComponent<PhotonView>();
+                    PV.RPC("TradeResult", RpcTarget.All, true);
+                }else TradeResult(true);
             }
         }
         else
         {
             if (currentPlayer.playerType == Player_Mono.PlayerType.HUMAN)
             {
-                TradeResult(false);
+                if(PhotonNetwork.IsConnected)
+                {
+                    PhotonView PV = GetComponent<PhotonView>();
+                    PV.RPC("TradeResult", RpcTarget.All, false);
+                }else TradeResult(false);
             }
             //debug line or tell the player thet rejected
             Debug.Log("AI rejected trade offer");
@@ -315,6 +345,7 @@ public class TradingSystem : MonoBehaviour
     public void CloseTradePanel()
     {
         tradePanel.SetActive(false);
+        waitPanel.SetActive(false);
         ClearAll();
     }
 
@@ -461,6 +492,7 @@ public class TradingSystem : MonoBehaviour
 
 
     //-----------------------------TRADE RESULT--------------------------HUMAN
+    [PunRPC]
     void TradeResult(bool accepted)
     {
         if (accepted)
@@ -534,12 +566,106 @@ public class TradingSystem : MonoBehaviour
             }
         }
     }
+    
+    [PunRPC]
+    void ShowTradeOfferPanelMulti(int _currentPlayer, int _nodeOwner, string _requestedNode, string _offeredNode, int _offeredMoney, int _requestedMoney)
+    {
+        //FILL THE ACTUAL OFFER CONTENT
+        playerList = GameManager.instance.GetPlayerList();
+        nodesList = MonopolyBoard.instance.GetNodeList();
 
+        foreach(Player_Mono player in playerList)
+        {
+            if(player.playerId == _currentPlayer) currentPlayer = player;
+            if(player.playerId == _nodeOwner) nodeOwner = player;
+        }
+        foreach (var node in nodesList)
+        {
+            if(node.name == _requestedNode) requestedNode = node;
+            if(node.name == _offeredNode) offeredNode = node;
+        }
+
+        requestedMoney = _requestedMoney;
+        offeredMoney = _offeredMoney;
+        //SHOW PANEL CONTENT
+        if(PhotonNetwork.LocalPlayer.ActorNumber == _nodeOwner) tradeOfferPanel.SetActive(true);
+        if(PhotonNetwork.IsMasterClient) waitPanel.SetActive(true);
+        leftMessageText.text = currentPlayer.name + " offers:";
+        rightMessageText.text = "For " + nodeOwner.name + "'s:";
+        leftMoneyText.text = "+$" + offeredMoney;
+        rightMoneyText.text = "+$" + requestedMoney;
+
+        leftCard.SetActive(offeredNode!= null?true:false);
+        rightCard.SetActive(requestedNode!=null?true:false);
+
+        if (leftCard.activeInHierarchy)
+        {
+            leftColorField.color = (offeredNode.propertyColorField != null)?offeredNode.propertyColorField.color : Color.white;
+            switch (offeredNode.monopolyNodeType)
+            {
+                case MonopolyNodeType.Property:
+                    leftPropImage.sprite = houseSprite;
+                    leftPropImage.color = Color.white;
+                    break;
+                case MonopolyNodeType.Railroad:
+                    leftPropImage.sprite = railroadSprite;
+                    leftPropImage.color = Color.white;
+                    break;
+                case MonopolyNodeType.Utility:
+                    leftPropImage.sprite = utilitySprite;
+                    leftPropImage.color = Color.black;
+                    break;
+            }
+        }
+
+        if (rightCard.activeInHierarchy)
+        {
+            rightColorField.color = (requestedNode.propertyColorField != null) ? requestedNode.propertyColorField.color : Color.white;
+            switch (requestedNode.monopolyNodeType)
+            {
+                case MonopolyNodeType.Property:
+                    rightPropImage.sprite = houseSprite;
+                    rightPropImage.color = Color.white;
+                    break;
+                case MonopolyNodeType.Railroad:
+                    rightPropImage.sprite = railroadSprite;
+                    rightPropImage.color = Color.white;
+                    break;
+                case MonopolyNodeType.Utility:
+                    rightPropImage.sprite = utilitySprite;
+                    rightPropImage.color = Color.black;
+                    break;
+            }
+        }
+    }
+
+    public void AcceptButton()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("AcceptOffer", RpcTarget.All);
+        }
+        else AcceptOffer();
+    }
+
+    public void RejectButton()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonView PV = GetComponent<PhotonView>();
+            PV.RPC("RejectOffer", RpcTarget.All);
+        }
+        else RejectOffer();
+    }
+    [PunRPC]
     public void AcceptOffer()
     {
         Trade(currentPlayer, nodeOwner, requestedNode, offeredNode, offeredMoney, requestedMoney);
         ResetOffer();
+        
     }
+    [PunRPC]
     public void RejectOffer()
     {
         currentPlayer.ChangeState(Player_Mono.AiStates.IDLE);
@@ -553,5 +679,6 @@ public class TradingSystem : MonoBehaviour
         offeredNode = null;
         requestedMoney = 0;
         offeredMoney = 0;
+        waitPanel.SetActive(false);
     }
 }

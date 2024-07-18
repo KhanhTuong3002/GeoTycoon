@@ -4,8 +4,9 @@ using UnityEngine;
 
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
-public class ManageCardUI : MonoBehaviour
+public class ManageCardUI : MonoBehaviourPunCallbacks
 {
     [SerializeField] Image colorField;
     [SerializeField] TMP_Text propertyNameText;
@@ -64,6 +65,7 @@ public class ManageCardUI : MonoBehaviour
 
     public void MortgageButton()
     {
+        Debug.Log(playerReference.name + " " + nodeReference.name +" ");
         if(!propertyReference.CheckIfMortgageAllowed())
         {
             //ERROR MESSAGE
@@ -77,11 +79,15 @@ public class ManageCardUI : MonoBehaviour
             ManageUI.instance.UpdateSystemMessage(message);
             return;
         }
-        playerReference.CollectMoney(nodeReference.MortagageProperty());
+        if(PhotonNetwork.IsConnected) ManageUI.instance.MortagagePropertyMulti(playerReference.playerId, nodeReference.name);
+        else
+        {
+            playerReference.CollectMoney(nodeReference.MortagageProperty());
+            ManageUI.instance.UpdateMoneyText();
+        }
         mortgageImage.SetActive(true);
         mortgageButton.interactable = false;
         unMortgageButton.interactable = true;
-        ManageUI.instance.UpdateMoneyText();
     }
     public void UnMortgageButton()
     {
@@ -99,12 +105,16 @@ public class ManageCardUI : MonoBehaviour
             ManageUI.instance.UpdateSystemMessage(message);
             return;
         }
-        playerReference.PayMoney(nodeReference.MortgageValue);
-        nodeReference.UnMortgageProperty();
+        if(PhotonNetwork.IsConnected) ManageUI.instance.UnMortagagePropertyMulti(playerReference.playerId, nodeReference.name);
+        else
+        {
+            playerReference.PayMoney(nodeReference.MortgageValue);
+            nodeReference.UnMortgageProperty();
+            ManageUI.instance.UpdateMoneyText();
+        }
         mortgageImage.SetActive(false);
         unMortgageButton.interactable = false;
         mortgageButton.interactable = true;
-        ManageUI.instance.UpdateMoneyText();
     }
 
     public void ShowBuildings()
