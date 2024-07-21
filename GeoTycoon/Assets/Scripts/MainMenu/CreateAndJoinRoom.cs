@@ -9,15 +9,25 @@ using Photon.Realtime;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-public class CreateAndJoinRoon : MonoBehaviourPunCallbacks
+public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 {
     public GameObject lobbyLayout;
     public GameObject multiPlayerMenu;
     public TMP_InputField createId;
     public TMP_InputField joinId;
     public TMP_InputField nickName;
+    public TMP_InputField setQuestionId;
 
+    public static CreateAndJoinRoom instance;
 
+    private void Awake() 
+    {
+        instance = this;
+    }
+    public string GetSetId()
+    {
+        return setQuestionId.text;
+    }
     [PunRPC]
     public void AllLeaveRoom()
     {
@@ -28,8 +38,13 @@ public class CreateAndJoinRoon : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        PhotonNetwork.NickName = nickName.text;
-        PhotonNetwork.CreateRoom(createId.text);
+        SetValidator.Instance.GetData(setQuestionId.text);
+        bool isSetValid = SetValidator.Instance.ValidateSetId();
+        if (isSetValid)
+        {
+            PhotonNetwork.NickName = nickName.text;
+            PhotonNetwork.CreateRoom(createId.text);
+        }
     }
     public void JoinRoom()
     {
@@ -61,6 +76,7 @@ public class CreateAndJoinRoon : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient)
         {
             Debug.Log("You are room master.");
+            PhotonNetwork.CurrentRoom.MaxPlayers = 4;
         }
         
         Debug.Log("Join Success");

@@ -4,75 +4,175 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+using TMPro;
 
-public class QuestionGetter : MonoBehaviour
+using Photon.Pun;
+
+public class QuestionGetter : MonoBehaviourPunCallbacks
 {
+    public static QuestionGetter Instance { get; private set; }
+
     public string URL;
-    public InputField Qid;
-    public GameObject QuestionPanel;
+    public GameObject QuizPanel;
+    public Text QuestionText;
     public Button OptionA;
     public Button OptionB;
     public Button OptionC;
     public Button OptionD;
+    public TMP_Text TimerText; 
+
+    
+
+    public delegate void QuestionAnswered(bool isCorrect, string description);
+    public static event QuestionAnswered OnQuestionAnswered;
 
     private List<SetQuestion> questionSets;
     private int currentQuestionIndex;
     private List<Question> currentQuestions;
-    private List<Question> duplicateQuestions;
+    private float timeRemaining = 30f; // Timer set to 30 seconds
+    private bool isTimerRunning = false;
 
-    public void GetData()
+    private void Awake()
     {
-        StartCoroutine(FetchData());
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
+
+    private void Start()
+    {
+        if (QuizPanel == null || QuestionText == null || OptionA == null || OptionB == null || OptionC == null || OptionD == null || TimerText == null)
+        {
+            Debug.LogError("Một hoặc nhiều thành phần UI chưa được gán trong Inspector.");
+            return;
+        }
+
+        string setID = "";
+        if(PhotonNetwork.IsConnected)
+        {
+            setID = GameSettings.multisettingsList[0].setQuestionId;
+        }
+        else setID = GameSettings.settingsList[0].setQuestionId;
+        if (string.IsNullOrEmpty(setID))
+        {
+            setID = "ec74b952-469c-4fc4-a175-498776ac12e3";  // Thay bằng SetID mặc định của bạn
+        }
+        GetData(setID);
     }
 
-    public IEnumerator FetchData()
+    private void Update()
     {
-        using (UnityWebRequest request = UnityWebRequest.Get(URL + Qid.text))
+        if (isTimerRunning)
+        {
+            if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+                TimerText.text = "Time: " + Mathf.Round(timeRemaining).ToString();
+            }
+            else
+            {
+                isTimerRunning = false;
+                TimerText.text = "Time: 0";
+                CheckAnswerWrapper(null); // Time's up, auto answer false
+            }
+        }
+    }
+
+    public void GetData(string setID)
+    {
+        if(setID=="") setID = "ec74b952-469c-4fc4-a175-498776ac12e3";
+        StartCoroutine(FetchData(setID));
+        Debug.Log("****QuizManager receive your SetID:**** " + setID);
+    }
+
+    public IEnumerator FetchData(string setID)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(URL + setID))
         {
             yield return request.SendWebRequest();
-            Debug.Log(request.result);
-            if (request.result == UnityWebRequest.Result.ConnectionError)
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
                 Debug.Log(request.error);
+                //StartCoroutine(FetchData("ec74b952-469c-4fc4-a175-498776ac12e3"));  // Thay bằng SetID mặc định của bạn
             }
             else
             {
                 questionSets = JsonConvert.DeserializeObject<List<SetQuestion>>(request.downloadHandler.text);
-                // Debug.Log(request.downloadHandler.text);
-                // foreach (SetQuestion s in questionSets)
-                // {
-                //     Debug.Log(s.SetName);
-                //     foreach (Question q in s.questions)
-                //     {
-                //         Debug.Log(q.Title);
-                //     }
-                // }
-                if (questionSets.Count > 0)
+                if (questionSets != null && questionSets.Count > 0)
                 {
-                    
                     currentQuestions = questionSets[0].questions;
-                    currentQuestionIndex = Random.Range(0, currentQuestions.Count);
-                    duplicateQuestions = currentQuestions;
-                    Debug.Log("question remaining: "+currentQuestions.Count);
-                    Debug.Log(currentQuestions[currentQuestionIndex].Title);
-                    Debug.Log("Random index: "+currentQuestionIndex);
+                    if(!PhotonNetwork.IsConnected)
+                    {
+                        currentQuestionIndex = Random.Range(0, currentQuestions.Count);
+                    }
+                    else
+                    {
+                        PhotonView PV = GetComponent<PhotonView>();
+                        PV.RPC("SetNextQuestion", RpcTarget.All, Random.Range(0, currentQuestions.Count));
+                    }
                     DisplayQuestion(currentQuestionIndex);
+                }
+                else
+                {
+                    Debug.Log("Không tìm thấy câu hỏi nào trong bộ câu hỏi.");
+                    Debug.Log("****QuizManager receive your SetID:**** " + setID);
                 }
             }
         }
     }
 
+
+    [PunRPC]
+    public void SetNextQuestion(int nextIndex)
+    {
+        currentQuestionIndex = nextIndex;
+    }
+
     private void DisplayQuestion(int index)
     {
         if (currentQuestions == null || currentQuestions.Count == 0 || index < 0 || index >= currentQuestions.Count)
+        {
+            Debug.LogWarning("Không có câu hỏi hoặc chỉ số không hợp lệ.");
             return;
+        }
+
+        if (QuizPanel == null || QuestionText == null || OptionA == null || OptionB == null || OptionC == null || OptionD == null)
+        {
+            Debug.LogError("QuizPanel hoặc một trong các thành phần không được gán.");
+            return;
+        }
 
         Question test = currentQuestions[index];
-        QuestionPanel.transform.GetChild(2).GetComponent<Text>().text = test.Content;
-        OptionA.GetComponentInChildren<Text>().text = test.Option1;
-        OptionB.GetComponentInChildren<Text>().text = test.Option2;
-        OptionC.GetComponentInChildren<Text>().text = test.Option3;
-        OptionD.GetComponentInChildren<Text>().text = test.Option4;
+        QuestionText.text = test.Content;
+        Debug.Log("Question: " + test.Content);
+
+        Text optionAText = OptionA.GetComponentInChildren<Text>();
+        Text optionBText = OptionB.GetComponentInChildren<Text>();
+        Text optionCText = OptionC.GetComponentInChildren<Text>();
+        Text optionDText = OptionD.GetComponentInChildren<Text>();
+
+        if (optionAText == null || optionBText == null || optionCText == null || optionDText == null)
+        {
+            Debug.LogError("Không tìm thấy thành phần Text bên trong một hoặc nhiều nút Option.");
+            return;
+        }
+
+        Debug.Log("Option1: " + test.Option1);
+        Debug.Log("Option2: " + test.Option2);
+        Debug.Log("Option3: " + test.Option3);
+        Debug.Log("Option4: " + test.Option4);
+
+        optionAText.text = test.Option1;
+        optionBText.text = test.Option2;
+        optionCText.text = test.Option3;
+        optionDText.text = test.Option4;
 
         OptionA.onClick.RemoveAllListeners();
         OptionB.onClick.RemoveAllListeners();
@@ -83,36 +183,76 @@ public class QuestionGetter : MonoBehaviour
         OptionB.onClick.AddListener(() => CheckAnswerWrapper(test.Option2));
         OptionC.onClick.AddListener(() => CheckAnswerWrapper(test.Option3));
         OptionD.onClick.AddListener(() => CheckAnswerWrapper(test.Option4));
+
+        if(!PhotonNetwork.IsMasterClient)
+        {
+            OptionA.interactable = false;
+            OptionB.interactable = false;
+            OptionC.interactable = false;
+            OptionD.interactable = false;
+        }
+        else
+        {
+            OptionA.interactable = true;
+            OptionB.interactable = true;
+            OptionC.interactable = true;
+            OptionD.interactable = true;
+        }
+
+        // Reset the timer
+        timeRemaining = 30f;
+    }
+
+    public void StartTimer()
+    {
+        timeRemaining = 30f;
+        isTimerRunning = true;
     }
 
     private void CheckAnswer(Question question, string selectedAnswer)
     {
-        if (question.Answer == selectedAnswer)
+        bool isCorrect = question != null && question.Answer == selectedAnswer;
+
+        if (isCorrect)
         {
-            Debug.Log("correct!");
+            Debug.Log("Chính xác!");
             currentQuestions.Remove(question);
-            currentQuestionIndex = Random.Range(0, currentQuestions.Count);
-            Debug.Log("question remaining: " + currentQuestions.Count);
-            Debug.Log(currentQuestions[currentQuestionIndex].Title);
-            Debug.Log("Random index: "+currentQuestionIndex);
-            // currentQuestionIndex++;
-            if (currentQuestionIndex < currentQuestions.Count)
+            if (currentQuestions.Count > 0)
             {
+                if (!PhotonNetwork.IsConnected)
+                {
+                    currentQuestionIndex = Random.Range(0, currentQuestions.Count);
+                }
+                else
+                {
+                    PhotonView PV = GetComponent<PhotonView>();
+                    PV.RPC("SetNextQuestion", RpcTarget.All, Random.Range(0, currentQuestions.Count));
+                }
                 DisplayQuestion(currentQuestionIndex);
             }
             else
             {
-                currentQuestions = duplicateQuestions;
-                currentQuestionIndex = Random.Range(0, currentQuestions.Count);
-                //Debug.Log("All questions answered correctly!");
-                // Add any end of quiz logic here
+                currentQuestions = questionSets[0].questions;
+                if (!PhotonNetwork.IsConnected)
+                {
+                    currentQuestionIndex = Random.Range(0, currentQuestions.Count);
+                }
+                else
+                {
+                    PhotonView PV = GetComponent<PhotonView>();
+                    PV.RPC("SetNextQuestion", RpcTarget.All, Random.Range(0, currentQuestions.Count));
+                }
+                Debug.Log("Đã trả lời đúng tất cả các câu hỏi!");
+                DisplayQuestion(currentQuestionIndex);
             }
         }
         else
         {
-            // Incorrect answer, so redisplay the current question
+            Debug.Log("Trả lời sai");
             DisplayQuestion(currentQuestionIndex);
         }
+
+        OnQuestionAnswered?.Invoke(isCorrect, question != null ? question.Description : string.Empty);
     }
 
     public void CheckAnswerWrapper(string selectedAnswer)
@@ -120,6 +260,7 @@ public class QuestionGetter : MonoBehaviour
         if (currentQuestions == null || currentQuestions.Count == 0 || currentQuestionIndex < 0 || currentQuestionIndex >= currentQuestions.Count)
             return;
 
+        isTimerRunning = false; // Stop the timer when an answer is selected
         CheckAnswer(currentQuestions[currentQuestionIndex], selectedAnswer);
     }
 }

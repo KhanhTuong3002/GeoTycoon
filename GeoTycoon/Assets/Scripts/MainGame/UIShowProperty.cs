@@ -14,6 +14,9 @@ public class UIShowProperty : MonoBehaviourPunCallbacks
 
     [Header("Buy Property UI")]
     [SerializeField] GameObject propertyUIPanel;
+
+    [SerializeField] GameObject quizPanel;
+    [SerializeField] GameObject descriptionPanel; 
     [SerializeField] TMP_Text propertyNameText;
     [SerializeField] Image colorField;
     [Space]
@@ -31,62 +34,128 @@ public class UIShowProperty : MonoBehaviourPunCallbacks
     [Space]
     [SerializeField] TMP_Text propertyPriceText;
     [SerializeField] TMP_Text playerMoneyText;
+    [SerializeField] Text descriptionText; 
+    private bool quizAnsweredCorrectly = false;
 
-     void OnEnable()
+    public delegate void UpdateMessage(string message);
+    public static UpdateMessage OnUpdateMessage;
+
+    void OnEnable()
     {
         MonopolyNode.OnShowPropertyBuyPanel += ShowBuyPropertyUI;
-        
+        QuestionGetter.OnQuestionAnswered += HandleQuestionAnswered;
     }
 
-    
-
-     void OnDisable()
+    void OnDisable()
     {
         MonopolyNode.OnShowPropertyBuyPanel -= ShowBuyPropertyUI;
-        
+        QuestionGetter.OnQuestionAnswered -= HandleQuestionAnswered;
     }
     
 
     void Start()
     {
         propertyUIPanel.SetActive(false);
+        quizPanel.SetActive(false);
+        descriptionPanel.SetActive(false); 
     }
+
     void ShowBuyPropertyUI(MonopolyNode node, Player_Mono currentPlayer)
     {
         nodeReference = node;
-        
         playerReference = currentPlayer;
+        // Display the quiz panel
         
-        //top Panel content
-        propertyNameText.text = node.name;
-        //coloField.color = node.propertyColorField.color;
-        //center the card
-        rentPriceText.text = "$ " + node.baseRent;
-        oneHouseRentText.text = "$ " + node.rentWithHouse[0];
-        twoHouseRentText.text = "$ " + node.rentWithHouse[1];
-        threeHouseRentText.text = "$ " + node.rentWithHouse[2];
-        fourHouseRentText.text = "$ " + node.rentWithHouse[3];
-        hotelRentText.text = "$ " + node.rentWithHouse[4];
-        //cost of building
-        housePriceText.text = "$ " + node.houseCost;
-        mortgagePriceText.text = "$ " + node.MortgageValue;
-        //bottom bar
-        propertyPriceText.text = "Price: $ " + node.price;
-        playerMoneyText.text = "You have" + currentPlayer.ReadMoney;
-        //buy property button
-        if(currentPlayer.CanAfford(node.price))
+        quizPanel.SetActive(true);
+        propertyUIPanel.SetActive(false);
+        descriptionPanel.SetActive(false); 
+
+        // Start the timer
+        QuestionGetter.Instance.StartTimer();
+    }
+
+    void HandleQuestionAnswered(bool isCorrect, string description)
+    {
+        quizAnsweredCorrectly = isCorrect;
+        quizPanel.SetActive(false);
+
+        if (isCorrect)
         {
-            buyPropertyButton.interactable = true;
+            // Top Panel content
+            propertyNameText.text = nodeReference.name;
+            rentPriceText.text = "$ " + nodeReference.baseRent;
+            oneHouseRentText.text = "$ " + nodeReference.rentWithHouse[0];
+            twoHouseRentText.text = "$ " + nodeReference.rentWithHouse[1];
+            threeHouseRentText.text = "$ " + nodeReference.rentWithHouse[2];
+            fourHouseRentText.text = "$ " + nodeReference.rentWithHouse[3];
+            hotelRentText.text = "$ " + nodeReference.rentWithHouse[4];
+            housePriceText.text = "$ " + nodeReference.houseCost;
+            mortgagePriceText.text = "$ " + nodeReference.MortgageValue;
+            propertyPriceText.text = "Price: $ " + nodeReference.price;
+            playerMoneyText.text = "You have " + playerReference.ReadMoney;
+
+            buyPropertyButton.interactable = playerReference.CanAfford(nodeReference.price);
+
+            // Show the panel
+            descriptionPanel.SetActive(false);
+            if(PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient) propertyUIPanel.SetActive(true);
+            OnUpdateMessage?.Invoke("Correct answer, you now can buy current property.");
+            Debug.Log("Correct answer.");
         }
         else
         {
-            buyPropertyButton.interactable = false;
+            // Show the description panel
+            descriptionText.text = description;
+            descriptionPanel.SetActive(true);
+            StartCoroutine(CloseDescriptionPanelAfterDelay(5f));
+            OnUpdateMessage?.Invoke("Incorrect answer, you cannot buy the property. End your turn.");
+            Debug.Log("Incorrect answer, you cannot buy the property. End your turn.");
         }
-        //show the panel
-        if (playerReference.playerId==PhotonNetwork.LocalPlayer.ActorNumber) propertyUIPanel.SetActive(true);
-        else propertyUIPanel.SetActive(false);
-        if(!PhotonNetwork.IsConnected) propertyUIPanel.SetActive(true);
     }
+
+    IEnumerator CloseDescriptionPanelAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        descriptionPanel.SetActive(false);
+    }
+
+
+    // void ShowBuyPropertyUI(MonopolyNode node, Player_Mono currentPlayer)
+    // {
+    //     nodeReference = node;
+        
+    //     playerReference = currentPlayer;
+        
+    //     //top Panel content
+    //     propertyNameText.text = node.name;
+    //     //coloField.color = node.propertyColorField.color;
+    //     //center the card
+    //     rentPriceText.text = "$ " + node.baseRent;
+    //     oneHouseRentText.text = "$ " + node.rentWithHouse[0];
+    //     twoHouseRentText.text = "$ " + node.rentWithHouse[1];
+    //     threeHouseRentText.text = "$ " + node.rentWithHouse[2];
+    //     fourHouseRentText.text = "$ " + node.rentWithHouse[3];
+    //     hotelRentText.text = "$ " + node.rentWithHouse[4];
+    //     //cost of building
+    //     housePriceText.text = "$ " + node.houseCost;
+    //     mortgagePriceText.text = "$ " + node.MortgageValue;
+    //     //bottom bar
+    //     propertyPriceText.text = "Price: $ " + node.price;
+    //     playerMoneyText.text = "You have" + currentPlayer.ReadMoney;
+    //     //buy property button
+    //     if(currentPlayer.CanAfford(node.price))
+    //     {
+    //         buyPropertyButton.interactable = true;
+    //     }
+    //     else
+    //     {
+    //         buyPropertyButton.interactable = false;
+    //     }
+    //     //show the panel
+    //     if (playerReference.playerId==PhotonNetwork.LocalPlayer.ActorNumber) propertyUIPanel.SetActive(true);
+    //     else propertyUIPanel.SetActive(false);
+    //     if(!PhotonNetwork.IsConnected) propertyUIPanel.SetActive(true);
+    // }
 
     public void OnClickBuy()
     {

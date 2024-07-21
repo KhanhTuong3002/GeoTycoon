@@ -26,12 +26,14 @@ public class Setting
     public string playerName;
     public int selectedType;
     public int selectColor;
+    public string setQuestionId;
 
-    public Setting(string _name, int type, int color)
+    public Setting(string _name, int type, int color, string _setQuestionId)
     {
         playerName = _name;
         selectedType = type;
         selectColor = color;
+        setQuestionId = _setQuestionId;
     }
 
 }
@@ -42,11 +44,13 @@ public class MultiSetting
     public int selectColor;
 
     public int playerId;
-    public MultiSetting(string _name, int type, int color, int _playerId)
+    public string setQuestionId;
+    public MultiSetting(string _name, int type, int color, int _playerId, string _setQuestionId)
     {
         playerName = _name;
         selectedType = type;
         selectColor = color;
         playerId = _playerId;
+        setQuestionId = _setQuestionId;
     }
 }

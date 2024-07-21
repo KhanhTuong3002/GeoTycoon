@@ -18,12 +18,15 @@ public class MainMenu : MonoBehaviourPunCallbacks
     public GameObject multiPlayerMenu;
 
     public GameObject singlePlayerMenu;
+    public TMP_InputField setIdFieldOff;
+    public TMP_InputField setIdFieldMulti;
 
     public Button startGameButton;
 
 
     public string[] playerNameList = new string[4];
     public int[] playerIdList = new int[4];
+    public string setQuestionId;
 
     [Serializable]
     public class PlayerSelect
@@ -52,11 +55,12 @@ public class MainMenu : MonoBehaviourPunCallbacks
     
 
     [PunRPC]
-    void SyncSetting(string[] currentPlayerNameList, int[] currentPlayerIdList)
+    void SyncSetting(string[] currentPlayerNameList, int[] currentPlayerIdList, string mySetQuestionId)
     {
         
         playerNameList = currentPlayerNameList;
         playerIdList = currentPlayerIdList;
+        setQuestionId = mySetQuestionId;
         UpdateListing();
     }
 
@@ -67,7 +71,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         {
             if (player.toggle.isOn)
             {
-                MultiSetting newSet = new MultiSetting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value, player.playerId);
+                MultiSetting newSet = new MultiSetting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value, player.playerId, setQuestionId);
                 GameSettings.AddMultiSetting(newSet);
             }
         }
@@ -89,7 +93,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         {
             UpdateListing();
             PhotonView PV = GetComponent<PhotonView>();
-            PV.RPC("SyncSetting", RpcTarget.Others, (object)playerNameList, (object)playerIdList);
+            PV.RPC("SyncSetting", RpcTarget.Others, (object)playerNameList, (object)playerIdList, setQuestionId);
         }
     }
 
@@ -101,6 +105,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
             playerSelectionMulti[i].nameInput.text = playerNameList[i];
             playerSelectionMulti[i].playerId = playerIdList[i];
         }
+        setIdFieldMulti.text = setQuestionId;
     }
 
     public override void OnJoinedRoom()
@@ -120,6 +125,9 @@ public class MainMenu : MonoBehaviourPunCallbacks
             playerSelectionMulti[0].playerId = PhotonNetwork.MasterClient.ActorNumber;
             playerIdList[0] = PhotonNetwork.MasterClient.ActorNumber;
             playerNameList[0] = PhotonNetwork.NickName;
+            setQuestionId = CreateAndJoinRoom.instance.GetSetId();
+            if(setQuestionId == null) setQuestionId = "defaultSetID";
+            setIdFieldMulti.text = setQuestionId;
         }
         else
         {
@@ -137,12 +145,13 @@ public class MainMenu : MonoBehaviourPunCallbacks
             {
                 if (player.toggle.isOn)
                 {
-                    MultiSetting newSet = new MultiSetting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value, player.playerId);
+                    MultiSetting newSet = new MultiSetting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value, player.playerId, setIdFieldMulti.text);
                     GameSettings.AddMultiSetting(newSet);
                 }
             }
             PhotonView PV = GetComponent<PhotonView>();
             PV.RPC("SyncStart", RpcTarget.OthersBuffered);
+            PhotonNetwork.LoadLevel("MainGame");
         }
         else
         {
@@ -150,15 +159,18 @@ public class MainMenu : MonoBehaviourPunCallbacks
             {
                 if (player.toggle.isOn)
                 {
-                    Setting newSet = new Setting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value);
+                    Setting newSet = new Setting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value, setIdFieldOff.text);
                     GameSettings.AddSetting(newSet);
                 }
             }
+            SetValidator.Instance.GetData(setIdFieldOff.text);
+            bool isSetValid = SetValidator.Instance.ValidateSetId();
+            if(isSetValid) SceneManager.LoadScene("MainGame");
         }
 
         
 
-        PhotonNetwork.LoadLevel("MainGame");
+        
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
