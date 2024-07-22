@@ -211,7 +211,7 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
         }
 
 
-        if (!PhotonNetwork.IsMasterClient)
+        if (!PhotonNetwork.IsMasterClient || !PhotonNetwork.IsConnected)
         {
             OptionA.interactable = false;
             OptionB.interactable = false;

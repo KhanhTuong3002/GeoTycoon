@@ -56,6 +56,7 @@ public class SetValidator : MonoBehaviourPunCallbacks
 
     public IEnumerator FetchData(string setID)
     {
+        Debug.Log("Searching...");
         using (UnityWebRequest request = UnityWebRequest.Get(URL + setID))
         {
             yield return request.SendWebRequest();
@@ -63,11 +64,13 @@ public class SetValidator : MonoBehaviourPunCallbacks
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
                 Debug.Log(request.error);
+                Debug.Log("Set not found");
                 isDataFound = false;
             }
             else
             {
-               isDataFound = true;
+                Debug.Log("Set found");
+                isDataFound = true;
             }
         }
     }

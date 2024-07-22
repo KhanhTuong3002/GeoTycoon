@@ -155,6 +155,13 @@ public class MainMenu : MonoBehaviourPunCallbacks
         }
         else
         {
+            SetValidator.Instance.GetData(setIdFieldOff.text);
+            bool isSetValid = SetValidator.Instance.ValidateSetId();
+            if(!isSetValid)
+            {
+                Debug.Log("Id is not valid");
+                return; 
+            } 
             foreach (var player in playerSelection)
             {
                 if (player.toggle.isOn)
@@ -163,9 +170,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
                     GameSettings.AddSetting(newSet);
                 }
             }
-            SetValidator.Instance.GetData(setIdFieldOff.text);
-            bool isSetValid = SetValidator.Instance.ValidateSetId();
-            if(isSetValid) SceneManager.LoadScene("MainGame");
+            SceneManager.LoadScene("MainGame");
         }
 
         

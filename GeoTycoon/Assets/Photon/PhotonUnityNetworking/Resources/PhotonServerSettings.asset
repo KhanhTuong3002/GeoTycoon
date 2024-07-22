@@ -91,6 +91,7 @@ MonoBehaviour:
   - BuyHouseMultiCall
   - SellHouseMultiCall
   - SetNextQuestion
+  - CheckAnswerWrapper
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
