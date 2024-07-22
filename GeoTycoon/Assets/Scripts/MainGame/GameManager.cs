@@ -257,13 +257,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         // rolledDice.Add(diceValue);
         rolledDice.Add(diceValue);
-        if (rolledDice.Count == 1)
+        if (rolledDice.Count == 2)
         {
             if (PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
             {
                 PhotonView PV = GetComponent<PhotonView>();
                 // PV.RPC("RollDice", RpcTarget.All, rolledDice[0], rolledDice[1]);
-                PV.RPC("RollDice", RpcTarget.All, 0, 1);
+                PV.RPC("RollDice", RpcTarget.All, rolledDice[0], rolledDice[1]);
                 // RollDice(3, 5);
             }
             else if (!PhotonNetwork.IsConnected)
@@ -430,8 +430,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         DeactivateArrows();
         playerList[currentPlayer].ActivateSelector(true);
         //check if in jail
-
-        foreach (Player player in PhotonNetwork.PlayerList)
+        if(PhotonNetwork.IsConnected){
+            foreach (Player player in PhotonNetwork.PlayerList)
         {
             if (player.ActorNumber == playerList[currentPlayer].playerId)
             {
@@ -439,12 +439,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                 //RESET DICE HAS ROLLED
             }
         }
-        if(playerList[currentPlayer].isStillInGameMulti = false) 
+            if(playerList[currentPlayer].isStillInGameMulti = false) 
         {
             HumanBankrupt();
             EndTurnButton();
             return;
         }
+        }
+        
 
         hasRolledDice = false;
 

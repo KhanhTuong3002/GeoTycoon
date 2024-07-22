@@ -90,8 +90,8 @@ public class Dice : MonoBehaviour
         {
             if (side.OnGround)
             {
-                // diceValue = side.SideValue();
-                diceValue = 1;
+                 diceValue = side.SideValue();
+                // diceValue = 1;
                 Debug.Log("ROLLED NUMBER = " + diceValue);
                 break;
             }

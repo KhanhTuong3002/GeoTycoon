@@ -281,7 +281,7 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
 
         OnQuestionAnswered?.Invoke(isCorrect, question != null ? question.Description : string.Empty);
     }
-
+[PunRPC]
     public void CheckAnswerWrapper(string selectedAnswer)
     {
         if (currentQuestions == null || currentQuestions.Count == 0 || currentQuestionIndex < 0 || currentQuestionIndex >= currentQuestions.Count)
