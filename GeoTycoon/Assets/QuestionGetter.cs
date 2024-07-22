@@ -179,12 +179,39 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
         OptionC.onClick.RemoveAllListeners();
         OptionD.onClick.RemoveAllListeners();
 
-        OptionA.onClick.AddListener(() => CheckAnswerWrapper(test.Option1));
-        OptionB.onClick.AddListener(() => CheckAnswerWrapper(test.Option2));
-        OptionC.onClick.AddListener(() => CheckAnswerWrapper(test.Option3));
-        OptionD.onClick.AddListener(() => CheckAnswerWrapper(test.Option4));
+        if(!PhotonNetwork.IsConnected)
+        {
+            OptionA.onClick.AddListener(() => CheckAnswerWrapper(test.Option1));
+            OptionB.onClick.AddListener(() => CheckAnswerWrapper(test.Option2));
+            OptionC.onClick.AddListener(() => CheckAnswerWrapper(test.Option3));
+            OptionD.onClick.AddListener(() => CheckAnswerWrapper(test.Option4));
+        }
+        else
+        {
+            OptionA.onClick.AddListener(() => 
+            {
+                PhotonView PV = GetComponent<PhotonView>();
+                PV.RPC("CheckAnswerWrapper", RpcTarget.All, test.Option1);
+            });
+            OptionB.onClick.AddListener(() => 
+            {
+                PhotonView PV = GetComponent<PhotonView>();
+                PV.RPC("CheckAnswerWrapper", RpcTarget.All, test.Option2);
+            });
+            OptionC.onClick.AddListener(() => 
+            {
+                PhotonView PV = GetComponent<PhotonView>();
+                PV.RPC("CheckAnswerWrapper", RpcTarget.All, test.Option3);
+            });
+            OptionD.onClick.AddListener(() => 
+            {
+                PhotonView PV = GetComponent<PhotonView>();
+                PV.RPC("CheckAnswerWrapper", RpcTarget.All, test.Option4);
+            });
+        }
 
-        if(!PhotonNetwork.IsMasterClient)
+
+        if (!PhotonNetwork.IsMasterClient)
         {
             OptionA.interactable = false;
             OptionB.interactable = false;
