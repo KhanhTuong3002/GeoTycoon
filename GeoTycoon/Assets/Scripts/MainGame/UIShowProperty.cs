@@ -98,7 +98,7 @@ public class UIShowProperty : MonoBehaviourPunCallbacks
 
             // Show the panel
             descriptionPanel.SetActive(false);
-            if(PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient) propertyUIPanel.SetActive(true);
+            if(!PhotonNetwork.IsConnected ||(PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)) propertyUIPanel.SetActive(true);
             OnUpdateMessage?.Invoke("Correct answer, you now can buy current property.");
             Debug.Log("Correct answer.");
         }
@@ -179,7 +179,7 @@ public class UIShowProperty : MonoBehaviourPunCallbacks
         }
         else
         {
-            BuyPropertyButton();
+            ClosePropertyButton();
         }
     }
     [PunRPC]

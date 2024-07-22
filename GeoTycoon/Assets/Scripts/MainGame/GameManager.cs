@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
         {
             _dice1.RollDice();
-            //_dice2.RollDice();
+            _dice2.RollDice();
         }
         if (!PhotonNetwork.IsConnected) // offline mode
         {
@@ -459,9 +459,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else  //if human - show ui
         {
+            if(PhotonNetwork.IsConnected){
             Debug.Log("Master is now: "+PhotonNetwork.MasterClient.NickName);
             Debug.Log("It's " + playerList[currentPlayer].name + "'s turn");
-
             if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
             {
                 bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
@@ -478,6 +478,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                 //Debug.Log("Hide panel");
                 
             }
+            }
+
+            
 
             if (!PhotonNetwork.IsConnected) // offline mode
             {

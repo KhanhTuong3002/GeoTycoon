@@ -155,7 +155,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         }
         else
         {
-            SetValidator.Instance.GetData(setIdFieldOff.text);
+            StartCoroutine(FindSetID());
             bool isSetValid = SetValidator.Instance.ValidateSetId();
             if(!isSetValid)
             {
@@ -177,7 +177,13 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
         
     }
+    public IEnumerator FindSetID()
+    {
+        SetValidator.Instance.GetData(setIdFieldOff.text);
+        yield return new WaitForSeconds(2);
+    }
 
+    
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         for(int i = 0; i < playerSelectionMulti.Count(); i++)

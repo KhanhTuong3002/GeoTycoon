@@ -12,7 +12,7 @@ public class SetValidator : MonoBehaviourPunCallbacks
     public TMP_Text WarningMessageOff;
     public TMP_Text WarningMessageOnl;
     public string URL;
-    bool isDataFound;
+    bool isDataFound = false;
     
     // Start is called before the first frame update
 
@@ -24,8 +24,7 @@ public class SetValidator : MonoBehaviourPunCallbacks
     void Start()
     {
         WarningMessageOff.gameObject.SetActive(false);
-        WarningMessageOnl.gameObject.SetActive(false);
-        isDataFound = false;
+        WarningMessageOnl.gameObject.SetActive(false);      
     }
 
     // Update is called once per frame

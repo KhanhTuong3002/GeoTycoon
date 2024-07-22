@@ -29,6 +29,8 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
     private List<SetQuestion> questionSets;
     private int currentQuestionIndex;
     private List<Question> currentQuestions;
+    private List<Question> DuplicateQuestions = new List<Question>();
+    
     private float timeRemaining = 30f; // Timer set to 30 seconds
     private bool isTimerRunning = false;
 
@@ -108,6 +110,7 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
                 if (questionSets != null && questionSets.Count > 0)
                 {
                     currentQuestions = questionSets[0].questions;
+                    DuplicateQuestions.AddRange(currentQuestions);
                     if(!PhotonNetwork.IsConnected)
                     {
                         currentQuestionIndex = Random.Range(0, currentQuestions.Count);
@@ -211,14 +214,15 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
         }
 
 
-        if (!PhotonNetwork.IsMasterClient || !PhotonNetwork.IsConnected)
+        if (!PhotonNetwork.IsMasterClient && PhotonNetwork.IsConnected )
         {
+            //test
             OptionA.interactable = false;
             OptionB.interactable = false;
             OptionC.interactable = false;
             OptionD.interactable = false;
         }
-        else
+        else if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
         {
             OptionA.interactable = true;
             OptionB.interactable = true;
@@ -259,7 +263,8 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
             }
             else
             {
-                currentQuestions = questionSets[0].questions;
+                currentQuestions = DuplicateQuestions;
+                Debug.Log ("Duplicate Question count: "+DuplicateQuestions.Count);
                 if (!PhotonNetwork.IsConnected)
                 {
                     currentQuestionIndex = Random.Range(0, currentQuestions.Count);
