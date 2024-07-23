@@ -92,6 +92,9 @@ MonoBehaviour:
   - SellHouseMultiCall
   - SetNextQuestion
   - CheckAnswerWrapper
+  - BankruptPlayerOutGame
+  - ContinueGameChance
+  - ContinueGameCommunity
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
