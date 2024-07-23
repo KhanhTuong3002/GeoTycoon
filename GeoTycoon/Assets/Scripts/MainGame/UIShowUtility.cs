@@ -81,6 +81,10 @@ public class UIShowUtility : MonoBehaviourPunCallbacks
             BuyUtilityButton();
         }
     }
+    public override void OnLeftRoom()
+    {
+        OnClickClose();
+    }
 
     public void OnClickClose()
     {

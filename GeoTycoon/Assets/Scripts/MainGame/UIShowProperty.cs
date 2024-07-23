@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 
 using Photon.Pun;
+using Photon.Realtime;
 
 public class UIShowProperty : MonoBehaviourPunCallbacks
 {
@@ -65,7 +66,7 @@ public class UIShowProperty : MonoBehaviourPunCallbacks
         nodeReference = node;
         playerReference = currentPlayer;
         // Display the quiz panel
-        
+        if(PhotonNetwork.IsConnected) QuestionGetter.Instance.SetButton(PhotonNetwork.IsMasterClient);
         quizPanel.SetActive(true);
         propertyUIPanel.SetActive(false);
         descriptionPanel.SetActive(false); 
@@ -182,6 +183,12 @@ public class UIShowProperty : MonoBehaviourPunCallbacks
             ClosePropertyButton();
         }
     }
+
+    public override void OnLeftRoom()
+    {
+        OnClickClose();
+    }
+    
     [PunRPC]
 
     public void BuyPropertyButton() //this call from the button

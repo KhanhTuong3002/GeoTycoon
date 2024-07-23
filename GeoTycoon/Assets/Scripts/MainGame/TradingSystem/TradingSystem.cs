@@ -648,7 +648,13 @@ public class TradingSystem : MonoBehaviourPunCallbacks
         }
         else AcceptOffer();
     }
-
+    public override void OnLeftRoom()
+    {
+        if(PhotonNetwork.LocalPlayer.ActorNumber == currentPlayer.playerId || PhotonNetwork.LocalPlayer.ActorNumber == nodeOwner.playerId)
+        {
+            RejectButton();
+        }
+    }
     public void RejectButton()
     {
         if(PhotonNetwork.IsConnected)

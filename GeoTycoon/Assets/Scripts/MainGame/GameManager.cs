@@ -190,7 +190,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         CheckForJailFree();
         rolledDice.Clear();
-        
+
+        bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
+        bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
+        if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId || !PhotonNetwork.IsConnected) OnShowHumanPanel.Invoke(true, false, false, jail1, jail2);
+
         if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
         {
             _dice1.RollDice();
@@ -201,9 +205,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             _dice1.RollDice();
             _dice2.RollDice();
         }
-        bool jail1 = playerList[currentPlayer].HasChanceJailFreeCard;
-        bool jail2 = playerList[currentPlayer].HasCommunityJailFreeCard;
-        if (PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId || !PhotonNetwork.IsConnected) OnShowHumanPanel.Invoke(true, false, false, jail1, jail2);
+        
         CameraSwitcher.instance.SwitchToDice();
         
 
@@ -587,25 +589,31 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         playerList[currentPlayer].Bankrupt();
     }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
+    [PunRPC]
+    public void BankruptPlayerOutGame(int outPlayerId)
     {
         foreach(Player_Mono player_ in playerList)
         {
-            if(otherPlayer.ActorNumber == player_.playerId)
+            if(player_.playerId == outPlayerId)
             {
-                player_.isStillInGameMulti = false;
                 OnUpdateMessage.Invoke(player_.name + " <b><color=red>has left the game</color></b>");
-                if(playerList[currentPlayer]==player_)
-                {
-                    HumanBankrupt();
-                    //EndTurnButton();
-                }
+                player_.Bankrupt();
                 break;
             }
         }
     }
 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        StartCoroutine(WaitForOtherProcess(1.5f, otherPlayer.ActorNumber));
+    }
+    public IEnumerator WaitForOtherProcess(float delayTime, int playerId)
+    {
+        yield return new WaitForSeconds(delayTime);
+
+        PhotonView PV = GetComponent<PhotonView>();
+        PV.RPC("BankruptPlayerOutGame", RpcTarget.All, playerId);
+    }
     //-----------------JAIL FREE CARD---------------------------------
     //BUTTONS
     public void UseJail1Card()// CHANCE CARD

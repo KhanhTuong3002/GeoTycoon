@@ -118,7 +118,23 @@ public class ChanceField : MonoBehaviourPunCallbacks
         else
         {
             closeCardButton.interactable = true;
+            if(PhotonNetwork.IsConnected && PhotonNetwork.MasterClient.ActorNumber == currentPlayer.playerId) 
+            {
+                closeCardButton.gameObject.SetActive(false);
+                StartCoroutine(WaitToClose());
+            }
         }
+    }
+    public IEnumerator WaitToClose()
+    {
+        yield return new WaitForSeconds(3);
+        CloseCardButton();
+    }
+
+    public override void OnLeftRoom()
+    {
+        PhotonView PV = GetComponent<PhotonView>();
+        PV.RPC("ContinueGameChance", RpcTarget.All, false);
     }
 
     public void CloseCardButton()
@@ -211,9 +227,10 @@ public class ChanceField : MonoBehaviourPunCallbacks
             MonopolyBoard.instance.MovePlayertonken(MonopolyNodeType.Utility,currentPlayer);
         }
         cardHolderBackground.SetActive(false);
-        ContinueGame(isMoving);
+        ContinueGameChance(isMoving);
     }
-    void ContinueGame(bool isMoving)
+    [PunRPC]
+    void ContinueGameChance(bool isMoving)
     {
         Debug.Log(isMoving);
         if (currentPlayer.playerType == Player_Mono.PlayerType.AI)

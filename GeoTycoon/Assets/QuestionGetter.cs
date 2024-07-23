@@ -212,26 +212,23 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
                 PV.RPC("CheckAnswerWrapper", RpcTarget.All, test.Option4);
             });
         }
-
-
-        if (!PhotonNetwork.IsMasterClient && PhotonNetwork.IsConnected )
+        if(PhotonNetwork.IsConnected)
         {
-            //test
             OptionA.interactable = false;
             OptionB.interactable = false;
             OptionC.interactable = false;
             OptionD.interactable = false;
         }
-        else if (!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
-        {
-            OptionA.interactable = true;
-            OptionB.interactable = true;
-            OptionC.interactable = true;
-            OptionD.interactable = true;
-        }
-
         // Reset the timer
         timeRemaining = 30f;
+    }
+
+    public void SetButton(bool YourButtonStatus)
+    {
+        OptionA.interactable = YourButtonStatus;
+        OptionB.interactable = YourButtonStatus;
+        OptionC.interactable = YourButtonStatus;
+        OptionD.interactable = YourButtonStatus;
     }
 
     public void StartTimer()

@@ -91,6 +91,11 @@ public class UIShowRailroad : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnLeftRoom()
+    {
+        OnClickClose();
+    }
+
     public void OnClickClose()
     {
         if(PhotonNetwork.IsConnected)

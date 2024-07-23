@@ -116,7 +116,24 @@ public class CommunityChest :  MonoBehaviourPunCallbacks
         else
         {
             closeCardButton.interactable = true;
+            if(PhotonNetwork.IsConnected && PhotonNetwork.MasterClient.ActorNumber == currentPlayer.playerId) 
+            {
+                closeCardButton.gameObject.SetActive(false);
+                StartCoroutine(WaitToClose());
+            }
         }
+    }
+
+    public IEnumerator WaitToClose()
+    {
+        yield return new WaitForSeconds(3);
+        CloseCardButton();
+    }
+    
+    public override void OnLeftRoom()
+    {
+        PhotonView PV = GetComponent<PhotonView>();
+        PV.RPC("ContinueGameCommunity", RpcTarget.All, false);
     }
 
     public void CloseCardButton()
@@ -199,9 +216,10 @@ public class CommunityChest :  MonoBehaviourPunCallbacks
             currentPlayer.AddCommunityJailFreeCard();
         }
         cardHolderBackground.SetActive(false);
-        ContinueGame(isMoving);
+        ContinueGameCommunity(isMoving);
     }
-    void ContinueGame(bool isMoving)
+    [PunRPC]
+    void ContinueGameCommunity(bool isMoving)
     {
         Debug.Log(isMoving);
         if(currentPlayer.playerType == Player_Mono.PlayerType.AI)
