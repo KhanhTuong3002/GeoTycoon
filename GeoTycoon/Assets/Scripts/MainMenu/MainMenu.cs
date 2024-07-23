@@ -11,6 +11,7 @@ using Photon.Realtime;
 using System.Linq;
 using Unity.VisualScripting;
 using Photon.Pun.UtilityScripts;
+using JetBrains.Annotations;
 public class MainMenu : MonoBehaviourPunCallbacks
 {
     public GameObject lobby;
@@ -155,35 +156,36 @@ public class MainMenu : MonoBehaviourPunCallbacks
         }
         else
         {
-            StartCoroutine(FindSetID());
-            bool isSetValid = SetValidator.Instance.ValidateSetId();
-            if(!isSetValid)
+            SetValidator.Instance.GetData(setIdFieldOff.text);
+            StartCoroutine(StartGame());
+
+        }
+    }
+
+    public IEnumerator StartGame()
+        {
+            yield return new WaitForSeconds(1.5f);
+            bool isSetValid = SetValidator.Instance.GetValid();
+            Debug.Log("Is set found ? " + isSetValid);
+            if (!isSetValid)
             {
                 Debug.Log("Id is not valid");
-                return; 
-            } 
-            foreach (var player in playerSelection)
-            {
-                if (player.toggle.isOn)
-                {
-                    Setting newSet = new Setting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value, setIdFieldOff.text);
-                    GameSettings.AddSetting(newSet);
-                }
             }
-            SceneManager.LoadScene("MainGame");
+            else
+            {
+                foreach (var player in playerSelection)
+                {
+                    if (player.toggle.isOn)
+                    {
+                        Setting newSet = new Setting(player.nameInput.text, player.typeDropdown.value, player.colorDropdown.value, setIdFieldOff.text);
+                        GameSettings.AddSetting(newSet);
+                    }
+                }
+                SceneManager.LoadScene("MainGame");
+            }
+
         }
 
-        
-
-        
-    }
-    public IEnumerator FindSetID()
-    {
-        SetValidator.Instance.GetData(setIdFieldOff.text);
-        yield return new WaitForSeconds(2);
-    }
-
-    
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         for(int i = 0; i < playerSelectionMulti.Count(); i++)

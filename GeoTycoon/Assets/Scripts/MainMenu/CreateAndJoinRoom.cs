@@ -39,7 +39,13 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public void CreateRoom()
     {
         SetValidator.Instance.GetData(setQuestionId.text);
-        bool isSetValid = SetValidator.Instance.ValidateSetId();
+        StartCoroutine(Create());
+    }
+
+    public IEnumerator Create()
+    {
+        yield return new WaitForSeconds(1.5f);
+        bool isSetValid = SetValidator.Instance.GetValid();
         if (isSetValid)
         {
             PhotonNetwork.NickName = nickName.text;
