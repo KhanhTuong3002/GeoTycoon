@@ -179,10 +179,17 @@ public class TradingSystem : MonoBehaviourPunCallbacks
     //-----------------------------Make a trade offer--------------------------------
     void MakeTradeOffer(Player_Mono currentPlayer,Player_Mono nodeOwner, MonopolyNode requestedNode, MonopolyNode offeredNode, int offeredMoney, int requestedMoney)
     {
-        int currentPlayerId = currentPlayer.playerId;
-        int nodeOwnerId = nodeOwner.playerId;
-        string requestedNodeName = requestedNode.name;
-        string offeredNodeName = offeredNode.name;
+        int currentPlayerId = 0;
+        if(currentPlayer!=null) currentPlayerId = currentPlayer.playerId;
+
+        int nodeOwnerId = 0;
+        if(nodeOwner!=null) nodeOwnerId = nodeOwner.playerId;
+
+        string requestedNodeName = "";
+        if(requestedNode!=null) requestedNodeName = requestedNode.name;
+
+        string offeredNodeName = "";
+        if(offeredNode!=null) offeredNodeName = offeredNode.name;
 
         if (nodeOwner.playerType == Player_Mono.PlayerType.AI)
         {
@@ -650,6 +657,7 @@ public class TradingSystem : MonoBehaviourPunCallbacks
     }
     public override void OnLeftRoom()
     {
+        if(currentPlayer==null || nodeOwner == null) return;
         if(PhotonNetwork.LocalPlayer.ActorNumber == currentPlayer.playerId || PhotonNetwork.LocalPlayer.ActorNumber == nodeOwner.playerId)
         {
             RejectButton();
