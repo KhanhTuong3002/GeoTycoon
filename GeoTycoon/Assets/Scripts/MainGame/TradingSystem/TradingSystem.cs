@@ -493,7 +493,11 @@ public class TradingSystem : MonoBehaviourPunCallbacks
         {
             requestedNode = requestedToggle.GetComponentInParent<TradePropertyCard>().Node();
         }
-
+        if(requestedNode == null || offeredNode == null)
+        {
+            Debug.Log("Phải chọn đủ 2 node bên trái và phải mới được trade");
+            return;
+        }
         MakeTradeOffer(leftPlayerReference,rightPlayerReference,requestedNode, offeredNode,(int)leftMoneySlider.value,(int)rightMoneySlider.value);
     }
 
