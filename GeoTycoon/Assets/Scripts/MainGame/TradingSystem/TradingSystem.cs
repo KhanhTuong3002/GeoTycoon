@@ -284,6 +284,8 @@ public class TradingSystem : MonoBehaviourPunCallbacks
     void Trade(Player_Mono currentPlayer, Player_Mono nodeOwner, MonopolyNode requestedNode, MonopolyNode offeredNode, int offeredMoney, int requestedMoney)
     {
         //CurrentPlayer needs to
+        if(offeredMoney == null) offeredMoney = 0;
+        if (requestedMoney == null) requestedMoney = 0;
         if(requestedNode !=null)
         {
             currentPlayer.PayMoney(offeredMoney);
@@ -493,11 +495,11 @@ public class TradingSystem : MonoBehaviourPunCallbacks
         {
             requestedNode = requestedToggle.GetComponentInParent<TradePropertyCard>().Node();
         }
-        if(requestedNode == null || offeredNode == null)
-        {
-            Debug.Log("Phải chọn đủ 2 node bên trái và phải mới được trade");
-            return;
-        }
+        // if(requestedNode == null || offeredNode == null)
+        // {
+        //     Debug.Log("Phải chọn đủ 2 node bên trái và phải mới được trade");
+        //     return;
+        // }
         MakeTradeOffer(leftPlayerReference,rightPlayerReference,requestedNode, offeredNode,(int)leftMoneySlider.value,(int)rightMoneySlider.value);
     }
 

@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsConnected) // offline mode
         {
             _dice1.RollDice();
-            _dice2.RollDice();
+            //_dice2.RollDice();
         }
         
         CameraSwitcher.instance.SwitchToDice();
@@ -257,9 +257,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void ReportDiceRolled(int diceValue)
     {
-        // rolledDice.Add(diceValue);
         rolledDice.Add(diceValue);
-        if (rolledDice.Count == 2)
+        //rolledDice.Add(1);
+        if (rolledDice.Count == 1)
         {
             if (PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
             {
@@ -271,6 +271,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             else if (!PhotonNetwork.IsConnected)
             {
                 RollDice(rolledDice[0], rolledDice[1]);
+                //RollDice(0, 1);
             }
 
         }

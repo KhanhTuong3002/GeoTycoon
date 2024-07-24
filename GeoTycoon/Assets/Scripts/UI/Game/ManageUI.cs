@@ -36,7 +36,7 @@ public class ManageUI : MonoBehaviourPunCallbacks
     {
         playerReference = GameManager.instance.GetCurrentPlayer;
         CreateProperties();
-        if(PhotonNetwork.IsMasterClient) managePanel.SetActive(true);
+        if(PhotonNetwork.IsMasterClient || !PhotonNetwork.IsConnected) managePanel.SetActive(true);
         UpdateMoneyText();
         //COMOPARE IF OWNER IS PLAYER REF
 
@@ -70,7 +70,6 @@ public class ManageUI : MonoBehaviourPunCallbacks
     {
         //GET ALL NODES AS NODE SETS
         List<MonopolyNode> processedSet = null;
-        Debug.Log(PhotonNetwork.LocalPlayer.NickName + " running create properties");
         foreach (var node in playerReference.GetMonopolyNodes)
         {
             var (list, allSame) = MonopolyBoard.instance.PlayerHasAllNodesOfSet(node);

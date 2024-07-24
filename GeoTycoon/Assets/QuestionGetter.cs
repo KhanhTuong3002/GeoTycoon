@@ -28,7 +28,7 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
 
     private List<SetQuestion> questionSets;
     private int currentQuestionIndex;
-    private List<Question> currentQuestions;
+    private List<Question> currentQuestions = new List<Question>();
     private List<Question> DuplicateQuestions = new List<Question>();
     
     private float timeRemaining = 30f; // Timer set to 30 seconds
@@ -260,7 +260,7 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
             }
             else
             {
-                currentQuestions = DuplicateQuestions;
+                currentQuestions.AddRange(DuplicateQuestions);
                 Debug.Log ("Duplicate Question count: "+DuplicateQuestions.Count);
                 if (!PhotonNetwork.IsConnected)
                 {

@@ -29,7 +29,6 @@ public class ManagePropertyUI : MonoBehaviourPunCallbacks
         for (int i = 0; i < nodesInSet.Count; i++)
         {
             GameObject newCard = Instantiate(cardPrefab,cardHolder,false);
-            
             ManageCardUI manageCardUI = newCard.GetComponent<ManageCardUI>();
             cardsInSet.Add(newCard);
             manageCardUI.SetCard(nodesInSet[i],owner,this);
