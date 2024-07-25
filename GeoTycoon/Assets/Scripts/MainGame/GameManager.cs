@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsConnected) // offline mode
         {
             _dice1.RollDice();
-            //_dice2.RollDice();
+            _dice2.RollDice();
         }
         
         CameraSwitcher.instance.SwitchToDice();
@@ -259,7 +259,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         rolledDice.Add(diceValue);
         //rolledDice.Add(1);
-        if (rolledDice.Count == 1)
+        if (rolledDice.Count == 2)
         {
             if (PhotonNetwork.IsConnected && PhotonNetwork.LocalPlayer.ActorNumber == playerList[currentPlayer].playerId)
             {
