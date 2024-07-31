@@ -80,7 +80,7 @@ public class UIShowProperty : MonoBehaviourPunCallbacks
         quizAnsweredCorrectly = isCorrect;
         quizPanel.SetActive(false);
 
-        if (isCorrect)
+        if (isCorrect && nodeReference.owner.name=="")
         {
             // Top Panel content
             propertyNameText.text = nodeReference.name;
@@ -102,6 +102,14 @@ public class UIShowProperty : MonoBehaviourPunCallbacks
             if(!PhotonNetwork.IsConnected ||(PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)) propertyUIPanel.SetActive(true);
             OnUpdateMessage?.Invoke("Correct answer, you now can buy current property.");
             Debug.Log("Correct answer.");
+        }
+        else if(isCorrect && nodeReference.owner.name!="")
+        {
+            MonopolyNode.instance.PayRentAfterQuiz(true, playerReference);
+        }
+        else if(!isCorrect && nodeReference.owner.name!="")
+        {
+             MonopolyNode.instance.PayRentAfterQuiz(false, playerReference);
         }
         else
         {

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 
 using Photon.Pun;
+using System;
 
 public enum MonopolyNodeType
 {
@@ -22,6 +23,7 @@ public enum MonopolyNodeType
 }
 public class MonopolyNode : MonoBehaviourPunCallbacks
 {
+    public static MonopolyNode instance;
     public MonopolyNodeType monopolyNodeType;
     public Image propertyColorField;
     [Header("Property Name")]
@@ -74,6 +76,11 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
     public static UpdateMessage OnUpdateMessage;
 
     public Player_Mono Owner => owner;
+
+    private void Awake() 
+    {
+        instance = this;    
+    }
     public void SetOwner(Player_Mono newOwner)
     {
         owner = newOwner;
@@ -258,6 +265,8 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
                     //If it owned && if we not are owner && is not mortgaged
                     if (owner.name != "" && owner != currentPlayer && !isMortgaged)
                     {
+                        OnShowPropertyBuyPanel.Invoke(this, currentPlayer);
+                        
                         //pay rent to somebody
 
                         int renToPay = CalculatePropertyRent();
@@ -489,6 +498,21 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
     //        GameManager.instance.SwitchPlayer();
     //    }
     //}
+
+    public void PayRentAfterQuiz(bool isCorrect, Player_Mono currentPlayer)
+    {
+
+        //pay rent to somebody
+        int renToPay = CalculatePropertyRent();
+        //pay the rent to the owner
+        if(isCorrect) renToPay = Mathf.RoundToInt(renToPay * 0.25f);
+        currentPlayer.PayRent(renToPay, owner);
+
+        //show a message about what happend
+        if(isCorrect) OnUpdateMessage.Invoke(currentPlayer.name + " has answeared correctly " + " pay discounted rent of: " + renToPay + " to " + owner.name);
+        else OnUpdateMessage.Invoke(currentPlayer.name + " pay rent of: " + renToPay + " to " + owner.name);
+        Debug.Log(currentPlayer.name + "pay rent of: " + renToPay + " to " + owner.name);
+    }
 
     int CalculatePropertyRent()
     {
