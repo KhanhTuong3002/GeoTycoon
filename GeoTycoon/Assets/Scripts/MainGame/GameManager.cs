@@ -526,6 +526,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (playerList.Count == 1)
         {
+            AudioPlayer.instance.GameOverBGM();
             //WE HAVE A WINNER
             Debug.Log(playerList[0].name + "IS THE WINNER");
             OnUpdateMessage.Invoke(playerList[0].name + "IS THE WINNER");
