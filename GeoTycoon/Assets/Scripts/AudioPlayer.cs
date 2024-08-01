@@ -21,6 +21,11 @@ public class AudioPlayer : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene != null)
         {
+            if (currentScene.name == "StartMenu")
+            {
+                BGM_SRC.clip = bgm1;
+                BGM_SRC.Play();
+            }
             if (currentScene.name == "MainMenu")
             {
                 BGM_SRC.clip = bgm1;
