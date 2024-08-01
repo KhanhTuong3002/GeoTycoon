@@ -188,6 +188,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void RollPhysicalDice()
     {
+        AudioPlayer.instance.DiceDrop();
+        
         CheckForJailFree();
         rolledDice.Clear();
 

@@ -243,6 +243,8 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
 
         if (isCorrect)
         {
+            AudioPlayer.instance.QuizCorrect();
+
             Debug.Log("Chính xác!");
             currentQuestions.Remove(question);
             if (currentQuestions.Count > 0)
@@ -277,6 +279,8 @@ public class QuestionGetter : MonoBehaviourPunCallbacks
         }
         else
         {
+            AudioPlayer.instance.QuizWrong();
+
             Debug.Log("Trả lời sai");
             DisplayQuestion(currentQuestionIndex);
         }

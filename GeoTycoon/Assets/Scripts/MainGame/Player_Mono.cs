@@ -90,6 +90,8 @@ public class Player_Mono
 
     public void CollectMoney(int amount)
     {
+        AudioPlayer.instance.Collect();
+
         money += amount;
         myInfor.SetPlayerCash(money);
         if(playerType == PlayerType.HUMAN && GameManager.instance.GetCurrentPlayer == this)
@@ -144,7 +146,7 @@ public class Player_Mono
 
     internal void PayMoney(int amount)
     {
-        
+        AudioPlayer.instance.Pay();
         //dont have enough money
         if (money < amount)
         {

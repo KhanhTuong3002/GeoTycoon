@@ -38,6 +38,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
+        if(createId.text == "") return;
         SetValidator.Instance.GetData(setQuestionId.text);
         StartCoroutine(Create());
     }
@@ -54,6 +55,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     }
     public void JoinRoom()
     {
+        if(joinId.text == "") return;
         PhotonNetwork.NickName = nickName.text;
         PhotonNetwork.JoinRoom(joinId.text);
     }

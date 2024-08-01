@@ -201,6 +201,7 @@ public class UIShowProperty : MonoBehaviourPunCallbacks
 
     public void BuyPropertyButton() //this call from the button
     {
+        AudioPlayer.instance.Buy();
         //tell the player buy
         playerReference.BuyProperty(nodeReference);
         // maybe colse thr property card

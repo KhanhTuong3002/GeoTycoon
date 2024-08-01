@@ -428,6 +428,8 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
                 break;
 
             case MonopolyNodeType.FreeParking:
+                AudioPlayer.instance.CarPark();
+
                 int tax = GameManager.instance.GetTaxPool();
                 currentPlayer.CollectMoney(tax);
                 //show a message about what happend 
@@ -441,17 +443,23 @@ public class MonopolyNode : MonoBehaviourPunCallbacks
                 continueTurn = false;
                 break;
             case MonopolyNodeType.Jail:
+                AudioPlayer.instance.Jail();
+
                 currentPlayer.RollToJail();
                 OnUpdateMessage.Invoke(currentPlayer.name + " <color=red>has to go to the jail!</color>");                
                 continueTurn = false;               
                 break;
 
             case MonopolyNodeType.Chance:
+                AudioPlayer.instance.DrawCard();
+
                 OnDrawChanceCard.Invoke(currentPlayer);
                 continueTurn = false;
 
                 break;
             case MonopolyNodeType.CommunityChest:
+                AudioPlayer.instance.DrawCard();
+
                 OnDrawCommunityCard.Invoke(currentPlayer);
                 continueTurn = false;
                 break;
