@@ -5266,7 +5266,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -5315,7 +5315,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -11110,7 +11110,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -11344,7 +11344,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -17274,7 +17274,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -24469,7 +24469,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -29559,7 +29559,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 863718264}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.50000006
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -30843,7 +30843,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -31849,7 +31849,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -33093,7 +33093,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2137994538}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.49999988
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -33734,7 +33734,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -35116,7 +35116,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -48512,7 +48512,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -48697,7 +48697,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -49100,7 +49100,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -49771,7 +49771,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -51666,7 +51666,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -52000,7 +52000,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -54298,7 +54298,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -56081,7 +56081,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -56197,7 +56197,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -59373,7 +59373,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -60232,7 +60232,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -60961,7 +60961,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -69720,7 +69720,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -70175,7 +70175,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -73601,7 +73601,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -74216,7 +74216,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -74889,7 +74889,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -76610,7 +76610,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -77315,7 +77315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1790137432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -77929,7 +77929,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -79974,7 +79974,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -88850,7 +88850,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0
@@ -91356,7 +91356,7 @@ MonoBehaviour:
     playerType: 0
     name: 
     playerId: 0
-    isStillInGameMulti: 0
+    isStillPlayingMulti: 0
     myTonken: {fileID: 0}
     myMonopolyNodes: []
     aiState: 0

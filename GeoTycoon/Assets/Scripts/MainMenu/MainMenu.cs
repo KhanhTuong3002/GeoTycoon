@@ -85,6 +85,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         multiPlayerMenu.SetActive(false);
         singlePlayerMenu.SetActive(true);
         BackToMenu.onClick.AddListener(OnClickBackToMenu);
+        GameSettings.ClearSetting();
     }
     void OnClickBackToMenu()
     {

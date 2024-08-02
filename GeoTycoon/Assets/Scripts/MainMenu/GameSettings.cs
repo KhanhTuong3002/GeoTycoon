@@ -6,6 +6,11 @@ public static class GameSettings
 {
     public static List<Setting> settingsList = new List<Setting>();
     public static List<MultiSetting> multisettingsList = new List<MultiSetting>();
+    public static void ClearSetting()
+    {
+        settingsList = new List<Setting>();
+        multisettingsList = new List<MultiSetting>();
+    }
 
     public static void AddSetting(Setting setting)
     {
