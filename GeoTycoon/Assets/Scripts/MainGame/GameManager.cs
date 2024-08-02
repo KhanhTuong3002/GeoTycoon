@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         OnUpdateMessage.Invoke("Welcome to <b><color=black>GeoTycoon");
     }
     //playerList getter
-
+//haha
     public List<Player_Mono> GetPlayerList()
     {
         return playerList;
