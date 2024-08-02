@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     public GameObject lobby;
     public GameObject loadingScreen;
     public GameObject multiPlayerMenu;
+    public Button BackToMenu;
 
     public GameObject singlePlayerMenu;
     public TMP_InputField setIdFieldOff;
@@ -83,7 +84,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
         loadingScreen.SetActive(false);
         multiPlayerMenu.SetActive(false);
         singlePlayerMenu.SetActive(true);
-        
+        BackToMenu.onClick.AddListener(OnClickBackToMenu);
+    }
+    void OnClickBackToMenu()
+    {
+        SceneManager.LoadScene("StartMenu");
     }
 
     
