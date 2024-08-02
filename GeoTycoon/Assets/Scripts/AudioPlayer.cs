@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class AudioPlayer : MonoBehaviour
 {
     public static AudioPlayer instance { get; private set;}
+    public static float BGMVolume = 1.0f;
     public AudioSource SFX_SRC;
     public AudioSource BGM_SRC;
     public AudioClip button_click, 
@@ -18,6 +19,7 @@ public class AudioPlayer : MonoBehaviour
         instance = this;
     }
     private void Start() {
+        SetBGMVolume(BGMVolume);
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene != null)
         {
@@ -38,7 +40,11 @@ public class AudioPlayer : MonoBehaviour
             }
         }
     }
-
+    public void SetBGMVolume(float volume)
+    {
+        BGM_SRC.volume = volume;
+        BGMVolume = volume;
+    }
     public void GameOverBGM()
     {
         BGM_SRC.clip = bgm3;
