@@ -6,16 +6,11 @@ using TMPro;
 using UnityEngine;
 using Photon.Pun;
 using Unity.VisualScripting;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance;
-    public Button exitButton1;
-    public Button exitButton2;
-    public Button resetButton1;
-    public Button resetButton2;
+
     [SerializeField] MonopolyBoard gameBoard;
     [SerializeField] List<Player_Mono> playerList = new List<Player_Mono>();
     [SerializeField] int currentPlayer;
@@ -67,10 +62,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        exitButton1.onClick.AddListener(OnExitClicked);
-        exitButton2.onClick.AddListener(OnExitClicked);
-        resetButton1.onClick.AddListener(OnRestartClicked);
-        resetButton2.onClick.AddListener(OnRestartClicked);
         currentPlayer = Random.Range(0, playerList.Count);
         gameOverPanel.SetActive(false);
         Inititialize();
@@ -80,14 +71,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         OnUpdateMessage.Invoke("Welcome to <b><color=black>GeoTycoon");
     }
     //playerList getter
-    public void OnExitClicked()
-    {
-        SceneManager.LoadScene("StartMenu");
-    }
-    public void OnRestartClicked()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
+
     public List<Player_Mono> GetPlayerList()
     {
         return playerList;
