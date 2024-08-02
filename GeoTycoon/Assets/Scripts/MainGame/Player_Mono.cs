@@ -18,7 +18,7 @@ public class Player_Mono
     public PlayerType playerType;
     public string name;
     public int playerId;
-    public bool isStillPlayingMulti;
+    public bool isStillInGameMulti;
     int money;
     MonopolyNode currentnode;
     bool isInjail;

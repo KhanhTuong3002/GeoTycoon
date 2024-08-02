@@ -71,22 +71,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         OnUpdateMessage.Invoke("Welcome to <b><color=black>GeoTycoon");
     }
     //playerList getter
-    public void OnExitClicked()
-    {
-        if(PhotonNetwork.IsConnected) 
-        {
-            PhotonNetwork.Disconnect();
-        }
-        SceneManager.LoadScene("StartMenu");
-    }
-    public void OnRestartClicked()
-    {
-        if(PhotonNetwork.IsConnected) 
-        {
-            PhotonNetwork.Disconnect();
-        }
-        SceneManager.LoadScene("MainMenu");
-    }
+
     public List<Player_Mono> GetPlayerList()
     {
         return playerList;
@@ -156,7 +141,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 p1.name = setting.playerName;
                 p1.playerType = (Player_Mono.PlayerType)setting.selectedType;
                 p1.playerId = setting.playerId;
-                p1.isStillPlayingMulti = true;
+                p1.isStillInGameMulti = true;
                 playerList.Add(p1);
 
                 GameObject infoObject = Instantiate(playerInfoPrefab, playerPanel, false);
@@ -459,7 +444,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 //RESET DICE HAS ROLLED
             }
         }
-            if(playerList[currentPlayer].isStillPlayingMulti = false) 
+            if(playerList[currentPlayer].isStillInGameMulti = false) 
         {
             HumanBankrupt();
             EndTurnButton();
@@ -606,7 +591,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void HumanBankruptMulti()
     {
-        playerList[currentPlayer].isStillPlayingMulti = false;
         playerList[currentPlayer].Bankrupt();
     }
     [PunRPC]
@@ -616,8 +600,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if(player_.playerId == outPlayerId)
             {
-                if(!player_.isStillPlayingMulti) return;
-                OnUpdateMessage.Invoke(player_.name + " <b><color=red>has disconnected from the game</color></b>");
+                OnUpdateMessage.Invoke(player_.name + " <b><color=red>has left the game</color></b>");
                 player_.Bankrupt();
                 break;
             }
@@ -626,7 +609,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        if (playerList.Count <= 1) return;
         StartCoroutine(WaitForOtherProcess(1.5f, otherPlayer.ActorNumber));
     }
     public IEnumerator WaitForOtherProcess(float delayTime, int playerId)
