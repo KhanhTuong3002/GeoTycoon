@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.67936057, g: 0.73288685, b: 0.8046859, a: 1}
+  m_IndirectSpecularColor: {r: 0.67935973, g: 0.73288846, b: 0.8046861, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -53793,6 +53793,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 311fdd87a251f6f4081aa54a1b1cf66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exitButton1: {fileID: 363386525}
+  exitButton2: {fileID: 1662961115}
+  resetButton1: {fileID: 1894862077}
+  resetButton2: {fileID: 1950895616}
   gameBoard: {fileID: 1643655544}
   playerList: []
   currentPlayer: 0
@@ -54834,7 +54838,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 339, y: -262.7933}
+  m_AnchoredPosition: {x: 339, y: -262.79337}
   m_SizeDelta: {x: 678, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1252253244
@@ -77311,7 +77315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1790137432
 RectTransform:
   m_ObjectHideFlags: 0
