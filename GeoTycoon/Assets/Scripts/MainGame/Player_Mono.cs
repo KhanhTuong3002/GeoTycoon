@@ -31,7 +31,7 @@ public class Player_Mono
     public bool HasChanceJailFreeCard => hasChanceJailFreeCard;
     public bool HasCommunityJailFreeCard => hasCommunityJailFreeCard;
     //PLAYERINFOR
-    Player_MonoInfor myInfor;
+    Player_MonoInfor myInfor = new Player_MonoInfor();
 
 
     //AI

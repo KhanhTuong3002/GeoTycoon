@@ -492,7 +492,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: -81}
+  m_AnchoredPosition: {x: 3, y: -290.73535}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &11248806
@@ -6393,7 +6393,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: 41}
+  m_AnchoredPosition: {x: 2, y: -168.73535}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &236652756
@@ -8813,6 +8813,82 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6aea6ecf46dd0c46aa1ea57bc5afcc3, type: 3}
+--- !u!1 &354197834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 354197835}
+  - component: {fileID: 354197837}
+  - component: {fileID: 354197836}
+  m_Layer: 5
+  m_Name: Tittle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &354197835
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354197834}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2028299493}
+  m_Father: {fileID: 1636913241}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 10, y: 219}
+  m_SizeDelta: {x: 326.2805, y: 144.1402}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &354197836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354197834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 750656586, guid: 83e5e39e219f930469174e9e6ac863c1, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &354197837
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354197834}
+  m_CullTransparentMesh: 1
 --- !u!1 &354759219 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e7efa12c3f0079a48b8ee2fbf2071b3e, type: 3}
@@ -16177,7 +16253,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.133606, y: 0.9899292}
+  m_AnchoredPosition: {x: 8.133545, y: 0.98999023}
   m_SizeDelta: {x: 70.4948, y: 35.9895}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &660318141
@@ -17438,7 +17514,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -343}
+  m_AnchoredPosition: {x: 0, y: -552.73535}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &717727207
@@ -18584,7 +18660,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1, y: -210}
+  m_AnchoredPosition: {x: -1, y: -419.73535}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &764769129
@@ -27860,138 +27936,26 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'GEOTYCOON
-
-
-    CAST
-
-
-    <b>LOGAN / WOLVERINE</b>    Hugh Jackman
-
-    <b>ORORO
-    MUNROE / STORM</b>    Halle Berry
-
-    <b>ERIC LEHNSHERR / MAGNETO</b>    Ian
-    McKellen
-
-    <b>PROFESSOR CHARLES XAVIER</b>    Patrick Stewart
-
-    <b>JEAN
-    GREY / PHOENIX</b>    Famke Janssen
-
-    <b>LOGAN / WOLVERINE</b>    Hugh Jackman
-
-    <b>ORORO
-    MUNROE / STORM</b>    Halle Berry
-
-    <b>ERIC LEHNSHERR / MAGNETO</b>    Ian
-    McKellen
-
-    <b>PROFESSOR CHARLES XAVIER</b>    Patrick Stewart
-
-    <b>JEAN
-    GREY / PHOENIX</b>    Famke Janssen
-
-    <b>LOGAN / WOLVERINE</b>    Hugh Jackman
-
-    <b>ORORO
-    MUNROE / STORM</b>    Halle Berry
-
-    <b>ERIC LEHNSHERR / MAGNETO</b>    Ian
-    McKellen
-
-    <b>PROFESSOR CHARLES XAVIER</b>    Patrick Stewart
-
-    <b>JEAN
-    GREY / PHOENIX</b>    Famke Janssen<b>LOGAN / WOLVERINE</b>    Hugh Jackman
-
-    <b>ORORO
-    MUNROE / STORM</b>    Halle Berry
-
-    <b>ERIC LEHNSHERR / MAGNETO</b>    Ian
-    McKellen
-
-    <b>PROFESSOR CHARLES XAVIER</b>    Patrick Stewart
-
-    <b>JEAN
-    GREY / PHOENIX</b>    Famke Janssen
-
-
-
-    MUSIC
-
-
-    <b>LOGAN / WOLVERINE</b>   
-    Hugh Jackman
-
-    <b>ORORO MUNROE / STORM</b>    Halle Berry
-
-    <b>ERIC LEHNSHERR
-    / MAGNETO</b>    Ian McKellen
-
-    <b>PROFESSOR CHARLES XAVIER</b>    Patrick
-    Stewart
-
-    <b>JEAN GREY / PHOENIX</b>    Famke Janssen
-
-    <b>LOGAN / WOLVERINE</b>   
-    Hugh Jackman
-
-    <b>ORORO MUNROE / STORM</b>    Halle Berry
-
-    <b>ERIC LEHNSHERR
-    / MAGNETO</b>    Ian McKellen
-
-    <b>PROFESSOR CHARLES XAVIER</b>    Patrick
-    Stewart
-
-    <b>JEAN GREY / PHOENIX</b>    Famke Janssen
-
-    <b>LOGAN / WOLVERINE</b>   
-    Hugh Jackman
-
-    <b>ORORO MUNROE / STORM</b>    Halle Berry
-
-    <b>ERIC LEHNSHERR
-    / MAGNETO</b>    Ian McKellen
-
-    <b>PROFESSOR CHARLES XAVIER</b>    Patrick
-    Stewart
-
-    <b>JEAN GREY / PHOENIX</b>    Famke Janssen
-
-
-
-    SOCIAL
-
-
-    <b>LOGAN
-    / WOLVERINE</b>    Hugh Jackman
-
-    <b>ORORO MUNROE / STORM</b>    Halle Berry
-
-    <b>ERIC
-    LEHNSHERR / MAGNETO</b>    Ian McKellen
-
-    <b>PROFESSOR CHARLES XAVIER</b>   
-    Patrick Stewart
-
-    <b>JEAN GREY / PHOENIX</b>    Famke Janssen
-
-    <b>LOGAN
-    / WOLVERINE</b>    Hugh Jackman
-
-    <b>ORORO MUNROE / STORM</b>    Halle Berry
-
-    <b>ERIC
-    LEHNSHERR / MAGNETO</b>    Ian McKellen
-
-    <b>PROFESSOR CHARLES XAVIER</b>   
-    Patrick Stewart
-
-    <b>JEAN GREY / PHOENIX</b>    Famke Janssen
-
-'
+  m_text: "GEOTYCOON TEAM\n\nMember\n\n<b>Supervisor</b>  Quach Luyl Da\r\n<b>Leader</b>   
+    Vo Khanh Tuong\n<b>Member</b>   Huynh Ngoc Bich Quynh\n<b>Member</b>    Do Nhat
+    Nam\n<b>Member</b>   Truong Minh Khang\n<b>Member</b>   Nguyen Thanh Dong\n\nPRODUCT
+    MANAGER\n\nQuach Luyl Da\r\n\nIDEA \nVo khanh Tuong\n\nDESIGN\n\n Vo Khanh Tuong\n
+    Huynh Ngoc Bich Quynh\n\nGRAPHIC / UI\n\nVo Khanh Tuong\n\nMUSIC\n\n Do Nhat
+    Nam\n Truong Minh Khang\n\nGEOTYCOON TEAM sincerely thanks you for your interest
+    in our first game. Although there are many shortcomings, we hope everyone will
+    still support us.\n\nSpecial acknowledgment is due to our mentor Mr. Quach Luyl
+    Da, our esteemed advisor, whose expertise and support were pivotal in facilitating
+    the project's evolution from a mere concept to a comprehensive endeavor spanning
+    diverse elements, guiding us throughout its entire course.\r\nAdditionally, we
+    are profoundly thankful to the faculty at FPT University Can Tho for their invaluable
+    guidance and expertise, which significantly contributed to our learning and development
+    throughout this undertaking.\r\nFurthermore, heartfelt gratitude is extended
+    to the members of the thesis defense council for their time, feedback, and assessment
+    of the project. Their guidance and critiques stand as invaluable professional
+    experiences that will shape our future endeavors.\r\nLastly, expressions of gratitude
+    are extended to our families and friends for their unwavering support, motivation,
+    and encouragement. Their unwavering support provided the impetus to surmount
+    challenges and achieve the desired outcomes throughout the project.\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2d120e62b0aef3e45bb048efe4d48b92, type: 2}
   m_sharedMaterial: {fileID: 6957908381917352023, guid: 2d120e62b0aef3e45bb048efe4d48b92, type: 2}
@@ -33362,7 +33326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: 170}
+  m_AnchoredPosition: {x: 3, y: -39.73535}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1451947559
@@ -37983,7 +37947,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2028299493}
+  - {fileID: 354197835}
   - {fileID: 1451947558}
   - {fileID: 11248805}
   - {fileID: 236652755}
@@ -37993,8 +37957,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2.5, y: -1}
-  m_SizeDelta: {x: -816.6104, y: -228.74219}
+  m_AnchoredPosition: {x: -7.8999023, y: 87.727295}
+  m_SizeDelta: {x: 426.7803, y: 614.2832}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1636913242
 MonoBehaviour:
@@ -38009,15 +37973,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.627451}
+  m_Color: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 13ccf81538a2d2844a40f775399c5206, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: baeafe3c055812041b07e5695933c2de, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -49657,17 +49621,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028299492}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 10.666667}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1636913241}
+  m_Father: {fileID: 354197835}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030517, y: 360}
-  m_SizeDelta: {x: 440.2088, y: 92.6749}
+  m_AnchoredPosition: {x: 7.8481, y: 21}
+  m_SizeDelta: {x: 464.6292, y: 77.4536}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2028299494
 MonoBehaviour:
@@ -49689,19 +49653,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<size=45>Welcome to</size>
-
-    <size=55><b>GeoTycoon</b></size>'
+  m_text: <size=50><b>GeoTycoon</b></size>
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2d120e62b0aef3e45bb048efe4d48b92, type: 2}
+  m_sharedMaterial: {fileID: 6957908381917352023, guid: 2d120e62b0aef3e45bb048efe4d48b92, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294046193
+  m_fontColor: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -49713,15 +49675,15 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 97690656
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 18
+  m_fontSizeBase: 100
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
